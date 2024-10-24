@@ -1,3 +1,4 @@
+import CountUp from "react-countup";
 import {
   IconBadge,
   IconUserGroup,
@@ -60,7 +61,13 @@ export default function Stats() {
                 {stat.title}
               </h3>
 
-              <p className="text-6xl font-extrabold">{stat.number}</p>
+              <p className="text-6xl font-extrabold">
+                <CountUp
+                  end={stat.number}
+                  duration={4}
+                  enableScrollSpy={true}
+                />
+              </p>
             </div>
           </li>
         ))}
