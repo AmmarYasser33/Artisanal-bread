@@ -1,0 +1,93 @@
+import { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { IconClose, IconIconMenu } from "../Icons";
+
+export default function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <nav className="border-gray-200">
+      <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+        <Link
+          to="/"
+          className="flex items-center space-x-3 drop-shadow-2xl rtl:space-x-reverse"
+        >
+          <img src="/baker.png" className="h-9" alt="Artisanal bread logo" />
+          <span className="self-center whitespace-nowrap text-3xl font-bold italic text-primary-500">
+            Artisanal bread
+          </span>
+        </Link>
+        <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+          <button
+            type="button"
+            className="font-roboto rounded-lg bg-primary-600 px-4 py-2 text-center text-base font-medium text-white hover:bg-primary-800 focus:outline-none"
+          >
+            Login
+          </button>
+          <button
+            type="button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-400 border-opacity-30 p-2 text-3xl text-gray-100 focus:outline-none md:hidden"
+            aria-controls="navbar-cta"
+            aria-expanded={isOpen}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className="sr-only">Open main menu</span>
+            {isOpen ? (
+              <IconClose className="" />
+            ) : (
+              <IconIconMenu className="" />
+            )}
+          </button>
+        </div>
+        <div
+          className={`items-center justify-between ${isOpen ? "block" : "hidden"} fixed left-0 top-[4.3rem] w-full bg-secondary-500 md:static md:order-1 md:flex md:w-auto md:bg-transparent`}
+          id="navbar-cta"
+        >
+          <ul className="font-roboto mt-4 flex flex-col rounded-lg p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:p-0 rtl:space-x-reverse">
+            <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
+              <NavLink
+                href="/"
+                className={({ isActive }) =>
+                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                }
+                aria-current="page"
+              >
+                Home
+              </NavLink>
+            </li>
+            <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
+              <NavLink
+                to="/products"
+                className={({ isActive }) =>
+                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                }
+              >
+                Products
+              </NavLink>
+            </li>
+            <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
+              <NavLink
+                to="/courses"
+                className={({ isActive }) =>
+                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                }
+              >
+                Courses
+              </NavLink>
+            </li>
+            <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                }
+              >
+                About
+              </NavLink>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  );
+}
