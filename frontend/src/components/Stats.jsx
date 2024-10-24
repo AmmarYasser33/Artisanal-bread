@@ -9,7 +9,7 @@ import {
 const stats = [
   {
     title: "Years Experience",
-    number: 50,
+    number: 6,
     icon: (
       <IconBadge className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
     ),
