@@ -7,8 +7,16 @@ import "swiper/css/navigation";
 
 const data = [
   {
+    id: 0,
+    name: "Ammar Yasser",
+    title: "Software Engineer",
+    image: "https://randomuser.me/api/portraits/men/44.jpg",
+    quote:
+      "Excellent service, I am very happy with the company, they are very professional and always deliver on time.",
+  },
+  {
     id: 1,
-    name: "Client One",
+    name: "Omar Yasser",
     title: "CEO",
     image: "https://randomuser.me/api/portraits/men/62.jpg",
     quote:
@@ -24,11 +32,19 @@ const data = [
   },
   {
     id: 3,
-    name: "Client Three",
+    name: "Tamer Yasser",
     title: "COO",
     image: "https://randomuser.me/api/portraits/men/50.jpg",
     quote:
       "I am very happy with the service of the company, they are very professional and always deliver on time.",
+  },
+  {
+    id: 4,
+    name: "Ammar Yasser",
+    title: "Software Engineer",
+    image: "https://randomuser.me/api/portraits/men/44.jpg",
+    quote:
+      "Excellent service, I am very happy with the company, they are very professional and always deliver on time.",
   },
 ];
 
