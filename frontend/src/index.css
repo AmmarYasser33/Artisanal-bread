@@ -83,3 +83,13 @@
   animation: none;
   border-radius: 0;
 }
+
+/* swiper */
+
+.swiper-button-next {
+  color: #6a4314 !important;
+}
+
+.swiper-button-prev {
+  color: #6a4314 !important;
+}

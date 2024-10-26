@@ -7,6 +7,7 @@ const BakeryInfo = React.lazy(() => import("../components/BakeryInfo"));
 const TrendingProducts = React.lazy(
   () => import("../components/TrendingProducts"),
 );
+const Testimonials = React.lazy(() => import("../components/Testimonials"));
 
 export default function Home() {
   return (
@@ -16,10 +17,13 @@ export default function Home() {
         <Stats />
       </Suspense>
       <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+        <TrendingProducts />
+      </Suspense>
+      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
         <BakeryInfo />
       </Suspense>
       <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
-        <TrendingProducts />
+        <Testimonials />
       </Suspense>
     </div>
   );
