@@ -7,7 +7,7 @@ import {
 
 export default function BakeryInfo() {
   return (
-    <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 sm:px-6 lg:flex-row lg:px-8">
+    <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:flex-row lg:px-8">
       <div>
         <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-primary-500">
           Our Services
