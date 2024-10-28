@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { IconBagPlusFill } from "../Icons";
 
 const products = [
   {
@@ -51,26 +52,38 @@ export default function TrendingProducts() {
         <div className="mt-9 grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:gap-y-0 lg:grid-cols-4 lg:gap-x-8">
           {products.map((product) => (
             <div key={product.id} className="group relative">
-              <Link to="/product">
-                <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
-                  <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
-                    className="h-full w-full object-cover object-center"
-                  />
-                </div>
-              </Link>
+              {/* <Link to="/product"> */}
+              <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
+                <img
+                  src={product.imageSrc}
+                  alt={product.imageAlt}
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+              {/* </Link> */}
 
-              <h3 className="mt-4 text-center text-base font-bold tracking-wide text-gray-800 drop-shadow-sm">
-                <Link to="/product" className="group-hover:text-primary-800">
+              <h3 className="mt-4 text-base font-bold tracking-wide text-gray-800 drop-shadow-sm">
+                <div className="group-hover:text-primary-800">
+                  {/* <Link to="/product" className="group-hover:text-primary-800"> */}
                   <span className="absolute inset-0" />
                   {product.name}
-                </Link>
+                  {/* </Link> */}
+                </div>
               </h3>
 
-              <p className="mt-1 text-center font-roboto text-lg font-medium text-gray-900">
-                {product.price}
-              </p>
+              <div className="flex items-center justify-between px-1">
+                <p className="text-center font-roboto text-lg font-medium text-gray-900">
+                  {product.price}
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => console.log("Add to cart")}
+                  className="inline-flex items-center justify-center rounded-full p-2 text-primary-700 duration-300 ease-in-out hover:bg-primary-700 hover:text-white focus:outline-none"
+                >
+                  <IconBagPlusFill className="inline-block h-6 w-6" />
+                </button>
+              </div>
             </div>
           ))}
         </div>
