@@ -83,37 +83,37 @@ const course = {
     {
       id: 1,
       title: "Introduction to Baking Essentials",
-      video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
+      // video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
     },
     {
       id: 2,
       title: "Perfecting Dough: Techniques for Bread and Pastry",
-      video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
+      // video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
     },
     {
       id: 3,
       title: "Cake Baking 101: From Sponge to Layer Cakes",
-      video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
+      // video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
     },
     {
       id: 4,
       title: "Pastry Arts: Creating Pies, Tarts, and Puff Pastry",
-      video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
+      // video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
     },
     {
       id: 5,
       title: "Chocolate and Confections",
-      video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
+      // video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
     },
     {
       id: 6,
       title: "Decorating Techniques: Frosting, Glazing, and Garnishing",
-      video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
+      // video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
     },
     {
       id: 7,
       title: "Final Project: Create Your Signature Baked Good",
-      video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
+      // video: "https://www.youtube.com/watch?v=COHqLxYkmcs",
     },
   ],
 };
