@@ -1,4 +1,4 @@
-import { IconMathMinus, IconPlusLg, IconTrashDelete } from "../Icons";
+import { IconTrashDelete } from "../Icons";
 import Nav from "../components/Nav";
 import NumberControl from "../components/NumberControl";
 
@@ -152,6 +152,20 @@ export default function Cart() {
                     <textarea
                       placeholder="Address"
                       className="w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-5 text-base font-normal text-black placeholder-gray-500 outline-none focus:outline-none focus:ring-2 focus:ring-primary-700"
+                    />
+                  </div>
+
+                  <div className="flex w-full items-center gap-4 pb-4">
+                    <label
+                      htmlFor="delivery-date"
+                      className="text-base font-normal leading-6 text-gray-600"
+                    >
+                      Deliver At:
+                    </label>
+                    <input
+                      type="date"
+                      id="delivery-date"
+                      className="h-11 grow rounded-lg border border-gray-300 bg-white py-2.5 pl-5 pr-8 text-base font-normal text-black placeholder-gray-500 outline-none focus:outline-none focus:ring-2 focus:ring-primary-700"
                     />
                   </div>
 
