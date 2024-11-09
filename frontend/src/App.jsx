@@ -6,6 +6,7 @@ import Course from "./pages/Course";
 import CourseWatch from "./pages/CourseWatch";
 import About from "./pages/About";
 import Cart from "./pages/Cart";
+import NotFound from "./pages/NotFound";
 
 function App() {
   // #eaa636
@@ -20,7 +21,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/cart" element={<Cart />} />
 
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
