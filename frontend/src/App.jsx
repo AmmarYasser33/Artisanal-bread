@@ -5,6 +5,7 @@ import Courses from "./pages/Courses";
 import Course from "./pages/Course";
 import CourseWatch from "./pages/CourseWatch";
 import About from "./pages/About";
+import Cart from "./pages/Cart";
 
 function App() {
   // #eaa636
@@ -17,6 +18,7 @@ function App() {
         <Route path="/courses/:id" element={<Course />} />
         <Route path="/course/:id" element={<CourseWatch />} />
         <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
 
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
