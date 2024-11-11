@@ -1,8 +1,8 @@
 import {
   Icon277Exit,
   IconBoxesPacking,
-  IconCircleUser,
   IconVideo,
+  IconAccountEdit,
 } from "../Icons";
 import Nav from "../components/Nav";
 import { NavLink, Outlet } from "react-router-dom";
@@ -25,7 +25,7 @@ function UserDashboard() {
               }
               aria-current="page"
             >
-              <IconCircleUser
+              <IconAccountEdit
                 className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
                 aria-hidden="true"
               />
