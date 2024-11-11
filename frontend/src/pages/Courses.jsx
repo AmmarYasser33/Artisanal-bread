@@ -96,7 +96,7 @@ export default function Courses() {
                   </p>
 
                   <Link
-                    to={`/course/${course.id}`}
+                    to={`/courses/${course.id}`}
                     className="inline-flex items-center justify-center p-2 text-primary-800 duration-300 ease-in-out hover:bg-primary-800 hover:text-white focus:outline-none"
                   >
                     <IconScreenFull className="inline-block h-6 w-6" />
