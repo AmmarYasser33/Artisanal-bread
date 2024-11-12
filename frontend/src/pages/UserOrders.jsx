@@ -24,7 +24,7 @@ export default function UserOrders() {
                 >
                   <option selected>All orders</option>
                   <option value="transit">In transit</option>
-                  <option value="confirmed">Confirmed</option>
+                  <option value="delivered">Delivered</option>
                   <option value="cancelled">Cancelled</option>
                 </select>
               </div>
@@ -133,7 +133,7 @@ export default function UserOrders() {
                   </dt>
                   <dd className="me-2 mt-1.5 inline-flex items-center rounded bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800">
                     <IconCheck2 className="me-1 h-3 w-3" />
-                    Confirmed
+                    Delivered
                   </dd>
                 </dl>
                 <div className="grid w-full gap-4 sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end">
