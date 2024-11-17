@@ -43,11 +43,11 @@ exports.createOne = (Model) =>
     });
   });
 
-exports.getOne = (Model, popOptions) =>
+exports.getOne = (Model, popOptions = [], selectedFields = "") =>
   catchAsync(async (req, res, next) => {
-    let query = Model.findById(req.params.id);
-    if (popOptions) query = query.populate(popOptions);
-    const doc = await query;
+    let query = Model.findById(req.params.id, selectedFields);
+
+    const doc = await query.populate(popOptions).lean();
 
     if (!doc) {
       return next(new ApiError("No document found with that ID", 404));
@@ -59,22 +59,24 @@ exports.getOne = (Model, popOptions) =>
     });
   });
 
-exports.getAll = (Model) =>
+exports.getAll = (Model, popOptions = [], selectedFields = "") =>
   catchAsync(async (req, res, next) => {
     let filter = {};
 
-    const features = new APIFeatures(Model.find(filter), req.query)
+    const features = new APIFeatures(
+      Model.find(filter, selectedFields),
+      req.query
+    )
       .filter()
       .sort()
       .limitFields()
       .paginate();
-    // const doc = await features.query.explain();
-    const doc = await features.query;
 
-    // SEND RESPONSE
+    const docs = await features.query.populate(popOptions).lean();
+
     res.status(200).json({
       status: "success",
-      results: doc.length,
-      data: doc,
+      results: docs.length,
+      data: docs,
     });
   });

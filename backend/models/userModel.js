@@ -2,44 +2,49 @@ const crypto = require("crypto");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: [true, "Email already exists"],
+    },
+    phone: String,
+    photo: {
+      type: String,
+      default: "/users/default.png",
+    },
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
+    },
+    password: {
+      type: String,
+      required: true,
+      select: false,
+    },
+    passwordChangedAt: Date,
+    passwordResetCode: String,
+    passwordResetExpires: Date,
+    passwordResetVerified: Boolean,
+    phoneVerificationCode: String,
+    phoneVerified: {
+      type: Boolean,
+      default: false,
+    },
   },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  phone: {
-    type: String,
-  },
-  photo: {
-    type: String,
-    default: "default.png",
-  },
-  role: {
-    type: String,
-    enum: ["user", "admin"],
-    default: "user",
-  },
-  password: {
-    type: String,
-    required: true,
-    select: false,
-  },
-  passwordChangedAt: Date,
-  passwordResetCode: String,
-  passwordResetExpires: Date,
-  passwordResetVerified: Boolean,
-});
+  { timestamps: true }
+);
 
 userSchema.pre("save", async function (next) {
   // Only run if pass was modified
   if (!this.isModified("password")) return next();
 
-  // Hash pass with cost of 10
   this.password = await bcrypt.hash(this.password, 10);
 
   this.passwordConfirm = undefined;
@@ -57,7 +62,6 @@ userSchema.methods.correctPassword = async function (
   candidatePassword,
   userPassword
 ) {
-  // eslint-disable-next-line no-return-await
   return await bcrypt.compare(candidatePassword, userPassword);
 };
 

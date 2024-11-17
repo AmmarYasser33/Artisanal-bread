@@ -7,20 +7,25 @@ const mongoSanitize = require("express-mongo-sanitize");
 const xss = require("xss-clean");
 const hpp = require("hpp");
 const compression = require("compression");
+const cors = require("cors");
 
 const ApiError = require("./utils/ApiError");
+const ensureDirectories = require("./utils/createStaticFiles");
 const globalErrorHandler = require("./controllers/errorController");
-const authRoutes = require("./routes/authRoutes");
+const mountRoutes = require("./routes");
 
 const app = express();
 
-// GLOBAL MIDDLEWARES
-
+ensureDirectories();
 // Serve static files
 app.use(express.static(path.join(__dirname, "uploads")));
 
 // set security HTTP headers
 app.use(helmet());
+
+// Enable CORS
+app.use(cors());
+app.options("*", cors());
 
 // development logging
 if (process.env.NODE_ENV === "development") {
@@ -29,16 +34,18 @@ if (process.env.NODE_ENV === "development") {
 
 // limit requests from same IP
 const limiter = rateLimit({
-  max: 100,
+  max: 200,
   windowMs: 60 * 60 * 1000,
+  keyGenerator: (req) => {
+    return req.ip; // Customize key generation to ensure correct IP is used
+  },
   message: "Too many requests from this IP, Please try again in an hour!",
 });
 app.use("/api", limiter);
 
 // Body parser
-app.use(express.json({ limit: "10kb" }));
-app.use(express.urlencoded({ extended: true, limit: "10kb" }));
-app.use(express.json());
+app.use(express.json({ limit: "100mb" }));
+app.use(express.urlencoded({ extended: true, limit: "100mb" }));
 
 // Data sanitization against NoSQL injection
 app.use(mongoSanitize());
@@ -58,19 +65,9 @@ app.use(
 app.use(compression());
 
 // ROUTES
-app.use("/api/v1/auth", authRoutes);
+mountRoutes(app);
 
 app.all("*", (req, res, next) => {
-  // res.status(404).json({
-  //   status: "fail",
-  //   message: `Can't find ${req.originalUrl} on server!`,
-  // });
-
-  // const err = new Error(`Can't find ${req.originalUrl} on server!`);
-  // err.statusCode = 404;
-  // err.status = "fail";
-  // next(err);
-
   next(new ApiError(`Can't find ${req.originalUrl} on server!`, 404));
 });
 

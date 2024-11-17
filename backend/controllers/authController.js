@@ -1,10 +1,8 @@
-const crypto = require("crypto");
 const { promisify } = require("util");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
-const sendEmail = require("../utils/sendEmail");
 
 const signToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -31,7 +29,6 @@ exports.signup = catchAsync(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    passwordConfirm: req.body.passwordConfirm,
   });
 
   createSendToken(newUser, 201, res);
@@ -40,18 +37,16 @@ exports.signup = catchAsync(async (req, res, next) => {
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
 
-  // 1) Check if email and password exist
   if (!email || !password) {
     return next(new ApiError("Please provide email and password!", 400));
   }
-  // 2) Check if user exists && password is correct
+
   const user = await User.findOne({ email }).select("+password");
 
   if (!user || !(await user.correctPassword(password, user.password))) {
     return next(new ApiError("Incorrect email or password", 401));
   }
 
-  // 3) If everything ok, send token to client
   createSendToken(user, 200, res);
 });
 
@@ -100,7 +95,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 exports.restrictTo =
   (...roles) =>
   (req, res, next) => {
-    // roles ['admin', 'lead-guide']. role='user'
     if (!roles.includes(req.user.role)) {
       return next(
         new ApiError("You do not have permission to perform this action", 403)
@@ -109,98 +103,3 @@ exports.restrictTo =
 
     next();
   };
-
-exports.forgotPassword = catchAsync(async (req, res, next) => {
-  // 1) Get user by email
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    return next(
-      new ApiError(`There is no user with that email ${req.body.email}`, 404)
-    );
-  }
-  // 2) If user exist, Generate hash reset random 6 digits and save it in db
-  const resetCode = Math.floor(100000 + Math.random() * 900000).toString();
-  const hashedResetCode = crypto
-    .createHash("sha256")
-    .update(resetCode)
-    .digest("hex");
-
-  // Save hashed password reset code into db
-  user.passwordResetCode = hashedResetCode;
-  // Add expiration time for password reset code (10 min)
-  user.passwordResetExpires = Date.now() + 10 * 60 * 1000;
-  user.passwordResetVerified = false;
-
-  await user.save();
-
-  // 3) Send the reset code via email
-  const message = `Hi ${user.name},\n We received a request to reset the password on your E-shop Account. \n ${resetCode} \n Enter this code to complete the reset. \n Thanks for helping us keep your account secure.\n The E-shop Team`;
-  try {
-    await sendEmail({
-      email: user.email,
-      subject: "Your password reset code (valid for 10 min)",
-      message,
-    });
-  } catch (err) {
-    user.passwordResetCode = undefined;
-    user.passwordResetExpires = undefined;
-    user.passwordResetVerified = undefined;
-
-    await user.save();
-    return next(new ApiError("There is an error in sending email", 500));
-  }
-
-  res
-    .status(200)
-    .json({ status: "Success", message: "Reset code sent to email" });
-});
-
-exports.verifyPassResetCode = catchAsync(async (req, res, next) => {
-  // 1) Get user based on reset code
-  const hashedResetCode = crypto
-    .createHash("sha256")
-    .update(req.body.resetCode)
-    .digest("hex");
-
-  const user = await User.findOne({
-    passwordResetCode: hashedResetCode,
-    passwordResetExpires: { $gt: Date.now() },
-  });
-  if (!user) {
-    return next(new ApiError("Reset code invalid or expired"));
-  }
-
-  // 2) Reset code valid
-  user.passwordResetVerified = true;
-  await user.save();
-
-  res.status(200).json({
-    status: "Success",
-  });
-});
-
-exports.resetPassword = catchAsync(async (req, res, next) => {
-  // 1) Get user based on email
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    return next(
-      new ApiError(`There is no user with email ${req.body.email}`, 404)
-    );
-  }
-
-  // 2) Check if reset code verified
-  if (!user.passwordResetVerified) {
-    return next(new ApiError("Reset code not verified", 400));
-  }
-
-  user.password = req.body.newPassword;
-  user.passwordResetCode = undefined;
-  user.passwordResetExpires = undefined;
-  user.passwordResetVerified = undefined;
-
-  await user.save();
-
-  // 3) if everything is ok, generate token
-  const token = createToken(user._id);
-  res.status(200).json({ token });
-});
