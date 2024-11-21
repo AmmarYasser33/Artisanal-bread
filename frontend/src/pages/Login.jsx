@@ -1,7 +1,64 @@
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { userActions } from "../Store/userInfo-slice";
+import saveUserInfoIntoLocalStorage, {
+  saveIsLoginState,
+  saveRoleState,
+  saveTokenState,
+} from "../Store/userInfo-actions";
+import { authFormsHandler } from "../util/Http";
 import Nav from "../components/Nav";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: authFormsHandler,
+    onSuccess: (response) => {
+      let res = response.data;
+      if (res.status === "success") {
+        dispatch(userActions.setUserInfo(res.data?.user));
+        dispatch(userActions.setIsLogin(true));
+
+        dispatch(userActions.setToken(res.token));
+        dispatch(saveUserInfoIntoLocalStorage(res.data?.user));
+        dispatch(saveIsLoginState(true));
+
+        dispatch(saveTokenState(res.token));
+        if (res.data?.user?.role === "user") {
+          dispatch(userActions.setRole("user"));
+          dispatch(saveRoleState("user"));
+          navigate("/");
+        } else if (res.data?.user?.role === "admin") {
+          dispatch(saveRoleState("admin"));
+          dispatch(userActions.setRole("admin"));
+          navigate(`/admin`);
+        }
+      }
+    },
+    onError: (error) => {
+      if (error.status === 401) {
+        alert("email or password is incorrect");
+      } else {
+        alert("something went wrong");
+      }
+    },
+  });
+
+  const {
+    register,
+    // reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log("submit data :", data);
+    mutate({ type: "login", formData: data });
+  };
+
   return (
     <>
       <div className="bg-secondary-500 shadow-lg">
@@ -50,7 +107,7 @@ export default function Login() {
 
               <div className="mt-8 font-roboto">
                 <div className="mt-6">
-                  <form className="">
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
                       <label
                         htmlFor="email"
@@ -64,9 +121,17 @@ export default function Login() {
                           name="email"
                           type="email"
                           autoComplete="email"
-                          required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          {...register("email", {
+                            required: true,
+                            pattern: /\S+@\S+\.\S+/,
+                          })}
                         />
+                        {errors.email && (
+                          <span className="text-sm text-red-600">
+                            Please enter a valid email address
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -83,9 +148,17 @@ export default function Login() {
                           name="password"
                           type="password"
                           autoComplete="current-password"
-                          required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          {...register("password", {
+                            required: true,
+                            minLength: 6,
+                          })}
                         />
+                        {errors.password && (
+                          <span className="text-sm text-red-600">
+                            Please enter a valid password
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -101,12 +174,29 @@ export default function Login() {
                     </div>
 
                     <div className="mt-6">
-                      <button
+                      {/* <button
                         type="submit"
                         className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                       >
                         Sign in
-                      </button>
+                      </button> */}
+
+                      {!isPending ? (
+                        <button
+                          type="submit"
+                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        >
+                          Sign in
+                        </button>
+                      ) : (
+                        <button
+                          type="button"
+                          disabled
+                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        >
+                          Loading...
+                        </button>
+                      )}
                     </div>
                   </form>
 

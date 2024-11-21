@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import {
   IconClose,
   IconIconMenu,
@@ -9,6 +10,8 @@ import {
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const role = useSelector((state) => state.userInfo.role);
 
   return (
     <nav className="border-gray-200">
@@ -24,19 +27,21 @@ export default function Nav() {
         </Link>
         <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
           <div className="flex items-center justify-center space-x-1">
-            <Link
-              to="/login"
-              className="mr-1 rounded-lg bg-primary-600 px-4 py-2 text-center font-roboto text-base font-medium text-white hover:bg-primary-800 focus:outline-none"
-            >
-              Login
-            </Link>
-
-            {/* <Link
-              to="/dashboard"
-              className="rounded-full text-center font-roboto text-base font-medium text-primary-500 hover:text-white focus:outline-none"
-            >
-              <IconProfile className="inline-block h-8 w-8" />
-            </Link> */}
+            {isLogin ? (
+              <Link
+                to={role === "admin" ? "/admin" : "/dashboard"}
+                className="rounded-full text-center font-roboto text-base font-medium text-primary-500 hover:text-white focus:outline-none"
+              >
+                <IconProfile className="inline-block h-8 w-8" />
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="mr-1 rounded-lg bg-primary-600 px-4 py-2 text-center font-roboto text-base font-medium text-white hover:bg-primary-800 focus:outline-none"
+              >
+                Login
+              </Link>
+            )}
 
             <Link
               to="/cart"

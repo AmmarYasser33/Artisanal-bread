@@ -1,4 +1,12 @@
+import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import {
+  getIsLoginState,
+  getRoleState,
+  getToken,
+  getUserInfoFromLocalStorage,
+} from "./Store/userInfo-actions";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Courses from "./pages/Courses";
@@ -16,6 +24,19 @@ import UserCourses from "./pages/UserCourses";
 import NotFound from "./pages/NotFound";
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (JSON.parse(localStorage.getItem("userData"))) {
+      dispatch(getUserInfoFromLocalStorage());
+    }
+    if (JSON.parse(localStorage.getItem("token"))) {
+      dispatch(getRoleState());
+      dispatch(getToken());
+    }
+    dispatch(getIsLoginState());
+  }, [dispatch]);
+
   // #eaa636
   return (
     <div>
