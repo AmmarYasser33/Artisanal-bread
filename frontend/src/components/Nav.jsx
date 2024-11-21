@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
-import { IconClose, IconIconMenu } from "../Icons";
+import {
+  IconClose,
+  IconIconMenu,
+  IconShoppingBag,
+  IconProfile,
+} from "../Icons";
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,17 +18,37 @@ export default function Nav() {
           className="flex items-center space-x-3 drop-shadow-2xl rtl:space-x-reverse"
         >
           <img src="/baker.png" className="h-9" alt="Artisanal bread logo" />
-          <span className="self-center whitespace-nowrap text-3xl font-bold italic text-primary-500">
+          <span className="self-center whitespace-nowrap text-xl font-bold italic text-primary-500 lg:text-3xl">
             Artisanal bread
           </span>
         </Link>
         <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-          <button
-            type="button"
-            className="font-roboto rounded-lg bg-primary-600 px-4 py-2 text-center text-base font-medium text-white hover:bg-primary-800 focus:outline-none"
-          >
-            Login
-          </button>
+          <div className="flex items-center justify-center space-x-1">
+            <Link
+              to="/login"
+              className="mr-1 rounded-lg bg-primary-600 px-4 py-2 text-center font-roboto text-base font-medium text-white hover:bg-primary-800 focus:outline-none"
+            >
+              Login
+            </Link>
+
+            {/* <Link
+              to="/dashboard"
+              className="rounded-full text-center font-roboto text-base font-medium text-primary-500 hover:text-white focus:outline-none"
+            >
+              <IconProfile className="inline-block h-8 w-8" />
+            </Link> */}
+
+            <Link
+              to="/cart"
+              className="group relative rounded-full p-2 text-center font-roboto text-base font-medium text-primary-500 hover:bg-primary-700 hover:text-white focus:outline-none"
+            >
+              <IconShoppingBag className="inline-block h-7 w-7" />
+              <span className="absolute right-1 top-1 z-10 rounded-full bg-primary-600 px-1 text-xs font-semibold text-white group-hover:bg-white group-hover:text-secondary-900 group-focus:text-secondary-900">
+                2
+              </span>
+            </Link>
+          </div>
+
           <button
             type="button"
             className="inline-flex h-10 w-10 items-center justify-center rounded-lg border border-gray-400 border-opacity-30 p-2 text-3xl text-gray-100 focus:outline-none md:hidden"
@@ -40,13 +65,13 @@ export default function Nav() {
           </button>
         </div>
         <div
-          className={`items-center justify-between ${isOpen ? "block" : "hidden"} fixed left-0 top-[4.3rem] w-full bg-secondary-500 md:static md:order-1 md:flex md:w-auto md:bg-transparent`}
+          className={`z-50 items-center justify-between ${isOpen ? "block" : "hidden"} fixed left-0 top-[4.3rem] w-full bg-secondary-500 md:static md:order-1 md:flex md:w-auto md:bg-transparent`}
           id="navbar-cta"
         >
-          <ul className="font-roboto mt-4 flex flex-col rounded-lg p-4 text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:p-0 rtl:space-x-reverse">
+          <ul className="mt-4 flex flex-col rounded-lg p-4 font-roboto text-lg font-medium md:mt-0 md:flex-row md:space-x-8 md:p-0 rtl:space-x-reverse">
             <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
               <NavLink
-                href="/"
+                to="/"
                 className={({ isActive }) =>
                   `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
                 }
