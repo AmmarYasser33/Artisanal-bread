@@ -1,0 +1,89 @@
+const Order = require("../models/orderModel");
+const Cart = require("../models/cartModel");
+const factory = require("./handlerFactory");
+const catchAsync = require("../utils/catchAsync");
+const ApiError = require("../utils/ApiError");
+
+const ordersPopOptions = [
+  {
+    path: "user",
+    select: "name email phone photo",
+  },
+];
+
+const orderPopOptions = [
+  {
+    path: "user",
+    select: "name email phone photo",
+  },
+  {
+    path: "cartItems.product",
+    select: "name price",
+  },
+];
+
+exports.filterUserOrders = (req, res, next) => {
+  if (req.user.role === "user") req.query.user = req.user.id;
+
+  next();
+};
+
+exports.getAllOrders = factory.getAll(Order, ordersPopOptions);
+exports.getOrder = factory.getOne(Order, orderPopOptions);
+
+exports.createCashOrder = catchAsync(async (req, res, next) => {
+  const cart = await Cart.findById(req.params.cartId);
+
+  if (!cart) {
+    return next(new ApiError("Cart not found", 404));
+  }
+
+  const order = await Order.create({
+    user: req.user.id,
+    cartItems: cart.cartItems,
+    totalPrice: cart.totalPrice,
+    orderName: req.body.orderName,
+    orderPhone: req.body.orderPhone,
+    orderAddress: req.body.orderAddress,
+    orderDate: req.body.orderDate,
+  });
+
+  res.status(201).json({
+    status: "success",
+    data: order,
+  });
+});
+
+exports.updateOrderToPaid = catchAsync(async (req, res, next) => {
+  const updatedOrder = await Order.findByIdAndUpdate(
+    req.params.id,
+    { isPaid: true, paidAt: Date.now() },
+    { new: true }
+  );
+
+  if (!updatedOrder) {
+    return next(new ApiError("Order not found", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: updatedOrder,
+  });
+});
+
+exports.updateOrderToDelivered = catchAsync(async (req, res, next) => {
+  const updatedOrder = await Order.findByIdAndUpdate(
+    req.params.id,
+    { isDelivered: true, deliveredAt: Date.now() },
+    { new: true }
+  );
+
+  if (!updatedOrder) {
+    return next(new ApiError("Order not found", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: updatedOrder,
+  });
+});
