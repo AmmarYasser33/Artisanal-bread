@@ -12,6 +12,7 @@ export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const role = useSelector((state) => state.userInfo.role);
+  const cartCounter = useSelector((state) => state.cartCounter.counter);
 
   return (
     <nav className="border-gray-200">
@@ -49,7 +50,7 @@ export default function Nav() {
             >
               <IconShoppingBag className="inline-block h-7 w-7" />
               <span className="absolute right-1 top-1 z-10 rounded-full bg-primary-600 px-1 text-xs font-semibold text-white group-hover:bg-white group-hover:text-secondary-900 group-focus:text-secondary-900">
-                2
+                {cartCounter}
               </span>
             </Link>
           </div>

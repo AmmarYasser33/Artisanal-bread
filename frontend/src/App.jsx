@@ -1,13 +1,14 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getIsLoginState,
   getRoleState,
   getToken,
   getUserInfoFromLocalStorage,
 } from "./Store/userInfo-actions";
+import fetchCartCounter from "./Store/cartCounter-actions";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Courses from "./pages/Courses";
@@ -26,6 +27,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
+  const token = useSelector((state) => state.userInfo.token);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("userData"))) {
@@ -37,6 +39,12 @@ function App() {
     }
     dispatch(getIsLoginState());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchCartCounter(token));
+    }
+  }, [dispatch, token]);
 
   // #eaa636
   return (
