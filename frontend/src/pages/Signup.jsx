@@ -1,7 +1,46 @@
-import { Link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { authFormsHandler } from "../util/Http";
 import Nav from "../components/Nav";
 
 export default function Signup() {
+  const navigate = useNavigate();
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: authFormsHandler,
+
+    onSuccess: (response) => {
+      if (response.data.status === "success") {
+        alert("Account created successfully");
+        navigate("/login");
+      } else {
+        alert("Account creation failed");
+      }
+    },
+    onError(error) {
+      if (error.status === 500) {
+        alert("Server error");
+      } else if (error.data.message.split(" ")[0] === "Duplicate") {
+        alert("Email already exists");
+      } else {
+        alert("Something went wrong");
+      }
+    },
+  });
+
+  const {
+    register,
+    // reset,
+    watch,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log("signup data", data);
+    mutate({ type: "signup", formData: data });
+  };
+
   return (
     <>
       <div className="bg-secondary-500 shadow-lg">
@@ -38,26 +77,21 @@ export default function Signup() {
                     Artisanal bread
                   </span>
                 </Link>
-                {/* <img
-                  className="h-12 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark-primary-600.svg"
-                  alt="Workflow"
-                /> */}
-                <h2 className="mt-6 text-center text-3xl font-bold text-secondary-800">
+                {/* <h2 className="mt-6 text-center text-3xl font-bold text-secondary-800">
                   Create an account
-                </h2>
+                </h2> */}
               </div>
 
               <div className="mt-8 font-roboto">
                 <div className="mt-6">
-                  <form className="">
+                  <form onSubmit={handleSubmit(onSubmit)}>
                     {/*  full name */}
                     <div>
                       <label
                         htmlFor="name"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Full name
+                        Name
                       </label>
                       <div className="mt-1">
                         <input
@@ -65,9 +99,22 @@ export default function Signup() {
                           name="name"
                           type="text"
                           autoComplete="name"
-                          required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          {...register("name", {
+                            required: true,
+                            minLength: 3,
+                          })}
                         />
+                        {errors.name && errors.name.type === "required" && (
+                          <span className="text-sm text-red-600">
+                            Name is required
+                          </span>
+                        )}
+                        {errors.name && errors.name.type === "minLength" && (
+                          <span className="text-sm text-red-600">
+                            Name should be at least 3 characters
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -84,9 +131,17 @@ export default function Signup() {
                           name="email"
                           type="email"
                           autoComplete="email"
-                          required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          {...register("email", {
+                            required: true,
+                            pattern: /\S+@\S+\.\S+/,
+                          })}
                         />
+                        {errors.email && (
+                          <span className="text-sm text-red-600">
+                            Please enter a valid email
+                          </span>
+                        )}
                       </div>
                     </div>
 
@@ -103,19 +158,88 @@ export default function Signup() {
                           name="password"
                           type="password"
                           autoComplete="current-password"
-                          required
                           className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          {...register("password", {
+                            required: true,
+                            minLength: 6,
+                          })}
                         />
+                        {errors.password &&
+                          errors.password.type === "required" && (
+                            <span className="text-sm text-red-600">
+                              Password is required
+                            </span>
+                          )}
+                        {errors.password &&
+                          errors.password.type === "minLength" && (
+                            <span className="text-sm text-red-600">
+                              Password should be at least 6 characters
+                            </span>
+                          )}
+                      </div>
+                    </div>
+
+                    {/* passwordConfirm */}
+                    <div className="mt-5">
+                      <label
+                        htmlFor="passwordConfirm"
+                        className="block text-sm font-medium text-gray-700"
+                      >
+                        Confirm password
+                      </label>
+                      <div className="mt-1">
+                        <input
+                          id="passwordConfirm"
+                          name="passwordConfirm"
+                          type="password"
+                          autoComplete="current-password"
+                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          {...register("passwordConfirm", {
+                            required: true,
+                            minLength: 6,
+                            validate: (value) =>
+                              value === watch("password") ||
+                              "Passwords do not match",
+                          })}
+                        />
+                        {errors.passwordConfirm &&
+                          errors.passwordConfirm.type === "required" && (
+                            <span className="text-sm text-red-600">
+                              Password confirmation is required
+                            </span>
+                          )}
+                        {errors.passwordConfirm &&
+                          errors.passwordConfirm.type === "minLength" && (
+                            <span className="text-sm text-red-600">
+                              Passwords do not match
+                            </span>
+                          )}
+                        {errors.passwordConfirm &&
+                          errors.passwordConfirm.type === "validate" && (
+                            <span className="text-sm text-red-600">
+                              {errors.passwordConfirm.message}
+                            </span>
+                          )}
                       </div>
                     </div>
 
                     <div className="mt-7">
-                      <button
-                        type="submit"
-                        className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                      >
-                        Register
-                      </button>
+                      {!isPending ? (
+                        <button
+                          type="submit"
+                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        >
+                          Register
+                        </button>
+                      ) : (
+                        <button
+                          type="submit"
+                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                          disabled
+                        >
+                          Registering...
+                        </button>
+                      )}
                     </div>
                   </form>
 
