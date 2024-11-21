@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import {
   getIsLoginState,
@@ -40,6 +41,17 @@ function App() {
   // #eaa636
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        draggable
+        pauseOnHover={false}
+        pauseOnFocusLoss={false}
+        // className={isArLang?"ar_toast":""}
+      />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />

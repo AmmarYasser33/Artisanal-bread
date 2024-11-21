@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { userActions } from "../Store/userInfo-slice";
 import saveUserInfoIntoLocalStorage, {
@@ -14,6 +15,10 @@ import Nav from "../components/Nav";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const notifySuccess = () => toast.success("Login successfully!");
+  const notifyError = (msg) =>
+    toast.error(msg || "Something went wrong, please try again!");
 
   const { mutate, isPending } = useMutation({
     mutationFn: authFormsHandler,
@@ -37,13 +42,15 @@ export default function Login() {
           dispatch(userActions.setRole("admin"));
           navigate(`/admin`);
         }
+
+        notifySuccess();
       }
     },
     onError: (error) => {
       if (error.status === 401) {
-        alert("email or password is incorrect");
+        notifyError("email or password is incorrect");
       } else {
-        alert("something went wrong");
+        notifyError();
       }
     },
   });
@@ -55,7 +62,6 @@ export default function Login() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("submit data :", data);
     mutate({ type: "login", formData: data });
   };
 
@@ -192,9 +198,9 @@ export default function Login() {
                         <button
                           type="button"
                           disabled
-                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-800 px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                         >
-                          Loading...
+                          Login in...
                         </button>
                       )}
                     </div>

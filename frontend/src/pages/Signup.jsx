@@ -1,30 +1,32 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import { authFormsHandler } from "../util/Http";
 import Nav from "../components/Nav";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const notifySuccess = () => toast.success("Account created successfully");
+  const notifyError = (msg) =>
+    toast.error(msg || "Account creation failed! Please try again.");
 
   const { mutate, isPending } = useMutation({
     mutationFn: authFormsHandler,
 
     onSuccess: (response) => {
       if (response.data.status === "success") {
-        alert("Account created successfully");
+        notifySuccess();
         navigate("/login");
       } else {
-        alert("Account creation failed");
+        notifyError();
       }
     },
     onError(error) {
-      if (error.status === 500) {
-        alert("Server error");
-      } else if (error.data.message.split(" ")[0] === "Duplicate") {
-        alert("Email already exists");
+      if (error.data.message.split(" ")[0] === "Duplicate") {
+        notifyError("Email already exists");
       } else {
-        alert("Something went wrong");
+        notifyError();
       }
     },
   });
@@ -37,7 +39,6 @@ export default function Signup() {
     formState: { errors },
   } = useForm();
   const onSubmit = (data) => {
-    console.log("signup data", data);
     mutate({ type: "signup", formData: data });
   };
 
@@ -234,7 +235,7 @@ export default function Signup() {
                       ) : (
                         <button
                           type="submit"
-                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-700 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-800 px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
                           disabled
                         >
                           Registering...
