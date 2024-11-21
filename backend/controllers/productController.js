@@ -7,8 +7,15 @@ const ApiError = require("../utils/ApiError");
 const { uploadSingleImage } = require("../utils/uploadImage");
 const factory = require("./handlerFactory");
 
-exports.getAllProducts = factory.getAll(Product);
-exports.getProduct = factory.getOne(Product);
+const productPopOptions = [
+  {
+    path: "category",
+    select: "name",
+  },
+];
+
+exports.getAllProducts = factory.getAll(Product, productPopOptions);
+exports.getProduct = factory.getOne(Product, productPopOptions);
 exports.deleteProduct = factory.deleteOne(Product);
 
 exports.uploadProductImage = uploadSingleImage("image");
