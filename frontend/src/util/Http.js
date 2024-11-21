@@ -1,6 +1,7 @@
 import axios from "axios";
-// const baseServerUrl = process.env.REACT_APP_Base_API_URl;
-const baseServerUrl = "http://localhost:3001/api/v1/";
+import { BASE_API_URL } from "./Globals";
+
+const baseServerUrl = BASE_API_URL;
 
 // Auth
 
