@@ -58,7 +58,7 @@ export default function Products() {
 
       <div className="mt-10 flex flex-wrap items-center justify-center space-x-0 px-1 font-roboto md:space-x-1">
         {isCategoriesLoading ? (
-          <Spinner color={"primary-700"} size={10} />
+          <Spinner />
         ) : !isCategoriesError ? (
           categories?.map((filter) => (
             <button
@@ -85,7 +85,7 @@ export default function Products() {
       <div className="mx-auto mt-9 max-w-2xl px-4 sm:px-6 md:pb-16 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 md:gap-y-10 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
           {isProductsLoading ? (
-            <Spinner color={"primary-700"} size={10} />
+            <Spinner />
           ) : filteredProducts && filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
               <div key={product._id} className="group relative">
