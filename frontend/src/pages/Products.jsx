@@ -1,87 +1,54 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts, getCategories } from "../util/Http";
 import { IconBagPlusFill } from "../Icons";
 import Spinner from "../components/Spinner";
 import Nav from "../components/Nav";
 
-const categories = ["All", "Bread", "Cakes", "Cookies", "Pastries"];
-
 export default function Products() {
+  const [categories, setCategories] = useState(["All"]);
+
+  const {
+    data: productsData,
+    isLoading: isProductsLoading,
+    isError: isProductsError,
+  } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => getProducts(),
+    staleTime: 0,
+  });
+
+  const {
+    data: categoriesData,
+    isLoading: isCategoriesLoading,
+    isError: isCategoriesError,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: () => getCategories(),
+    staleTime: 0,
+  });
+
+  useEffect(() => {
+    if (categoriesData && categoriesData.data) {
+      setCategories([
+        "All",
+        ...new Set(
+          categoriesData.data.map((category) => category.name.toLowerCase()),
+        ),
+      ]);
+    }
+  }, [categoriesData]);
+
   const [activeFilter, setActiveFilter] = useState("all");
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      name: "Raspberry Chocolate Cake",
-      price: "75 L.E",
-      imageSrc: "/product-1.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "cakes",
-    },
-    {
-      id: 2,
-      name: "Eggless Chocolate Cake",
-      price: "33 L.E",
-      imageSrc: "/product-2.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "cakes",
-    },
-    {
-      id: 3,
-      name: "Vanilla Cake",
-      price: "50 L.E",
-      imageSrc: "/product-3.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "bread",
-    },
-    {
-      id: 4,
-      name: "Strawberry Cake",
-      price: "60 L.E",
-      imageSrc: "/product-2.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "pastries",
-    },
-    {
-      id: 5,
-      name: "Raspberry Chocolate Cake",
-      price: "75 L.E",
-      imageSrc: "/product-1.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "cakes",
-    },
-    {
-      id: 6,
-      name: "Eggless Chocolate Cake",
-      price: "33 L.E",
-      imageSrc: "/product-2.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "cakes",
-    },
-    {
-      id: 7,
-      name: "Vanilla Cake",
-      price: "50 L.E",
-      imageSrc: "/product-3.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "bread",
-    },
-    {
-      id: 8,
-      name: "Strawberry Cake",
-      price: "60 L.E",
-      imageSrc: "/product-2.jpg",
-      imageAlt: "Hand stitched, orange leather long wallet.",
-      category: "pastries",
-    },
-  ]);
 
   const filteredProducts =
     activeFilter === "all"
-      ? products
-      : products.filter(
-          (product) => product.category.toLowerCase() === activeFilter,
+      ? productsData?.data
+      : productsData?.data.filter(
+          (product) => product.category.name.toLowerCase() === activeFilter,
         );
 
-  if (!products) return <Spinner />;
+  if (isProductsError) return <p>Error retrieving products</p>;
 
   return (
     <div className="min-h-screen bg-primary-50">
@@ -90,31 +57,43 @@ export default function Products() {
       </div>
 
       <div className="mt-10 flex flex-wrap items-center justify-center space-x-0 px-1 font-roboto md:space-x-1">
-        {categories.map((filter) => (
+        {isCategoriesLoading ? (
+          <Spinner color={"primary-700"} size={10} />
+        ) : !isCategoriesError ? (
+          categories?.map((filter) => (
+            <button
+              key={filter}
+              className={`rounded-full px-6 py-2 font-medium hover:bg-primary-600 hover:text-white ${
+                activeFilter === filter.toLowerCase()
+                  ? "bg-primary-700 text-white"
+                  : "text-secondary-700"
+              }`}
+              onClick={() => setActiveFilter(filter.toLowerCase())}
+            >
+              {filter}
+            </button>
+          ))
+        ) : (
           <button
-            key={filter}
-            className={`rounded-full px-6 py-2 font-medium hover:bg-primary-600 hover:text-white ${
-              activeFilter === filter.toLowerCase()
-                ? "bg-primary-700 text-white"
-                : "text-secondary-700"
-            }`}
-            onClick={() => setActiveFilter(filter.toLowerCase())}
+            className={`rounded-full bg-primary-700 px-6 py-2 font-medium text-white hover:bg-primary-600 hover:text-white`}
           >
-            {filter}
+            All
           </button>
-        ))}
+        )}
       </div>
 
       <div className="mx-auto mt-9 max-w-2xl px-4 sm:px-6 md:pb-16 lg:max-w-7xl lg:px-8">
         <div className="grid grid-cols-2 gap-x-4 gap-y-6 sm:gap-x-6 md:gap-y-10 lg:grid-cols-3 lg:gap-x-8 xl:grid-cols-4">
-          {filteredProducts && filteredProducts.length > 0 ? (
+          {isProductsLoading ? (
+            <Spinner color={"primary-700"} size={10} />
+          ) : filteredProducts && filteredProducts.length > 0 ? (
             filteredProducts.map((product) => (
-              <div key={product.id} className="group relative">
+              <div key={product._id} className="group relative">
                 {/* <Link to="/product"> */}
                 <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
                   <img
-                    src={product.imageSrc}
-                    alt={product.imageAlt}
+                    src={`http://localhost:3001/${product.image}`}
+                    alt={`${product.name} image`}
                     className="h-full w-full object-cover object-center"
                   />
                 </div>
