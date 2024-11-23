@@ -24,12 +24,12 @@ const calcTotalCartPrice = (cart) => {
 };
 
 exports.getUserCart = catchAsync(async (req, res, next) => {
-  const cart = await Cart.findOne({ user: req.user._id }).populate(
+  let cart = await Cart.findOne({ user: req.user._id }).populate(
     cartPopOptions
   );
 
   if (!cart) {
-    return next(new ApiError("No cart found for this user", 404));
+    cart = await Cart.create({ user: req.user._id });
   }
 
   res.status(200).json({
