@@ -23,7 +23,8 @@ exports.getUser = factory.getOne(User);
 
 exports.addAdmin = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
-    name: req.body.name,
+    firstName: req.body.name.split(" ")[0],
+    lastName: req.body.name.split(" ")[1] || "",
     email: req.body.email,
     phone: req.body.phone,
     password: req.body.password,
@@ -47,7 +48,14 @@ exports.updateMe = catchAsync(async (req, res, next) => {
     );
   }
 
-  const filteredBody = filterObj(req.body, "name", "email", "phone", "address");
+  const filteredBody = filterObj(
+    req.body,
+    "firstName",
+    "lastName",
+    "email",
+    "phone",
+    "address"
+  );
 
   const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
     new: true,

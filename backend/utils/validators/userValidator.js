@@ -2,7 +2,15 @@ const { check } = require("express-validator");
 const validatorMiddleware = require("./validatorMiddleware");
 
 exports.updateMeValidator = [
-  check("name").optional().isString().withMessage("Name must be a string"),
+  check("firstName")
+    .optional()
+    .isString()
+    .withMessage("First name must be a string"),
+
+  check("lastName")
+    .optional()
+    .isString()
+    .withMessage("Last name must be a string"),
 
   check("email")
     .optional()
