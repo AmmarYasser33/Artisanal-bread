@@ -24,6 +24,7 @@ router
     orderController.getOrder
   )
   .put(
+    authController.restrictTo("admin"),
     orderValidator.updateOrderStatusValidator,
     orderController.updateOrderStatus
   );
