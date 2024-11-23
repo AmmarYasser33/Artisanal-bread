@@ -14,6 +14,7 @@ const userSchema = new mongoose.Schema(
       unique: [true, "Email already exists"],
     },
     phone: String,
+    address: String,
     photo: {
       type: String,
       default: "/users/default.png",
