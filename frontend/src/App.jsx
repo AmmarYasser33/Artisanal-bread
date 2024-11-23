@@ -9,6 +9,7 @@ import {
   getUserInfoFromLocalStorage,
 } from "./Store/userInfo-actions";
 import fetchCartCounter from "./Store/cartCounter-actions";
+import fetchProfileData from "./Store/profileInfo-actions";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Courses from "./pages/Courses";
@@ -28,6 +29,7 @@ import NotFound from "./pages/NotFound";
 function App() {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.userInfo.token);
+  const role = useSelector((state) => state.userInfo.role);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("userData"))) {
@@ -45,6 +47,13 @@ function App() {
       dispatch(fetchCartCounter(token));
     }
   }, [dispatch, token]);
+
+  // get profile data from database
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchProfileData(token));
+    }
+  }, [dispatch, token, role]);
 
   // #eaa636
   return (
