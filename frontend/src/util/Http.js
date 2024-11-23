@@ -105,3 +105,97 @@ export const updateCartItem = async (token, itemId, quantity) => {
     return error;
   }
 };
+
+// Users
+
+export const getMe = async (token) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}users/me`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateMe = async (token, formData) => {
+  try {
+    const response = await axios.patch(
+      `${baseServerUrl}users/updateMe`,
+      formData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updatePassword = async (token, formData) => {
+  try {
+    const response = await axios.patch(
+      `${baseServerUrl}users/updateMyPassword`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// Users (Admin)
+
+export const getAllUsers = async (token) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}users`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getUser = async (token, userId) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}users/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteUser = async (token, userId) => {
+  try {
+    const response = await axios.delete(`${baseServerUrl}users/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const addAdmin = async (token, formData) => {
+  try {
+    const response = await axios.post(`${baseServerUrl}users/admin`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
