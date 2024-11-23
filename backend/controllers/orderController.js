@@ -5,10 +5,10 @@ const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
 
 const ordersPopOptions = [
-  {
-    path: "user",
-    select: "name email phone photo",
-  },
+  // {
+  //   path: "user",
+  //   select: "name email phone photo",
+  // },
 ];
 
 const orderPopOptions = [
@@ -28,7 +28,11 @@ exports.filterUserOrders = (req, res, next) => {
   next();
 };
 
-exports.getAllOrders = factory.getAll(Order, ordersPopOptions);
+exports.getAllOrders = factory.getAll(
+  Order,
+  ordersPopOptions,
+  "totalPrice orderDate status"
+);
 exports.getOrder = factory.getOne(Order, orderPopOptions);
 
 exports.createCashOrder = catchAsync(async (req, res, next) => {
