@@ -51,3 +51,43 @@ export const getProducts = async () => {
     return error;
   }
 };
+
+// Cart
+
+export const getCart = async (token) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}cart`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteCartItem = async (token, itemId) => {
+  try {
+    const response = await axios.delete(`${baseServerUrl}cart/${itemId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateCartItem = async (token, itemId, quantity) => {
+  try {
+    const response = await axios.put(
+      `${baseServerUrl}cart/${itemId}`,
+      { quantity },
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
