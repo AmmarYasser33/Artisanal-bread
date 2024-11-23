@@ -18,7 +18,11 @@ router.get("/", orderController.filterUserOrders, orderController.getAllOrders);
 
 router
   .route("/:id")
-  .get(orderValidator.getOrderValidator, orderController.getOrder)
+  .get(
+    orderValidator.getOrderValidator,
+    orderController.filterUserOrders,
+    orderController.getOrder
+  )
   .put(
     orderValidator.updateOrderStatusValidator,
     orderController.updateOrderStatus
