@@ -66,6 +66,20 @@ export const getCart = async (token) => {
   }
 };
 
+export const addToCart = async (token, productId) => {
+  try {
+    const response = await axios.post(
+      `${baseServerUrl}cart`,
+      { productId },
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const deleteCartItem = async (token, itemId) => {
   try {
     const response = await axios.delete(`${baseServerUrl}cart/${itemId}`, {

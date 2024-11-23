@@ -1,12 +1,36 @@
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { getProducts, getCategories } from "../util/Http";
+import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { getProducts, getCategories, addToCart } from "../util/Http";
+import fetchCartCounter from "../Store/cartCounter-actions";
 import { IconBagPlusFill } from "../Icons";
 import Spinner from "../components/Spinner";
 import Nav from "../components/Nav";
 
 export default function Products() {
   const [categories, setCategories] = useState(["All"]);
+
+  const token = useSelector((state) => state.userInfo.token);
+  const dispatch = useDispatch();
+
+  const notifySuccess = (msg) => toast.success(msg);
+  const notifyError = (msg) => toast.error(msg);
+
+  const { mutate: addProductToCart, isPending: isAddingToCart } = useMutation({
+    mutationFn: (productId) => addToCart(token, productId),
+    onSuccess: (data) => {
+      if (data?.status === "success") {
+        notifySuccess("Added to cart successfully");
+        dispatch(fetchCartCounter(token));
+      } else {
+        notifyError("Failed to add to cart! Try again.");
+      }
+    },
+    onError: () => {
+      notifyError("Failed to add to cart!");
+    },
+  });
 
   const {
     data: productsData,
@@ -115,8 +139,9 @@ export default function Products() {
 
                   <button
                     type="button"
-                    onClick={() => console.log("Add to cart")}
-                    className="inline-flex items-center justify-center rounded-full p-2 text-primary-700 duration-300 ease-in-out hover:bg-primary-700 hover:text-white focus:outline-none"
+                    onClick={() => addProductToCart(product._id)}
+                    disabled={isAddingToCart}
+                    className="inline-flex items-center justify-center rounded-full p-2 text-primary-700 duration-300 ease-in-out hover:bg-primary-700 hover:text-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <IconBagPlusFill className="inline-block h-6 w-6" />
                   </button>
