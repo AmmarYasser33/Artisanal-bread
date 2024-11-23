@@ -6,7 +6,11 @@ const ApiError = require("../utils/ApiError");
 const cartPopOptions = [
   {
     path: "cartItems.product",
-    select: "name price",
+    select: "name price image category",
+    populate: {
+      path: "category",
+      select: "name",
+    },
   },
 ];
 
