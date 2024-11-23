@@ -82,3 +82,28 @@ exports.updateOrderStatus = catchAsync(async (req, res, next) => {
     data: updatedOrder,
   });
 });
+
+exports.orderAgain = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const oldOrder = await Order.findById(id).lean();
+
+  if (!oldOrder) {
+    return next(new ApiError("Order not found", 404));
+  }
+
+  const order = await Order.create({
+    user: req.user.id,
+    cartItems: oldOrder.cartItems,
+    totalPrice: oldOrder.totalPrice,
+    orderName: oldOrder.orderName,
+    orderPhone: oldOrder.orderPhone,
+    orderAddress: oldOrder.orderAddress,
+    orderDate: oldOrder.orderDate,
+  });
+
+  res.status(201).json({
+    status: "success",
+    data: order,
+  });
+});

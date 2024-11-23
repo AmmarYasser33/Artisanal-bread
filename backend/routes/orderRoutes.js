@@ -29,4 +29,11 @@ router
     orderController.updateOrderStatus
   );
 
+router.post(
+  "/:id/again",
+  authController.restrictTo("user"),
+  orderValidator.getOrderValidator,
+  orderController.orderAgain
+);
+
 module.exports = router;
