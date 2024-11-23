@@ -27,6 +27,11 @@ router
     authController.restrictTo("admin"),
     orderValidator.updateOrderStatusValidator,
     orderController.updateOrderStatus
+  )
+  .delete(
+    orderValidator.getOrderValidator,
+    orderController.filterUserOrders,
+    orderController.cancelOrder
   );
 
 router.post(

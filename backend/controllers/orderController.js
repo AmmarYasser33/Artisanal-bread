@@ -107,3 +107,40 @@ exports.orderAgain = catchAsync(async (req, res, next) => {
     data: order,
   });
 });
+
+exports.cancelOrder = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const order = await Order.findById(id);
+
+  if (!order) {
+    return next(new ApiError("Order not found", 404));
+  }
+
+  if (order.status === "cancelled") {
+    return next(new ApiError("Order already cancelled", 400));
+  }
+
+  if (req.user.role === "user" && order.status !== "pending") {
+    return next(new ApiError("Order cannot be cancelled", 400));
+  }
+
+  if (
+    req.user.role === "admin" &&
+    order.status !== "pending" &&
+    order.status !== "processing"
+  ) {
+    return next(new ApiError("Order cannot be cancelled", 400));
+  }
+
+  const updatedOrder = await Order.findByIdAndUpdate(
+    id,
+    { status: "cancelled" },
+    { new: true }
+  );
+
+  res.status(200).json({
+    status: "success",
+    data: updatedOrder,
+  });
+});
