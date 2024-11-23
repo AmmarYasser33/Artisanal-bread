@@ -38,15 +38,19 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
     return next(new ApiError("Cart not found", 404));
   }
 
-  const order = await Order.create({
-    user: req.user.id,
-    cartItems: cart.cartItems,
-    totalPrice: cart.totalPrice,
-    orderName: req.body.orderName,
-    orderPhone: req.body.orderPhone,
-    orderAddress: req.body.orderAddress,
-    orderDate: req.body.orderDate,
-  });
+  const [order] = await Promise.all([
+    Order.create({
+      user: req.user.id,
+      cartItems: cart.cartItems,
+      totalPrice: cart.totalPrice,
+      orderName: req.body.orderName,
+      orderPhone: req.body.orderPhone,
+      orderAddress: req.body.orderAddress,
+      orderDate: req.body.orderDate,
+    }),
+
+    Cart.findByIdAndDelete(req.params.cartId),
+  ]);
 
   res.status(201).json({
     status: "success",
