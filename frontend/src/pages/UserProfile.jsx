@@ -1,7 +1,81 @@
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { useMutation } from "@tanstack/react-query";
+import { updateMe, updatePassword } from "../util/Http";
+
 export default function UserProfile() {
+  const user = useSelector((state) => state.profileInfo.data);
+  const token = useSelector((state) => state.userInfo.token);
+
+  const notifySuccess = (msg) => toast.success(msg);
+  const notifyError = (msg) => toast.error(msg);
+
+  const { mutate: updateUser, isPending: isUpdateUserPending } = useMutation({
+    mutationFn: (formData) => updateMe(token, formData),
+    onSuccess: (data) => {
+      if (data.status === "success") {
+        notifySuccess("User updated successfully");
+      } else {
+        notifyError("User update failed");
+      }
+    },
+    onError: () => {
+      notifyError("User update failed");
+    },
+  });
+
+  const {
+    register: registerData,
+    reset: resetData,
+    handleSubmit: handleDataSubmit,
+    formState: { errors: dataErrors },
+  } = useForm();
+  const onSubmitData = (data) => {
+    updateUser(data);
+  };
+
+  useEffect(() => {
+    resetData({
+      firstName: user?.firstName,
+      lastName: user?.lastName || "",
+      email: user?.email,
+      phone: user?.phone,
+      address: user?.address,
+    });
+  }, [user, resetData]);
+
+  const { mutate: updateUserPassword, isPending: isUpdatePasswordPending } =
+    useMutation({
+      mutationFn: (formData) => updatePassword(token, formData),
+      onSuccess: (data) => {
+        if (data.status === "success") {
+          notifySuccess("Password updated successfully");
+          resetPassword();
+        } else {
+          notifyError("Password update failed");
+        }
+      },
+      onError: () => {
+        notifyError("Password update failed");
+      },
+    });
+
+  const {
+    register: registerPassword,
+    reset: resetPassword,
+    watch: watchPassword,
+    handleSubmit: handlePasswordSubmit,
+    formState: { errors: passwordErrors },
+  } = useForm();
+  const onSubmitPassword = (data) => {
+    updateUserPassword(data);
+  };
+
   return (
     <div className="space-y-10 sm:px-6 lg:col-span-9 lg:px-0">
-      <form className="">
+      <form onSubmit={handleDataSubmit(onSubmitData)}>
         <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
             <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
@@ -21,9 +95,14 @@ export default function UserProfile() {
                   name="first-name"
                   id="first-name"
                   autoComplete="given-name"
-                  value="Ammar"
+                  {...registerData("firstName", { required: true })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
+                {dataErrors.firstName && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid first name
+                  </span>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -38,7 +117,7 @@ export default function UserProfile() {
                   name="last-name"
                   id="last-name"
                   autoComplete="family-name"
-                  // value="Saeed"
+                  {...registerData("lastName")}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
               </div>
@@ -55,9 +134,17 @@ export default function UserProfile() {
                   name="email-address"
                   id="email-address"
                   autoComplete="email"
-                  value="ammar.yassr.33@gmail.com"
+                  {...registerData("email", {
+                    required: true,
+                    pattern: /\S+@\S+\.\S+/,
+                  })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
+                {dataErrors.email && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid email address
+                  </span>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-3">
@@ -72,9 +159,17 @@ export default function UserProfile() {
                   name="phone"
                   id="phone"
                   autoComplete="phone"
-                  // value="01000000000"
+                  {...registerData("phone", {
+                    required: true,
+                    pattern: /^(010|011|012|015)\d{8}$/,
+                  })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
+                {dataErrors.phone && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid EGY phone number
+                  </span>
+                )}
               </div>
 
               <div className="col-span-6">
@@ -90,23 +185,30 @@ export default function UserProfile() {
                   id="delivery-address"
                   autoComplete="delivery-address"
                   // value="6th of October City, Giza, Egypt"
+                  {...registerData("address", { required: true })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
+                {dataErrors.address && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid address
+                  </span>
+                )}
               </div>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              disabled={isUpdateUserPending}
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Save
+              {isUpdateUserPending ? "Saving..." : "Save"}
             </button>
           </div>
         </div>
       </form>
 
-      <form className="">
+      <form onSubmit={handlePasswordSubmit(onSubmitPassword)}>
         <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
             <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
@@ -127,8 +229,17 @@ export default function UserProfile() {
                   id="current-password"
                   autoComplete="current-password"
                   placeholder="●●●●●●●●●"
+                  {...registerPassword("currentPassword", {
+                    required: true,
+                    minLength: 6,
+                  })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
+                {passwordErrors.currentPassword && (
+                  <span className="text-sm text-red-600">
+                    Please enter your right current password
+                  </span>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-4">
@@ -144,8 +255,22 @@ export default function UserProfile() {
                   id="new-password"
                   autoComplete="new-password"
                   placeholder="●●●●●●●●●"
+                  {...registerPassword("newPassword", {
+                    required: true,
+                    minLength: 6,
+                  })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
+                {passwordErrors.newPassword?.type === "required" && (
+                  <span className="text-sm text-red-600">
+                    New password is required
+                  </span>
+                )}
+                {passwordErrors.newPassword?.type === "minLength" && (
+                  <span className="text-sm text-red-600">
+                    Password must be at least 6 characters long
+                  </span>
+                )}
               </div>
 
               <div className="col-span-6 sm:col-span-4">
@@ -161,17 +286,32 @@ export default function UserProfile() {
                   id="confirm-new-password"
                   autoComplete="confirm-new-password"
                   placeholder="●●●●●●●●●"
+                  {...registerPassword("passwordConfirm", {
+                    required: true,
+                    validate: (value) => value === watchPassword("newPassword"),
+                  })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
+                {passwordErrors.passwordConfirm?.type === "required" && (
+                  <span className="text-sm text-red-600">
+                    Password confirm is required
+                  </span>
+                )}
+                {passwordErrors.passwordConfirm?.type === "validate" && (
+                  <span className="text-sm text-red-600">
+                    Passwords do not match
+                  </span>
+                )}
               </div>
             </div>
           </div>
           <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
             <button
               type="submit"
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              disabled={isUpdatePasswordPending}
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              Save
+              {isUpdatePasswordPending ? "Saving..." : "Save"}
             </button>
           </div>
         </div>
