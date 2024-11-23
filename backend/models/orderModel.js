@@ -25,9 +25,11 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       default: Date.now() + 24 * 60 * 60 * 1000,
     },
-    isPaid: { type: Boolean, default: false },
-    paidAt: Date,
-    isDelivered: { type: Boolean, default: false },
+    status: {
+      type: String,
+      enum: ["pending", "delivered", "cancelled", "processing"],
+      default: "pending",
+    },
     deliveredAt: Date,
   },
   { timestamps: true }

@@ -16,19 +16,12 @@ router.post(
 
 router.get("/", orderController.filterUserOrders, orderController.getAllOrders);
 
-router.get("/:id", orderValidator.getOrderValidator, orderController.getOrder);
-
-router.put(
-  "/:id/pay",
-  authController.restrictTo("admin"),
-  orderValidator.getOrderValidator,
-  orderController.updateOrderToPaid
-);
-router.put(
-  "/:id/deliver",
-  authController.restrictTo("admin"),
-  orderValidator.getOrderValidator,
-  orderController.updateOrderToDelivered
-);
+router
+  .route("/:id")
+  .get(orderValidator.getOrderValidator, orderController.getOrder)
+  .put(
+    orderValidator.updateOrderStatusValidator,
+    orderController.updateOrderStatus
+  );
 
 module.exports = router;

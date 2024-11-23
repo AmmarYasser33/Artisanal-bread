@@ -54,29 +54,16 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.updateOrderToPaid = catchAsync(async (req, res, next) => {
-  const updatedOrder = await Order.findByIdAndUpdate(
-    req.params.id,
-    { isPaid: true, paidAt: Date.now() },
-    { new: true }
-  );
+exports.updateOrderStatus = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { status } = req.body;
 
-  if (!updatedOrder) {
-    return next(new ApiError("Order not found", 404));
-  }
+  const orderData = { status };
+  if (status === "delivered") orderData.deliveredAt = Date.now();
 
-  res.status(200).json({
-    status: "success",
-    data: updatedOrder,
+  const updatedOrder = await Order.findByIdAndUpdate(id, orderData, {
+    new: true,
   });
-});
-
-exports.updateOrderToDelivered = catchAsync(async (req, res, next) => {
-  const updatedOrder = await Order.findByIdAndUpdate(
-    req.params.id,
-    { isDelivered: true, deliveredAt: Date.now() },
-    { new: true }
-  );
 
   if (!updatedOrder) {
     return next(new ApiError("Order not found", 404));

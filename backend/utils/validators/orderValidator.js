@@ -60,3 +60,21 @@ exports.getOrderValidator = [
 
   validatorMiddleware,
 ];
+
+exports.updateOrderStatusValidator = [
+  check("id")
+    .notEmpty()
+    .withMessage("Order ID is required")
+    .isMongoId()
+    .withMessage("Invalid order ID"),
+
+  check("status")
+    .notEmpty()
+    .withMessage("Status is required")
+    .isString()
+    .withMessage("Status must be a string")
+    .isIn(["pending", "delivered", "cancelled", "processing"])
+    .withMessage("Invalid status"),
+
+  validatorMiddleware,
+];
