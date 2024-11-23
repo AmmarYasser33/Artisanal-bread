@@ -55,7 +55,6 @@ function App() {
         hideProgressBar={false}
         closeOnClick
         draggable
-        pauseOnHover={false}
         pauseOnFocusLoss={false}
         // className={isArLang?"ar_toast":""}
       />
