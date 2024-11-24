@@ -18,7 +18,7 @@ const orderPopOptions = [
   },
   {
     path: "cartItems.product",
-    select: "name price",
+    select: "name price image",
   },
 ];
 
