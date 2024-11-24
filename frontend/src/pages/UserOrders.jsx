@@ -15,7 +15,7 @@ export default function UserOrders() {
     data: orders,
     isLoading: isOrdersLoading,
     isError: isOrdersError,
-    refetch,
+    refetch: refreshOrders,
   } = useQuery({
     queryKey: ["orders", token],
     queryFn: () => getOrders(token),
@@ -28,7 +28,7 @@ export default function UserOrders() {
     onSuccess: (data) => {
       if (data.status === "success") {
         notifySuccess("Order cancelled successfully!");
-        refetch();
+        refreshOrders();
       } else {
         notifyError(data.message || "Failed to cancel order!");
       }
@@ -44,7 +44,7 @@ export default function UserOrders() {
       onSuccess: (data) => {
         if (data.status === "success") {
           notifySuccess("Order placed successfully!");
-          refetch();
+          refreshOrders();
         } else {
           notifyError(data.message || "Failed to place order!");
         }
@@ -64,7 +64,7 @@ export default function UserOrders() {
             </h2>
             {isOrdersError && (
               <button
-                onClick={() => refetch()}
+                onClick={() => refreshOrders()}
                 className="inline-flex items-center rounded-lg border border-primary-100 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
               >
                 Retry
