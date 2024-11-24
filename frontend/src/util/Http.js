@@ -62,7 +62,9 @@ export const getCart = async (token) => {
 
     return response.data;
   } catch (error) {
-    return error;
+    throw error.response
+      ? error.response.data
+      : error.message || "An unexpected error occurred.";
   }
 };
 
@@ -99,6 +101,86 @@ export const updateCartItem = async (token, itemId, quantity) => {
       { quantity },
       { headers: { Authorization: `Bearer ${token}` } },
     );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// Orders
+
+export const getOrders = async (token) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}orders`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getOrder = async (token, orderId) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}orders/${orderId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createOrder = async (token, cartId, formData) => {
+  try {
+    const response = await axios.post(
+      `${baseServerUrl}orders/${cartId}`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateOrderStatus = async (token, orderId, status) => {
+  try {
+    const response = await axios.put(
+      `${baseServerUrl}orders/${orderId}`,
+      { status },
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const orderAgain = async (token, orderId) => {
+  try {
+    const response = await axios.post(
+      `${baseServerUrl}orders/${orderId}/again`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const cancelOrder = async (token, orderId) => {
+  try {
+    const response = await axios.delete(`${baseServerUrl}orders/${orderId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     return response.data;
   } catch (error) {
