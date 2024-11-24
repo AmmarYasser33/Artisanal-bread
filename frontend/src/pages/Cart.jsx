@@ -58,7 +58,9 @@ export default function Cart() {
 
   useEffect(() => {
     reset({
-      orderName: user?.firstName + " " + (user?.lastName || ""),
+      orderName: user?.firstName
+        ? user?.firstName + " "
+        : "" + (user?.lastName || ""),
       orderPhone: user?.phone || "",
       orderAddress: user?.address || "",
       orderDate: new Date(Date.now() + 27 * 60 * 60 * 1000)
