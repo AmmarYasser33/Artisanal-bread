@@ -1,13 +1,41 @@
+import { toast } from "react-toastify";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userActions } from "../Store/userInfo-slice";
+import { profileActions } from "../Store/profileInfo-slice";
+import { saveIsLoginState } from "../Store/userInfo-actions";
+import Nav from "../components/Nav";
 import {
   Icon277Exit,
   IconBoxesPacking,
   IconVideo,
   IconAccountEdit,
 } from "../Icons";
-import Nav from "../components/Nav";
-import { NavLink, Outlet } from "react-router-dom";
 
-function UserDashboard() {
+export default function UserDashboard() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    const confirmLogout = window.confirm("Are you sure you want to logout?");
+
+    if (!confirmLogout) {
+      return;
+    }
+
+    localStorage.removeItem("userData");
+    dispatch(userActions.setRole(""));
+    localStorage.removeItem("role");
+    localStorage.removeItem("token");
+    dispatch(userActions.setIsLogin(false));
+    dispatch(saveIsLoginState(false));
+    dispatch(profileActions.setProfileInfo(null));
+
+    toast.success("You have been logged out");
+
+    navigate("/");
+  };
+
   return (
     <>
       <div className="bg-secondary-500 shadow-lg">
@@ -62,7 +90,10 @@ function UserDashboard() {
               <span className="truncate">Courses</span>
             </NavLink>
 
-            <button className="group flex w-full items-center rounded-md px-3 py-2 font-medium text-black hover:bg-gray-50 max-lg:justify-center">
+            <button
+              className="group flex w-full items-center rounded-md px-3 py-2 font-medium text-black hover:bg-gray-50 max-lg:justify-center"
+              onClick={logoutHandler}
+            >
               <Icon277Exit
                 className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
                 aria-hidden="true"
@@ -77,5 +108,3 @@ function UserDashboard() {
     </>
   );
 }
-
-export default UserDashboard;
