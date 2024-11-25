@@ -1,3 +1,4 @@
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -6,13 +7,15 @@ import OrderStatus from "../components/OrderStatus";
 import Spinner from "../components/Spinner";
 
 export default function UserOrders() {
+  const [orderType, setOrderType] = useState("all");
+  const [duration, setDuration] = useState("this week");
   const token = JSON.parse(localStorage.getItem("token"));
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
 
   const {
-    data: orders,
+    data: allOrders = [],
     isLoading: isOrdersLoading,
     isError: isOrdersError,
     refetch: refreshOrders,
@@ -54,6 +57,16 @@ export default function UserOrders() {
       },
     });
 
+  // Filter orders based on selected order type and duration
+  const filteredOrders = useMemo(() => {
+    return allOrders.filter((order) => {
+      const matchesType =
+        orderType === "all" || order.status.toLowerCase() === orderType;
+      const matchesDuration = isOrderWithinDuration(order.orderDate, duration);
+      return matchesType && matchesDuration;
+    });
+  }, [allOrders, orderType, duration]);
+
   return (
     <section className="space-y-6 bg-white py-4 antialiased shadow-lg sm:overflow-hidden sm:rounded-md sm:px-6 md:py-8 lg:col-span-9 lg:px-0">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -87,11 +100,13 @@ export default function UserOrders() {
                     defaultValue={"all"}
                     id="order-type"
                     className="block w-full min-w-[8rem] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                    onChange={(e) => setOrderType(e.target.value)} // Update order type
                   >
                     <option value="all">All orders</option>
-                    <option value="transit">In transit</option>
                     <option value="delivered">Delivered</option>
                     <option value="cancelled">Cancelled</option>
+                    <option value="pending">Pending</option>
+                    <option value="processing">Processing</option>
                   </select>
                 </div>
                 <span className="inline-block text-gray-500"> from </span>
@@ -106,12 +121,12 @@ export default function UserOrders() {
                     defaultValue={"this week"}
                     id="duration"
                     className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                    onChange={(e) => setDuration(e.target.value)} // Update duration
                   >
                     <option value="this week">this week</option>
                     <option value="this month">this month</option>
                     <option value="last 3 months">the last 3 months</option>
                     <option value="last 6 months">the last 6 months</option>
-                    <option value="this year">this year</option>
                   </select>
                 </div>
               </div>
@@ -131,16 +146,16 @@ export default function UserOrders() {
                   <Spinner />
                 </div>
               )}
-              {orders && orders.length === 0 && (
+              {allOrders && allOrders.length === 0 && (
                 <div className="py-6 text-center">
                   <h4 className="text-xl font-bold text-gray-900">
                     Order history is empty!
                   </h4>
                 </div>
               )}
-              {orders && orders.length > 0 && (
+              {filteredOrders && filteredOrders.length > 0 && (
                 <>
-                  {orders.map((order) => (
+                  {filteredOrders.map((order) => (
                     <div
                       key={order._id}
                       className="flex flex-wrap items-center gap-y-4 py-6"
@@ -219,4 +234,34 @@ export default function UserOrders() {
       </div>
     </section>
   );
+}
+
+// Helper function to check if order is within the selected duration
+function isOrderWithinDuration(orderDate, duration) {
+  const now = new Date();
+  const orderTime = new Date(orderDate);
+
+  switch (duration) {
+    case "this week": {
+      const startOfWeek = new Date(now);
+      startOfWeek.setDate(now.getDate() - now.getDay()); // Start of this week
+      return orderTime >= startOfWeek;
+    }
+    case "this month": {
+      const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+      return orderTime >= startOfMonth;
+    }
+    case "last 3 months": {
+      const threeMonthsAgo = new Date();
+      threeMonthsAgo.setMonth(now.getMonth() - 3);
+      return orderTime >= threeMonthsAgo;
+    }
+    case "last 6 months": {
+      const sixMonthsAgo = new Date();
+      sixMonthsAgo.setMonth(now.getMonth() - 6);
+      return orderTime >= sixMonthsAgo;
+    }
+    default:
+      return true;
+  }
 }
