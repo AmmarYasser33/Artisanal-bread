@@ -134,7 +134,7 @@ export default function Products() {
 
                 <div className="flex items-center justify-between px-1">
                   <p className="text-center font-roboto text-lg font-medium text-gray-900">
-                    {product.price}
+                    {product.price} L.E
                   </p>
 
                   <button
