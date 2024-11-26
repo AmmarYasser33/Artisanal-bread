@@ -40,6 +40,33 @@ export const getCategories = async () => {
   }
 };
 
+export const createCategory = async (token, formData) => {
+  try {
+    const response = await axios.post(`${baseServerUrl}categories`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteCategory = async (token, categoryId) => {
+  try {
+    const response = await axios.delete(
+      `${baseServerUrl}categories/${categoryId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // Products
 
 export const getProducts = async () => {
