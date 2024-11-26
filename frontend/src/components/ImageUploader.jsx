@@ -1,9 +1,27 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IconCloudUpload, IconTrashDelete } from "../Icons";
 
-export default function ImageUploader({ onImagesChange, multiple = false }) {
+export default function ImageUploader({
+  onImagesChange,
+  multiple = false,
+  initialImages = [],
+}) {
   const [isImgDragging, setIsImgDragging] = useState(false);
   const [uploadedImages, setUploadedImages] = useState([]); // Store { file, url } objects
+
+  useEffect(() => {
+    if (
+      uploadedImages.length === 0 &&
+      initialImages &&
+      initialImages.length > 0
+    ) {
+      const images = initialImages.map((url) => ({
+        file: null,
+        url,
+      }));
+      setUploadedImages(images);
+    }
+  }, [initialImages, uploadedImages]);
 
   const handleImageUpload = (files) => {
     const filesArr = Array.from(files);
@@ -71,7 +89,8 @@ export default function ImageUploader({ onImagesChange, multiple = false }) {
                 and drop
               </p>
               <p className="text-xs text-gray-500">
-                SVG, PNG or JPG (MAX. 800x400px)
+                {/* SVG, PNG or JPG (MAX. 800x400px) */}
+                SVG, PNG, WEBP, or JPG
               </p>
             </div>
           </label>

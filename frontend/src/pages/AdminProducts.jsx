@@ -4,12 +4,14 @@ import { getProducts } from "../util/Http";
 import { IconBxsEdit, IconPlusLg, IconTrashDelete } from "../Icons";
 import AddProductModal from "../components/AddProductModal";
 import DeleteProductModal from "../components/DeleteProductModal";
+import EditProductModal from "../components/EditProductModal";
 import Spinner from "../components/Spinner";
 
 export default function AdminProducts() {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   const {
     data: products,
@@ -91,7 +93,7 @@ export default function AdminProducts() {
                         <div className="flex max-h-full w-16 max-w-full items-center drop-shadow-sm md:w-32">
                           <img
                             src={`http://localhost:3001/${product.image}`}
-                            // className="w-16 md:w-32 max-w-full max-h-full"
+                            className="rounded-md"
                             alt={`${product.name} image`}
                           />
                         </div>
@@ -106,14 +108,20 @@ export default function AdminProducts() {
                       <td className="px-6 py-4">{product.category.name}</td>
                       <td className="px-6 py-4">{product.price}</td>
                       <td className="px-6 py-4">
-                        <button className="inline-flex items-center justify-center rounded-lg bg-primary-300 px-2 py-1 text-sm text-secondary-700 hover:bg-primary-600">
+                        <button
+                          className="inline-flex items-center justify-center rounded-lg bg-primary-300 px-2 py-1 text-sm text-secondary-700 hover:bg-primary-600"
+                          onClick={() => {
+                            setSelectedProduct(product);
+                            setIsEditModalOpen(true);
+                          }}
+                        >
                           <IconBxsEdit className="h-4 w-4" />
                           <span className="sr-only">Edit Product</span>
                         </button>
                         <button
                           className="ml-2 inline-flex items-center justify-center rounded-lg bg-red-400 px-2 py-1 text-sm text-secondary-700 hover:bg-red-600"
                           onClick={() => {
-                            setSelectedProductId(product._id);
+                            setSelectedProduct(product);
                             setIsDeleteModalOpen(true);
                           }}
                         >
@@ -131,18 +139,32 @@ export default function AdminProducts() {
       </div>
 
       {/* Add modal */}
-      <AddProductModal
-        isModalOpen={isAddModalOpen}
-        setIsModalOpen={setIsAddModalOpen}
-      />
+      {isAddModalOpen && (
+        <AddProductModal
+          isModalOpen={isAddModalOpen}
+          setIsModalOpen={setIsAddModalOpen}
+        />
+      )}
 
       {/* Delete modal */}
-      <DeleteProductModal
-        isModalOpen={isDeleteModalOpen}
-        setIsModalOpen={setIsDeleteModalOpen}
-        productId={selectedProductId}
-        setProductId={setSelectedProductId}
-      />
+      {selectedProduct?._id && isDeleteModalOpen && (
+        <DeleteProductModal
+          isModalOpen={isDeleteModalOpen}
+          setIsModalOpen={setIsDeleteModalOpen}
+          productId={selectedProduct?._id}
+          setProductId={setSelectedProduct}
+        />
+      )}
+
+      {/* Edit modal */}
+      {selectedProduct && isEditModalOpen && (
+        <EditProductModal
+          isModalOpen={isEditModalOpen}
+          setIsModalOpen={setIsEditModalOpen}
+          product={selectedProduct}
+          setProduct={setSelectedProduct}
+        />
+      )}
     </section>
   );
 }
