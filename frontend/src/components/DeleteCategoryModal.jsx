@@ -26,10 +26,16 @@ export default function DeleteCategoryModal({
   const { mutate, isPending } = useMutation({
     mutationFn: (id) => deleteCategory(token, id),
     onError: () => {
-      console.log("error deleting");
       notifyError("Error deleting category!");
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      if (data?.response?.data?.error) {
+        notifyError(data.response.data?.message || "Error deleting category!");
+        setIsModalOpen(false);
+        setCategoryId(null);
+        return;
+      }
+
       notifySuccess("Category deleted successfully!");
       queryClient.invalidateQueries("categories");
       setIsModalOpen(false);
