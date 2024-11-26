@@ -52,6 +52,58 @@ export const getProducts = async () => {
   }
 };
 
+export const getProduct = async (productId) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}products/${productId}`);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createProduct = async (token, formData) => {
+  try {
+    const response = await axios.post(`${baseServerUrl}products`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+      "Content-Type": "multipart/form-data",
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateProduct = async (token, productId, formData) => {
+  try {
+    const response = await axios.patch(
+      `${baseServerUrl}products/${productId}`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteProduct = async (token, productId) => {
+  try {
+    const response = await axios.delete(
+      `${baseServerUrl}products/${productId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 // Cart
 
 export const getCart = async (token) => {

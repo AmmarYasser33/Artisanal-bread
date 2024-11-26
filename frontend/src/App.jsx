@@ -95,7 +95,7 @@ function App() {
           {/* <Route path="orders" element={<AdminOrders />} /> */}
           {/* <Route path="orders/:id" element={<AdminOrder />} /> */}
           {/* <Route path="categories" element={<AdminCategories />} /> */}
-          {/* <Route path="products" element={<AdminProducts />} /> */}
+          <Route path="products" element={<AdminProducts />} />
           {/* <Route path="products/:id" element={<AdminProduct />} /> */}
           {/* <Route path="courses" element={<AdminCourses />} /> */}
           {/* <Route path="courses/:id" element={<AdminCourse />} /> */}
