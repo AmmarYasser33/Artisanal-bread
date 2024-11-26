@@ -58,7 +58,7 @@ export default function Signup() {
           <div className="z-30 hidden w-0 flex-1 bg-primary-50 lg:block">
             <img
               className="inset-0 h-full w-full scale-x-[-1] object-cover"
-              src="/public/illustration-3.png"
+              src="/illustration-3.png"
               alt=""
             />
           </div>

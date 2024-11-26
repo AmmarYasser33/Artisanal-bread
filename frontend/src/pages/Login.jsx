@@ -81,7 +81,7 @@ export default function Login() {
           <div className="hidden w-0 flex-1 lg:block">
             <img
               className="inset-0 h-full w-full scale-x-[-1] object-cover"
-              src="/public/illustration-4.jpg"
+              src="/illustration-4.jpg"
               alt=""
             />
           </div>

@@ -24,6 +24,10 @@ import UserProfile from "./pages/UserProfile";
 import UserOrders from "./pages/UserOrders";
 import UserOrder from "./pages/UserOrder";
 import UserCourses from "./pages/UserCourses";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminMain from "./pages/AdminMain";
+import AdminProducts from "./pages/AdminProducts";
+import AdminSettings from "./pages/AdminSettings";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -43,10 +47,10 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (token) {
+    if (token && role === "user") {
       dispatch(fetchCartCounter(token));
     }
-  }, [dispatch, token]);
+  }, [dispatch, token, role]);
 
   // get profile data from database
   useEffect(() => {
@@ -84,6 +88,19 @@ function App() {
           <Route path="orders" element={<UserOrders />} />
           <Route path="orders/:id" element={<UserOrder />} />
           <Route path="courses" element={<UserCourses />} />
+        </Route>
+
+        <Route path="/admin" element={<AdminDashboard />}>
+          {/* <Route path="" element={<AdminMain />} /> */}
+          {/* <Route path="orders" element={<AdminOrders />} /> */}
+          {/* <Route path="orders/:id" element={<AdminOrder />} /> */}
+          {/* <Route path="categories" element={<AdminCategories />} /> */}
+          {/* <Route path="products" element={<AdminProducts />} /> */}
+          {/* <Route path="products/:id" element={<AdminProduct />} /> */}
+          {/* <Route path="courses" element={<AdminCourses />} /> */}
+          {/* <Route path="courses/:id" element={<AdminCourse />} /> */}
+          {/* <Route path="users" element={<AdminUsers />} /> */}
+          {/* <Route path="settings" element={<AdminSettings />} /> */}
         </Route>
 
         <Route path="*" element={<NotFound />} />
