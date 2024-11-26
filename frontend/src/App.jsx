@@ -26,6 +26,8 @@ import UserOrder from "./pages/UserOrder";
 import UserCourses from "./pages/UserCourses";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminMain from "./pages/AdminMain";
+import AdminOrders from "./pages/AdminOrders";
+import AdminOrder from "./pages/AdminOrder";
 import AdminCategories from "./pages/AdminCategories";
 import AdminProducts from "./pages/AdminProducts";
 import AdminSettings from "./pages/AdminSettings";
@@ -93,8 +95,8 @@ function App() {
 
         <Route path="/admin" element={<AdminDashboard />}>
           {/* <Route path="" element={<AdminMain />} /> */}
-          {/* <Route path="orders" element={<AdminOrders />} /> */}
-          {/* <Route path="orders/:id" element={<AdminOrder />} /> */}
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="orders/:id" element={<AdminOrder />} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="products" element={<AdminProducts />} />
           {/* <Route path="products/:id" element={<AdminProduct />} /> */}
