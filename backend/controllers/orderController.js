@@ -31,7 +31,7 @@ exports.filterUserOrders = (req, res, next) => {
 exports.getAllOrders = factory.getAll(
   Order,
   ordersPopOptions,
-  "totalPrice orderDate status"
+  "totalPrice orderDate status orderName"
 );
 exports.getOrder = factory.getOne(Order, orderPopOptions);
 
