@@ -106,7 +106,7 @@ export default function AdminProducts() {
                       </th>
 
                       <td className="px-6 py-4">{product.category.name}</td>
-                      <td className="px-6 py-4">{product.price}</td>
+                      <td className="px-6 py-4">{product.price} L.E</td>
                       <td className="px-6 py-4">
                         <button
                           className="inline-flex items-center justify-center rounded-lg bg-primary-300 px-2 py-1 text-sm text-secondary-700 hover:bg-primary-600"
