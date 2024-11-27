@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
+import Nav from "../components/Nav";
+import LogoutModal from "../components/LogoutModal";
 import {
   Icon277Exit,
   IconBoxesPacking,
@@ -7,10 +11,10 @@ import {
   IconRestaurant,
   IconCubesStacked,
 } from "../Icons";
-import Nav from "../components/Nav";
-import { NavLink, Outlet } from "react-router-dom";
 
-function UserDashboard() {
+export default function UserDashboard() {
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
   return (
     <>
       <div className="bg-secondary-500 shadow-lg">
@@ -110,7 +114,10 @@ function UserDashboard() {
               <span className="truncate">Settings</span>
             </NavLink>
 
-            <button className="group flex w-full items-center rounded-md px-3 py-2 font-medium text-black hover:bg-gray-50 max-lg:justify-center">
+            <button
+              className="group flex w-full items-center rounded-md px-3 py-2 font-medium text-black hover:bg-gray-50 max-lg:justify-center"
+              onClick={() => setIsLogoutModalOpen(true)}
+            >
               <Icon277Exit
                 className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
                 aria-hidden="true"
@@ -122,8 +129,11 @@ function UserDashboard() {
 
         <Outlet />
       </div>
+
+      <LogoutModal
+        setIsModalOpen={setIsLogoutModalOpen}
+        isModalOpen={isLogoutModalOpen}
+      />
     </>
   );
 }
-
-export default UserDashboard;

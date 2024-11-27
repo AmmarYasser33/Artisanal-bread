@@ -285,7 +285,7 @@ export function IconBars(props) {
   );
 }
 
-export function IconFiles_history(props) {
+export function IconFilesHistory(props) {
   return (
     <svg
       viewBox="0 0 21 21"
@@ -1015,6 +1015,20 @@ export function IconClipboardEdit(props) {
       {...props}
     >
       <path d="M21.04 12.13c.14 0 .27.06.38.17l1.28 1.28c.22.21.22.56 0 .77l-1 1-2.05-2.05 1-1c.11-.11.25-.17.39-.17m-1.97 1.75l2.05 2.05L15.06 22H13v-2.06l6.07-6.06M19 3c1.1 0 2 .9 2 2v4L11 19v2H5c-1.1 0-2-.9-2-2V5c0-1.1.9-2 2-2h4.18C9.6 1.84 10.7 1 12 1c1.3 0 2.4.84 2.82 2H19m-7 0c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" />
+    </svg>
+  );
+}
+
+export function IconBxsError(props) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      height="1em"
+      width="1em"
+      {...props}
+    >
+      <path d="M12.884 2.532c-.346-.654-1.422-.654-1.768 0l-9 17A.999.999 0 003 21h18a.998.998 0 00.883-1.467L12.884 2.532zM13 18h-2v-2h2v2zm-2-4V9h2l.001 5H11z" />
     </svg>
   );
 }

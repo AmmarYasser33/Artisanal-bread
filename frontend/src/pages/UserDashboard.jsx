@@ -1,9 +1,6 @@
-import { toast } from "react-toastify";
-import { NavLink, Outlet, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { userActions } from "../Store/userInfo-slice";
-import { profileActions } from "../Store/profileInfo-slice";
-import { saveIsLoginState } from "../Store/userInfo-actions";
+import { useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
+import LogoutModal from "../components/LogoutModal";
 import Nav from "../components/Nav";
 import {
   Icon277Exit,
@@ -13,28 +10,7 @@ import {
 } from "../Icons";
 
 export default function UserDashboard() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const logoutHandler = () => {
-    const confirmLogout = window.confirm("Are you sure you want to logout?");
-
-    if (!confirmLogout) {
-      return;
-    }
-
-    localStorage.removeItem("userData");
-    dispatch(userActions.setRole(""));
-    localStorage.removeItem("role");
-    localStorage.removeItem("token");
-    dispatch(userActions.setIsLogin(false));
-    dispatch(saveIsLoginState(false));
-    dispatch(profileActions.setProfileInfo(null));
-
-    toast.success("You have been logged out");
-
-    navigate("/");
-  };
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   return (
     <>
@@ -92,7 +68,7 @@ export default function UserDashboard() {
 
             <button
               className="group flex w-full items-center rounded-md px-3 py-2 font-medium text-black hover:bg-gray-50 max-lg:justify-center"
-              onClick={logoutHandler}
+              onClick={() => setIsLogoutModalOpen(true)}
             >
               <Icon277Exit
                 className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
@@ -105,6 +81,11 @@ export default function UserDashboard() {
 
         <Outlet />
       </div>
+
+      <LogoutModal
+        setIsModalOpen={setIsLogoutModalOpen}
+        isModalOpen={isLogoutModalOpen}
+      />
     </>
   );
 }
