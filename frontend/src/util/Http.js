@@ -360,3 +360,64 @@ export const addAdmin = async (token, formData) => {
     return error;
   }
 };
+
+// Courses
+
+export const getCourses = async () => {
+  try {
+    const response = await axios.get(`${baseServerUrl}courses`);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getCourse = async (courseId) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}courses/${courseId}`);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createCourse = async (token, formData) => {
+  try {
+    const response = await axios.post(`${baseServerUrl}courses`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+      "Content-Type": "multipart/form-data",
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateCourse = async (token, courseId, formData) => {
+  try {
+    const response = await axios.patch(
+      `${baseServerUrl}courses/${courseId}`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteCourse = async (token, courseId) => {
+  try {
+    const response = await axios.delete(`${baseServerUrl}courses/${courseId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

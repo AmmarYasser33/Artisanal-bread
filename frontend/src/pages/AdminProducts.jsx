@@ -26,7 +26,7 @@ export default function AdminProducts() {
 
   return (
     <section className="space-y-6 bg-white py-4 antialiased shadow-lg sm:overflow-hidden sm:rounded-md sm:px-6 md:py-8 lg:col-span-9 lg:px-0">
-      <div className="mx-auto max-w-screen-xl md:px-4 2xl:px-0">
+      <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mx-auto max-w-5xl">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-secondary-800 sm:text-2xl">
