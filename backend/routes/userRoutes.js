@@ -9,8 +9,8 @@ router.use(authController.protect);
 
 router
   .route("/me")
-  .get(userController.getMe, userController.getUser)
-  .delete(userController.getMe, userController.deleteUser);
+  .get(userController.getMe)
+  .delete(userController.setMe, userController.deleteUser);
 
 router.patch(
   "/updateMe",

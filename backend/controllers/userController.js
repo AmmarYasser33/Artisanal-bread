@@ -1,4 +1,6 @@
+const mongoose = require("mongoose");
 const User = require("../models/userModel");
+const Order = require("../models/orderModel");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
 const factory = require("./handlerFactory");
@@ -12,14 +14,13 @@ const filterObj = (obj, ...allowedFields) => {
   return newObj;
 };
 
-exports.getMe = (req, res, next) => {
+exports.setMe = (req, res, next) => {
   req.params.id = req.user.id;
   next();
 };
 
 exports.deleteUser = factory.deleteOne(User);
 exports.getAllUsers = factory.getAll(User);
-exports.getUser = factory.getOne(User);
 
 exports.addAdmin = catchAsync(async (req, res, next) => {
   const newUser = await User.create({
@@ -81,5 +82,62 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     message: "Password updated successfully",
+  });
+});
+
+exports.getMe = catchAsync(async (req, res, next) => {
+  const userId = req.user.id;
+
+  const user = await User.findById(userId).lean();
+
+  if (!user) {
+    return next(new ApiError("No user found with that ID", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: user,
+  });
+});
+
+exports.getUser = catchAsync(async (req, res, next) => {
+  const userId = req.params.id;
+
+  const getUserPromise = User.findById(userId).lean();
+
+  const ordersAggregatePromise = Order.aggregate([
+    { $match: { user: new mongoose.Types.ObjectId(String(userId)) } },
+    {
+      $group: {
+        _id: "$user",
+        totalOrders: { $sum: 1 }, // Count all orders
+        totalPaid: {
+          // Sum all orders price that are not cancelled
+          $sum: {
+            $cond: [{ $ne: ["$status", "cancelled"] }, "$totalPrice", 0],
+          },
+        },
+      },
+    },
+  ]);
+
+  const [user, ordersAggregate] = await Promise.all([
+    getUserPromise,
+    ordersAggregatePromise,
+  ]);
+
+  if (!user) {
+    return next(new ApiError("No user found with that ID", 404));
+  }
+
+  const [{ totalOrders, totalPaid }] = ordersAggregate;
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      totalOrders,
+      totalPaid,
+      user,
+    },
   });
 });

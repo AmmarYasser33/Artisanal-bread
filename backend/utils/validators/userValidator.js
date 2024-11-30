@@ -29,14 +29,18 @@ exports.updateMeValidator = [
 
   // NOT ALLOWED
 
-  check("role").isEmpty().withMessage("Role cannot be set"),
+  check("role").not().exists().withMessage("Role cannot be set"),
+
+  check("courses").not().exists().withMessage("Courses cannot be set"),
 
   check("phoneVerified")
-    .isEmpty()
+    .not()
+    .exists()
     .withMessage("Phone verification cannot be set"),
 
   check("passwordResetCode")
-    .isEmpty()
+    .not()
+    .exists()
     .withMessage("Password reset code cannot be set here"),
 
   validatorMiddleware,
