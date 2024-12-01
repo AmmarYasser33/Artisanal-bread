@@ -191,7 +191,7 @@ export const updateCartItem = async (token, itemId, quantity) => {
 
 export const getOrders = async (token) => {
   try {
-    const response = await axios.get(`${baseServerUrl}orders`, {
+    const response = await axios.get(`${baseServerUrl}orders?sort=orderDate`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 

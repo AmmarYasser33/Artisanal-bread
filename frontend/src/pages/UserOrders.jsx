@@ -62,7 +62,7 @@ export default function UserOrders() {
     return allOrders.filter((order) => {
       const matchesType =
         orderType === "all" || order.status.toLowerCase() === orderType;
-      const matchesDuration = isOrderWithinDuration(order.orderDate, duration);
+      const matchesDuration = isOrderWithinDuration(order.createdAt, duration);
       return matchesType && matchesDuration;
     });
   }, [allOrders, orderType, duration]);
@@ -237,9 +237,9 @@ export default function UserOrders() {
 }
 
 // Helper function to check if order is within the selected duration
-function isOrderWithinDuration(orderDate, duration) {
+function isOrderWithinDuration(createdDate, duration) {
   const now = new Date();
-  const orderTime = new Date(orderDate);
+  const orderTime = new Date(createdDate);
 
   switch (duration) {
     case "this week": {
