@@ -10,6 +10,8 @@ import {
 } from "./Store/userInfo-actions";
 import fetchCartCounter from "./Store/cartCounter-actions";
 import fetchProfileData from "./Store/profileInfo-actions";
+import PR from "./components/ProtectedRoute";
+import AR from "./components/AdminRoute";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Courses from "./pages/Courses";
@@ -85,20 +87,20 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<Course />} />
-        <Route path="/course/:id" element={<CourseWatch />} />
+        <Route path="/course/:id" element={<PR><CourseWatch /></PR>} />
         <Route path="/about" element={<About />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart" element={<PR><Cart /></PR>} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
-        <Route path="/dashboard" element={<UserDashboard />}>
+        <Route path="/dashboard" element={<PR><UserDashboard /></PR>}>
           <Route path="" element={<UserProfile />} />
           <Route path="orders" element={<UserOrders />} />
           <Route path="orders/:id" element={<UserOrder />} />
           <Route path="courses" element={<UserCourses />} />
         </Route>
 
-        <Route path="/admin" element={<AdminDashboard />}>
+        <Route path="/admin" element={<PR><AR><AdminDashboard /></AR></PR>}>
           {/* <Route path="" element={<AdminMain />} /> */}
           <Route path="orders" element={<AdminOrders />} />
           <Route path="orders/:id" element={<AdminOrder />} />
