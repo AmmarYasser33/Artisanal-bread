@@ -33,6 +33,8 @@ import AdminProducts from "./pages/AdminProducts";
 import AdminCourses from "./pages/AdminCourses";
 import AdminAddCourse from "./pages/AdminAddCourse";
 import AdminCourse from "./pages/AdminCourse";
+import AdminUsers from "./pages/AdminUsers";
+import AdminUser from "./pages/AdminUser";
 import AdminSettings from "./pages/AdminSettings";
 import NotFound from "./pages/NotFound";
 
@@ -105,7 +107,8 @@ function App() {
           <Route path="courses" element={<AdminCourses />} />
           <Route path="courses/add" element={<AdminAddCourse />} />
           <Route path="courses/:id" element={<AdminCourse />} />
-          {/* <Route path="users" element={<AdminUsers />} /> */}
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="users/:id" element={<AdminUser />} />
           {/* <Route path="settings" element={<AdminSettings />} /> */}
         </Route>
 

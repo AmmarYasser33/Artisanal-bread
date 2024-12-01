@@ -10,6 +10,7 @@ import {
   IconChartPieFill,
   IconRestaurant,
   IconCubesStacked,
+  IconUserGroup,
 } from "../Icons";
 
 export default function UserDashboard() {
@@ -97,6 +98,21 @@ export default function UserDashboard() {
                 aria-hidden="true"
               />
               <span className="truncate">Courses</span>
+            </NavLink>
+
+            <NavLink
+              to="/admin/users"
+              end
+              className={({ isActive }) =>
+                `${isActive ? "bg-gray-50 hover:bg-white" : "hover:bg-gray-50"} group flex items-center rounded-md px-3 py-2 font-medium text-black max-lg:justify-center`
+              }
+              aria-current="page"
+            >
+              <IconUserGroup
+                className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
+                aria-hidden="true"
+              />
+              <span className="truncate">Users</span>
             </NavLink>
 
             <NavLink
