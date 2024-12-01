@@ -3,9 +3,9 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "../util/Http";
 import Spinner from "../components/Spinner";
-// const UserEnrolledCourses = React.lazy(
-//   () => import("../components/UserEnrolledCourses"),
-// );
+const UserEnrolledCourses = React.lazy(
+  () => import("../components/UserEnrolledCourses"),
+);
 
 export default function AdminUser() {
   const { id } = useParams();
@@ -116,11 +116,11 @@ export default function AdminUser() {
                   </dl>
                 </div>
 
-                {/* <Suspense fallback={<Spinner />}>
+                <Suspense fallback={<Spinner />}>
                   <div className="mt-12">
                     <UserEnrolledCourses courses={user.courses} userId={id} />
                   </div>
-                </Suspense> */}
+                </Suspense>
               </>
             )}
           </div>

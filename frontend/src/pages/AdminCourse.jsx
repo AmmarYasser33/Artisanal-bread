@@ -54,8 +54,8 @@ export default function AdminCourse() {
     isLoading: isCourseLoading,
     isError: isCourseError,
   } = useQuery({
-    queryKey: ["course", id],
-    queryFn: () => getCourse(id),
+    queryKey: ["course", id, token],
+    queryFn: () => getCourse(token, id),
     enabled: !!id,
     select: (res) => res.data,
   });

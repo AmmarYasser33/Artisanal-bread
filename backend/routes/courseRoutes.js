@@ -33,4 +33,10 @@ router
   )
   .delete(courseValidator.getCourseValidator, courseController.deleteCourse);
 
+router.post(
+  "/:id/enroll",
+  courseValidator.enrollUserValidator,
+  courseController.enrollUser
+);
+
 module.exports = router;

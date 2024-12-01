@@ -2,13 +2,13 @@ const { v4: uuidv4 } = require("uuid");
 const sharp = require("sharp");
 
 const Course = require("../models/courseModel");
+const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
 const { uploadSingleImage } = require("../utils/uploadImage");
 const factory = require("./handlerFactory");
 
 exports.getAllCourses = factory.getAll(Course);
-exports.getCourse = factory.getOne(Course);
 exports.deleteCourse = factory.deleteOne(Course);
 
 exports.uploadCourseImage = uploadSingleImage("image");
@@ -34,3 +34,38 @@ exports.resizeCourseImage = catchAsync(async (req, res, next) => {
 
 exports.createCourse = factory.createOne(Course);
 exports.updateCourse = factory.updateOne(Course);
+
+exports.getCourse = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+
+  const selectedFields =
+    (req.user && req.user.role === "user" && req.user.courses.includes(id)) ||
+    (req.user && req.user.role === "admin")
+      ? ""
+      : "-lessons";
+
+  const course = await Course.findById(id).select(selectedFields).lean();
+
+  if (!course) return next(new ApiError("Course not found", 404));
+
+  res.status(200).json({
+    status: "success",
+    data: course,
+  });
+});
+
+exports.enrollUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+
+  const course = await Course.findById(id).select("_id").lean();
+
+  if (!course) return next(new ApiError("Course not found", 404));
+
+  await User.findByIdAndUpdate(userId, { $addToSet: { courses: course._id } });
+
+  res.status(200).json({
+    status: "success",
+    message: "User enrolled successfully",
+  });
+});

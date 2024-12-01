@@ -186,3 +186,19 @@ exports.getCourseValidator = [
 
   validatorMiddleware,
 ];
+
+exports.enrollUserValidator = [
+  check("id")
+    .notEmpty()
+    .withMessage("Course ID is required")
+    .isMongoId()
+    .withMessage("Invalid Course ID"),
+
+  check("userId")
+    .notEmpty()
+    .withMessage("User ID is required")
+    .isMongoId()
+    .withMessage("Invalid User ID"),
+
+  validatorMiddleware,
+];

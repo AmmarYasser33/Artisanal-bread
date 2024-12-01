@@ -373,9 +373,11 @@ export const getCourses = async () => {
   }
 };
 
-export const getCourse = async (courseId) => {
+export const getCourse = async (token, courseId) => {
   try {
-    const response = await axios.get(`${baseServerUrl}courses/${courseId}`);
+    const response = await axios.get(`${baseServerUrl}courses/${courseId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
 
     return response.data;
   } catch (error) {
@@ -415,6 +417,20 @@ export const deleteCourse = async (token, courseId) => {
     const response = await axios.delete(`${baseServerUrl}courses/${courseId}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const enrollUser = async (token, courseId, formData) => {
+  try {
+    const response = await axios.post(
+      `${baseServerUrl}courses/${courseId}/enroll`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
 
     return response.data;
   } catch (error) {
