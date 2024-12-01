@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userActions } from "../Store/userInfo-slice";
 import saveUserInfoIntoLocalStorage, {
   saveIsLoginState,
@@ -15,10 +16,17 @@ import Nav from "../components/Nav";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
 
   const notifySuccess = () => toast.success("Login successfully!");
   const notifyError = (msg) =>
     toast.error(msg || "Something went wrong, please try again!");
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: authFormsHandler,

@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -7,9 +9,17 @@ import Nav from "../components/Nav";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
+
   const notifySuccess = () => toast.success("Account created successfully");
   const notifyError = (msg) =>
     toast.error(msg || "Account creation failed! Please try again.");
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: authFormsHandler,
