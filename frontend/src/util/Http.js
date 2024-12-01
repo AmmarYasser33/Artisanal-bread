@@ -373,11 +373,24 @@ export const getCourses = async () => {
   }
 };
 
-export const getCourse = async (token, courseId) => {
+export const getCourse = async (courseId) => {
   try {
-    const response = await axios.get(`${baseServerUrl}courses/${courseId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await axios.get(`${baseServerUrl}courses/${courseId}`);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const getCompletedCourse = async (token, courseId) => {
+  try {
+    const response = await axios.get(
+      `${baseServerUrl}courses/${courseId}/completed`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
 
     return response.data;
   } catch (error) {

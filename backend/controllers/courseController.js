@@ -10,6 +10,7 @@ const factory = require("./handlerFactory");
 
 exports.getAllCourses = factory.getAll(Course);
 exports.deleteCourse = factory.deleteOne(Course);
+exports.getCourse = factory.getOne(Course, [], "-lessons");
 
 exports.uploadCourseImage = uploadSingleImage("image");
 
@@ -35,25 +36,6 @@ exports.resizeCourseImage = catchAsync(async (req, res, next) => {
 exports.createCourse = factory.createOne(Course);
 exports.updateCourse = factory.updateOne(Course);
 
-exports.getCourse = catchAsync(async (req, res, next) => {
-  const { id } = req.params;
-
-  const selectedFields =
-    (req.user && req.user.role === "user" && req.user.courses.includes(id)) ||
-    (req.user && req.user.role === "admin")
-      ? ""
-      : "-lessons";
-
-  const course = await Course.findById(id).select(selectedFields).lean();
-
-  if (!course) return next(new ApiError("Course not found", 404));
-
-  res.status(200).json({
-    status: "success",
-    data: course,
-  });
-});
-
 exports.enrollUser = catchAsync(async (req, res, next) => {
   const { id } = req.params;
   const { userId } = req.body;
@@ -67,5 +49,28 @@ exports.enrollUser = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     message: "User enrolled successfully",
+  });
+});
+
+exports.getCompletedCourse = catchAsync(async (req, res, next) => {
+  const courseId = req.params.id;
+
+  if (
+    req.user &&
+    req.user.role === "user" &&
+    !req.user.courses.includes(courseId)
+  ) {
+    return next(new ApiError("You have not enrolled in this course", 401));
+  }
+
+  const selectedFields = req.user.role === "admin" ? "" : "lessons";
+
+  const course = await Course.findById(courseId).select(selectedFields).lean();
+
+  if (!course) return next(new ApiError("Course not found", 404));
+
+  res.status(200).json({
+    status: "success",
+    data: course,
   });
 });

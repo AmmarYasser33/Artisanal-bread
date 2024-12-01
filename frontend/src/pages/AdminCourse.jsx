@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { getCourse, updateCourse } from "../util/Http";
+import { getCompletedCourse, updateCourse } from "../util/Http";
 import { IconPlusLg, IconTrashDelete } from "../Icons";
 import ImageUploader from "../components/ImageUploader";
 import Spinner from "../components/Spinner";
@@ -55,7 +55,7 @@ export default function AdminCourse() {
     isError: isCourseError,
   } = useQuery({
     queryKey: ["course", id, token],
-    queryFn: () => getCourse(token, id),
+    queryFn: () => getCompletedCourse(token, id),
     enabled: !!id,
     select: (res) => res.data,
   });

@@ -12,7 +12,15 @@ router.get(
   courseController.getCourse
 );
 
-router.use(authController.protect, authController.restrictTo("admin"));
+router.use(authController.protect);
+
+router.get(
+  "/:id/completed",
+  courseValidator.getCourseValidator,
+  courseController.getCompletedCourse
+);
+
+router.use(authController.restrictTo("admin"));
 
 router.post(
   "/",

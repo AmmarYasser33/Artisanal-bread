@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCourse } from "../util/Http";
 import ReactPlayer from "react-player/youtube";
@@ -13,6 +14,7 @@ const Footer = React.lazy(() => import("../components/Footer"));
 
 export default function Course() {
   const { id } = useParams();
+  const user = useSelector((state) => state.userInfo.data);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -57,8 +59,23 @@ export default function Course() {
                 Duration:
                 <span className="font-bold"> {course.duration}</span>
               </p>
+              <p className="mt-1 font-roboto text-lg text-gray-700">
+                Price:
+                <span className="font-bold"> {course.price} L.E</span>
+              </p>
               <button className="mt-8 rounded-md bg-primary-600 px-4 py-2 font-roboto text-lg text-white shadow-md duration-150 ease-in-out hover:bg-primary-700 focus:outline-none md:mt-11">
-                Enroll Now
+                {user?.courses?.includes(course._id) ? (
+                  <Link to={`/course/${course._id}`}>Watch Course</Link>
+                ) : (
+                  <a
+                    href={`https://api.whatsapp.com/send?phone=201069262663&text=I want to request the course "${course.title}"
+                I am '${user?.firstName} ${user?.lastName ? user?.lastName : ""}' and my email is ${user?.email}`}
+                    target="_blank"
+                    className="focus:outline-none"
+                  >
+                    Request Course
+                  </a>
+                )}
               </button>
             </div>
 
@@ -93,14 +110,14 @@ export default function Course() {
           <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
             <CourseContent content={course.content} />
           </Suspense>
+
+          <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+            <div className="">
+              <Footer />
+            </div>
+          </Suspense>
         </>
       )}
-
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
-        <div className="">
-          <Footer />
-        </div>
-      </Suspense>
     </div>
   );
 }

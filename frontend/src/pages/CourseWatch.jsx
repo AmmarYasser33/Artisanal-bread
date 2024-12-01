@@ -1,7 +1,8 @@
 import React, { Suspense, useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import { getCourse } from "../util/Http";
+import { getCompletedCourse } from "../util/Http";
 import ReactPlayer from "react-player/vimeo";
 import { IconPlayButtonO } from "../Icons";
 import Spinner from "../components/Spinner";
@@ -10,6 +11,7 @@ const Footer = React.lazy(() => import("../components/Footer"));
 
 export default function CourseWatch() {
   const { id } = useParams();
+  const token = useSelector((state) => state.userInfo.token);
   const [lessonIndex, setLessonIndex] = useState(0);
 
   useEffect(() => {
@@ -21,13 +23,16 @@ export default function CourseWatch() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["course", id],
-    queryFn: () => getCourse(id),
+    queryKey: ["course", id, token],
+    queryFn: () => getCompletedCourse(token, id),
     staleTime: 0,
     select: (res) => res.data,
   });
 
-  console.log(course);
+  useEffect(() => {
+    console.log("watch course", course);
+    console.log("watch course lessons", course?.lessons);
+  }, [course]);
 
   return (
     <div>
