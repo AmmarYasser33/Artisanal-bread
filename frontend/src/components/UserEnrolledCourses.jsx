@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getCourses, enrollUser } from "../util/Http";
+import { getCourses, enrollUser, unEnrollUser } from "../util/Http";
 import Spinner from "../components/Spinner";
 
 export default function UserEnrolledCourses({ courses: userCourses, userId }) {
@@ -21,22 +21,42 @@ export default function UserEnrolledCourses({ courses: userCourses, userId }) {
     select: (res) => res.data,
   });
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: (courseId) => enrollUser(token, courseId, { userId }),
-    onSuccess: (data) => {
-      if (data.status === "success") {
-        notifySuccess("User enrolled successfully");
-        queryClient.invalidateQueries("user");
-      } else {
-        notifyError(
-          data?.response?.data?.message || "Error enrolling user! try again",
-        );
-      }
-    },
-    onError: () => {
-      notifyError("Error enrolling user!");
-    },
-  });
+  const { mutate: enrollMutation, isPending: isEnrollmentPending } =
+    useMutation({
+      mutationFn: (courseId) => enrollUser(token, courseId, { userId }),
+      onSuccess: (data) => {
+        if (data.status === "success") {
+          notifySuccess("User enrolled successfully");
+          queryClient.invalidateQueries("user");
+        } else {
+          notifyError(
+            data?.response?.data?.message || "Error enrolling user! try again",
+          );
+        }
+      },
+      onError: () => {
+        notifyError("Error enrolling user!");
+      },
+    });
+
+  const { mutate: unEnrollMutation, isPending: isUnEnrollmentPending } =
+    useMutation({
+      mutationFn: (courseId) => unEnrollUser(token, courseId, { userId }),
+      onSuccess: (data) => {
+        if (data.status === "success") {
+          notifySuccess("User un-enrolled successfully");
+          queryClient.invalidateQueries("user");
+        } else {
+          notifyError(
+            data?.response?.data?.message ||
+              "Error un-enrolling user! try again",
+          );
+        }
+      },
+      onError: () => {
+        notifyError("Error un-enrolling user!");
+      },
+    });
 
   return (
     <>
@@ -83,9 +103,13 @@ export default function UserEnrolledCourses({ courses: userCourses, userId }) {
                   <td className="px-6 py-4">
                     <input
                       type="checkbox"
-                      disabled={isPending}
+                      disabled={isEnrollmentPending || isUnEnrollmentPending}
                       defaultChecked={userCourses.includes(course._id)}
-                      onChange={() => mutate(course._id)}
+                      onChange={(e) =>
+                        e.target.checked
+                          ? enrollMutation(course._id)
+                          : unEnrollMutation(course._id)
+                      }
                       className="h-5 w-5 rounded border-gray-400 text-primary-600 focus:ring-primary-500 disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </td>

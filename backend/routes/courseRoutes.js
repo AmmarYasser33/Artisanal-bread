@@ -52,4 +52,10 @@ router.post(
   courseController.enrollUser
 );
 
+router.post(
+  "/:id/unenroll",
+  courseValidator.enrollUserValidator,
+  courseController.unEnrollUser
+);
+
 module.exports = router;

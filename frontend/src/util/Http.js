@@ -462,3 +462,17 @@ export const enrollUser = async (token, courseId, formData) => {
     return error;
   }
 };
+
+export const unEnrollUser = async (token, courseId, formData) => {
+  try {
+    const response = await axios.post(
+      `${baseServerUrl}courses/${courseId}/unenroll`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

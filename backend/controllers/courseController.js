@@ -52,6 +52,22 @@ exports.enrollUser = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.unEnrollUser = catchAsync(async (req, res, next) => {
+  const { id } = req.params;
+  const { userId } = req.body;
+
+  const course = await Course.findById(id).select("_id").lean();
+
+  if (!course) return next(new ApiError("Course not found", 404));
+
+  await User.findByIdAndUpdate(userId, { $pull: { courses: course._id } });
+
+  res.status(200).json({
+    status: "success",
+    message: "User un-enrolled successfully",
+  });
+});
+
 exports.getCompletedCourse = catchAsync(async (req, res, next) => {
   const courseId = req.params.id;
 
