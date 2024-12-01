@@ -74,3 +74,12 @@ exports.getCompletedCourse = catchAsync(async (req, res, next) => {
     data: course,
   });
 });
+
+exports.getMyCourses = catchAsync(async (req, res, next) => {
+  const courses = await Course.find({ _id: { $in: req.user.courses } }).lean();
+
+  res.status(200).json({
+    status: "success",
+    data: courses,
+  });
+});

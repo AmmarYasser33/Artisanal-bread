@@ -7,6 +7,11 @@ const courseValidator = require("../utils/validators/courseValidator");
 
 router.get("/", courseController.getAllCourses);
 router.get(
+  "/my-courses",
+  authController.protect,
+  courseController.getMyCourses
+);
+router.get(
   "/:id",
   courseValidator.getCourseValidator,
   courseController.getCourse

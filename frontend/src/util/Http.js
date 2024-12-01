@@ -373,6 +373,18 @@ export const getCourses = async () => {
   }
 };
 
+export const getMyCourses = async (token) => {
+  try {
+    const response = await axios.get(`${baseServerUrl}courses/my-courses`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getCourse = async (courseId) => {
   try {
     const response = await axios.get(`${baseServerUrl}courses/${courseId}`);
