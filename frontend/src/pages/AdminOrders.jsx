@@ -1,18 +1,14 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { toast } from "react-toastify";
-import { useQuery, useMutation } from "@tanstack/react-query";
-import { getOrders, orderAgain, cancelOrder } from "../util/Http";
+import { useQuery } from "@tanstack/react-query";
+import { getOrders } from "../util/Http";
 import OrderStatus from "../components/OrderStatus";
 import Spinner from "../components/Spinner";
 
 export default function AdminOrders() {
   const [orderType, setOrderType] = useState("all");
-  const [duration, setDuration] = useState("this week");
+  const [duration, setDuration] = useState("all time");
   const token = JSON.parse(localStorage.getItem("token"));
-
-  const notifySuccess = (msg) => toast.success(msg);
-  const notifyError = (msg) => toast.error(msg);
 
   const {
     data: allOrders = [],
@@ -31,7 +27,7 @@ export default function AdminOrders() {
     return allOrders.filter((order) => {
       const matchesType =
         orderType === "all" || order.status.toLowerCase() === orderType;
-      const matchesDuration = isOrderWithinDuration(order.orderDate, duration);
+      const matchesDuration = isOrderWithinDuration(order.createdAt, duration);
       return matchesType && matchesDuration;
     });
   }, [allOrders, orderType, duration]);
@@ -87,15 +83,16 @@ export default function AdminOrders() {
                     Select duration
                   </label>
                   <select
-                    defaultValue={"this week"}
+                    defaultValue={"all time"}
                     id="duration"
-                    className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                    className="block w-full min-w-32 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
                     onChange={(e) => setDuration(e.target.value)} // Update duration
                   >
+                    <option value="all time">All time</option>
                     <option value="this week">this week</option>
                     <option value="this month">this month</option>
-                    <option value="last 3 months">the last 3 months</option>
-                    <option value="last 6 months">the last 6 months</option>
+                    <option value="last 3 months">last 3 months</option>
+                    <option value="last 6 months">last 6 months</option>
                   </select>
                 </div>
               </div>
@@ -194,9 +191,9 @@ export default function AdminOrders() {
 }
 
 // Helper function to check if order is within the selected duration
-function isOrderWithinDuration(orderDate, duration) {
+function isOrderWithinDuration(createdDate, duration) {
   const now = new Date();
-  const orderTime = new Date(orderDate);
+  const orderTime = new Date(createdDate);
 
   switch (duration) {
     case "this week": {
