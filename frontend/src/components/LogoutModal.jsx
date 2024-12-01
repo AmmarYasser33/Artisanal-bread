@@ -9,6 +9,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userActions } from "../Store/userInfo-slice";
+import { cartActions } from "../Store/cartCounter-slice";
 import { saveIsLoginState } from "../Store/userInfo-actions";
 import { profileActions } from "../Store/profileInfo-slice";
 import { IconBxsError } from "../Icons";
@@ -25,6 +26,7 @@ export default function LogoutModal({ isModalOpen, setIsModalOpen }) {
     dispatch(userActions.setIsLogin(false));
     dispatch(saveIsLoginState(false));
     dispatch(profileActions.setProfileInfo(null));
+    dispatch(cartActions.setCounter(0));
 
     toast.success("Logged out successfully");
 
