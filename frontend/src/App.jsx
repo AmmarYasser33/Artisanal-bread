@@ -111,7 +111,7 @@ function App() {
           <Route path="courses/:id" element={<AdminCourse />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="users/:id" element={<AdminUser />} />
-          {/* <Route path="settings" element={<AdminSettings />} /> */}
+          <Route path="settings" element={<AdminSettings />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
