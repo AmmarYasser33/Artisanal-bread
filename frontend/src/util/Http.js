@@ -79,6 +79,18 @@ export const getProducts = async () => {
   }
 };
 
+export const getTrendingProducts = async () => {
+  try {
+    const response = await axios.get(
+      `${baseServerUrl}products?isFeatured=true`,
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getProduct = async (productId) => {
   try {
     const response = await axios.get(`${baseServerUrl}products/${productId}`);
