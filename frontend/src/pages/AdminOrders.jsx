@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getOrders } from "../util/Http";
@@ -9,6 +9,10 @@ export default function AdminOrders() {
   const [orderType, setOrderType] = useState("all");
   const [duration, setDuration] = useState("all time");
   const token = JSON.parse(localStorage.getItem("token"));
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const {
     data: allOrders = [],

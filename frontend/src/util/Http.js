@@ -201,6 +201,21 @@ export const getOrders = async (token) => {
   }
 };
 
+export const getLatestOrders = async (token, limit = 5) => {
+  try {
+    const response = await axios.get(
+      `${baseServerUrl}orders?limit=${limit}&sort=orderDate`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
 export const getOrder = async (token, orderId) => {
   try {
     const response = await axios.get(`${baseServerUrl}orders/${orderId}`, {
@@ -469,6 +484,23 @@ export const unEnrollUser = async (token, courseId, formData) => {
       `${baseServerUrl}courses/${courseId}/unenroll`,
       formData,
       { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+// Statics
+
+export const getStatics = async (token, lastDays) => {
+  try {
+    const response = await axios.get(
+      `${baseServerUrl}statics?lastDays=${lastDays}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
     );
 
     return response.data;

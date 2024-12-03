@@ -101,7 +101,7 @@ function App() {
         </Route>
 
         <Route path="/admin" element={<PR><AR><AdminDashboard /></AR></PR>}>
-          {/* <Route path="" element={<AdminMain />} /> */}
+          <Route path="" element={<AdminMain />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="orders/:id" element={<AdminOrder />} />
           <Route path="categories" element={<AdminCategories />} />
