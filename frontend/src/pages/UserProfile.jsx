@@ -1,13 +1,20 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { userActions } from "../Store/userInfo-slice";
+import { saveIsLoginState } from "../Store/userInfo-actions";
+import { profileActions } from "../Store/profileInfo-slice";
+import { cartActions } from "../Store/cartCounter-slice";
 import { useMutation } from "@tanstack/react-query";
 import { updateMe, updatePassword } from "../util/Http";
 
 export default function UserProfile() {
   const user = useSelector((state) => state.profileInfo.data);
   const token = useSelector((state) => state.userInfo.token);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -18,11 +25,13 @@ export default function UserProfile() {
       if (data.status === "success") {
         notifySuccess("User updated successfully");
       } else {
-        notifyError("User update failed");
+        notifyError(
+          data?.response?.data?.message || "User update failed! Try again.",
+        );
       }
     },
     onError: () => {
-      notifyError("User update failed");
+      notifyError("User update failed!");
     },
   });
 
@@ -52,19 +61,31 @@ export default function UserProfile() {
       onSuccess: (data) => {
         if (data.status === "success") {
           notifySuccess("Password updated successfully");
-          resetPassword();
+
+          localStorage.removeItem("userData");
+          dispatch(userActions.setRole(""));
+          localStorage.removeItem("role");
+          localStorage.removeItem("token");
+          dispatch(userActions.setIsLogin(false));
+          dispatch(saveIsLoginState(false));
+          dispatch(profileActions.setProfileInfo(null));
+          dispatch(cartActions.setCounter(0));
+
+          navigate("/login");
         } else {
-          notifyError("Password update failed");
+          notifyError(
+            data?.response?.data?.message ||
+              "Password update failed! Try again.",
+          );
         }
       },
       onError: () => {
-        notifyError("Password update failed");
+        notifyError("Password update failed!");
       },
     });
 
   const {
     register: registerPassword,
-    reset: resetPassword,
     watch: watchPassword,
     handleSubmit: handlePasswordSubmit,
     formState: { errors: passwordErrors },
