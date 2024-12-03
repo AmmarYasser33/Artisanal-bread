@@ -44,15 +44,17 @@ export default function Nav() {
               </Link>
             )}
 
-            <Link
-              to="/cart"
-              className="group relative rounded-full p-2 text-center font-roboto text-base font-medium text-primary-500 hover:bg-primary-700 hover:text-white focus:outline-none"
-            >
-              <IconShoppingBag className="inline-block h-7 w-7" />
-              <span className="absolute right-1 top-1 z-10 rounded-full bg-primary-600 px-1 text-xs font-semibold text-white group-hover:bg-white group-hover:text-secondary-900 group-focus:text-secondary-900">
-                {cartCounter}
-              </span>
-            </Link>
+            {role !== "admin" && (
+              <Link
+                to="/cart"
+                className="group relative rounded-full p-2 text-center font-roboto text-base font-medium text-primary-500 hover:bg-primary-700 hover:text-white focus:outline-none"
+              >
+                <IconShoppingBag className="inline-block h-7 w-7" />
+                <span className="absolute right-1 top-1 z-10 rounded-full bg-primary-600 px-1 text-xs font-semibold text-white group-hover:bg-white group-hover:text-secondary-900 group-focus:text-secondary-900">
+                  {cartCounter}
+                </span>
+              </Link>
+            )}
           </div>
 
           <button
