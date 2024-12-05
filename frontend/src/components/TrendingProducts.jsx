@@ -19,7 +19,7 @@ export default function TrendingProducts() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: "trendingProducts",
+    queryKey: ["trendingProducts"],
     queryFn: getTrendingProducts,
     staleTime: 0,
     select: (res) => res.data,
