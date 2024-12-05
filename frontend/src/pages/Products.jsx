@@ -141,7 +141,13 @@ export default function Products() {
 
                   <button
                     type="button"
-                    onClick={() => addProductToCart(product._id)}
+                    onClick={() => {
+                      if (token) {
+                        addProductToCart(product._id);
+                      } else {
+                        notifyError("Please login to place an order!");
+                      }
+                    }}
                     disabled={isAddingToCart}
                     className="inline-flex items-center justify-center rounded-full p-2 text-primary-700 duration-300 ease-in-out hover:bg-primary-700 hover:text-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                   >
