@@ -32,7 +32,9 @@ export default function UserOrder() {
         notifySuccess("Order cancelled successfully!");
         refetchOrder();
       } else {
-        notifyError(data.message || "Failed to cancel order!");
+        notifyError(
+          data?.response?.data?.message || "Failed to cancel order! Try again.",
+        );
       }
     },
     onError: () => {
@@ -48,7 +50,10 @@ export default function UserOrder() {
           notifySuccess("Order placed again.");
           refetchOrder();
         } else {
-          notifyError(data.message || "Failed to place order!");
+          notifyError(
+            data?.response?.data?.message ||
+              "Failed to place order! Try again.",
+          );
         }
       },
       onError: () => {

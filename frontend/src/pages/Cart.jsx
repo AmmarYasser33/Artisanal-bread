@@ -38,7 +38,9 @@ export default function Cart() {
         navigate(`/dashboard/orders/${data.data._id}`);
         dispatch(cartActions.setCounter(0));
       } else {
-        notifyError(data.message);
+        notifyError(
+          data?.response?.data?.message || "Error creating order! Try again.",
+        );
       }
     },
     onError: () => {

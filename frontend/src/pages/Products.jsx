@@ -24,7 +24,9 @@ export default function Products() {
         notifySuccess("Added to cart successfully");
         dispatch(fetchCartCounter(token));
       } else {
-        notifyError("Failed to add to cart! Try again.");
+        notifyError(
+          data?.response?.data?.message || "Failed to add to cart! Try again.",
+        );
       }
     },
     onError: () => {

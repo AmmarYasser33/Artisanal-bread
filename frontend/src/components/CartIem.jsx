@@ -27,7 +27,9 @@ export default function CartIem({
         notifySuccess("Quantity updated successfully");
         queryClient.invalidateQueries(["cart", token]);
       } else {
-        notifyError("Failed to update item! Try again.");
+        notifyError(
+          data?.response?.data?.message || "Failed to update item! Try again.",
+        );
       }
     },
     onError: () => {
@@ -43,7 +45,9 @@ export default function CartIem({
         queryClient.invalidateQueries(["cart", token]);
         dispatch(cartActions.decreaseCounter());
       } else {
-        notifyError("Failed to delete item! Try again.");
+        notifyError(
+          data?.response?.data?.message || "Failed to delete item! Try again.",
+        );
       }
     },
     onError: () => {

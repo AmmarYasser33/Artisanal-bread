@@ -29,7 +29,10 @@ export default function Signup() {
         notifySuccess();
         navigate("/login");
       } else {
-        notifyError();
+        notifyError(
+          response?.data?.response?.data?.message ||
+            "Failed to create account! Try again.",
+        );
       }
     },
     onError(error) {

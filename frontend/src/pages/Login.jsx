@@ -52,6 +52,8 @@ export default function Login() {
         }
 
         notifySuccess();
+      } else {
+        notifyError(res.data?.message || "Failed to login! Try again.");
       }
     },
     onError: (error) => {
