@@ -82,9 +82,7 @@ function App() {
   }, [dispatch, token, role]);
 
   useEffect(() => {
-    if(token){
-      dispatch(fetchConfigs(token));
-    }
+    dispatch(fetchConfigs(token));
   }, [dispatch, token]);
 
   // #eaa636
