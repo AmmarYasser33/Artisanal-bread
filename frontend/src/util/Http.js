@@ -520,3 +520,34 @@ export const getStatics = async (token, lastDays) => {
     return error;
   }
 };
+
+// Configs
+
+export const updateConfigs = async (token, formData) => {
+  try {
+    const response = await axios.patch(`${baseServerUrl}configs`, formData, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const uploadBannerImage = async (token, formData) => {
+  try {
+    const response = await axios.put(
+      `${baseServerUrl}configs/banner`,
+      formData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+        "Content-Type": "multipart/form-data",
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

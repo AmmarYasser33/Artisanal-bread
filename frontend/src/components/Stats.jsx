@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import CountUp from "react-countup";
 import {
   IconBadge,
@@ -9,32 +10,44 @@ import {
 
 export default function Stats() {
   const { t } = useTranslation();
+  const achievementsExperience = useSelector(
+    (state) => state.configs.achievementsExperience,
+  );
+  const achievementsProfessionals = useSelector(
+    (state) => state.configs.achievementsProfessionals,
+  );
+  const achievementsProducts = useSelector(
+    (state) => state.configs.achievementsProducts,
+  );
+  const achievementsOrders = useSelector(
+    (state) => state.configs.achievementsOrders,
+  );
 
   const stats = [
     {
       title: t("stats.experience"),
-      number: 6,
+      number: achievementsExperience,
       icon: (
         <IconBadge className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
       ),
     },
     {
       title: t("stats.professionals"),
-      number: 175,
+      number: achievementsProfessionals,
       icon: (
         <IconUserGroup className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
       ),
     },
     {
       title: t("stats.products"),
-      number: 86,
+      number: achievementsProducts,
       icon: (
         <IconBreadSlice className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
       ),
     },
     {
       title: t("stats.orders"),
-      number: 9357,
+      number: achievementsOrders,
       icon: (
         <IconCartPlus className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
       ),

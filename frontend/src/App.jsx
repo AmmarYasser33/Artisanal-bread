@@ -10,6 +10,7 @@ import {
 } from "./Store/userInfo-actions";
 import fetchCartCounter from "./Store/cartCounter-actions";
 import fetchProfileData from "./Store/profileInfo-actions";
+import fetchConfigs from "./Store/configs-actions";
 import PR from "./components/ProtectedRoute";
 import AR from "./components/AdminRoute";
 import Home from "./pages/Home";
@@ -79,6 +80,12 @@ function App() {
       dispatch(fetchProfileData(token));
     }
   }, [dispatch, token, role]);
+
+  useEffect(() => {
+    if(token){
+      dispatch(fetchConfigs(token));
+    }
+  }, [dispatch, token]);
 
   // #eaa636
   return (

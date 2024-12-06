@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
@@ -8,13 +8,34 @@ import { userActions } from "../Store/userInfo-slice";
 import { saveIsLoginState } from "../Store/userInfo-actions";
 import { profileActions } from "../Store/profileInfo-slice";
 import { cartActions } from "../Store/cartCounter-slice";
-import { updateMe, updatePassword } from "../util/Http";
+import {
+  updateMe,
+  updatePassword,
+  updateConfigs,
+  uploadBannerImage,
+} from "../util/Http";
+import ImageUploader from "../components/ImageUploader";
+import Spinner from "../components/Spinner";
 
 export default function AdminSettings() {
-  const user = useSelector((state) => state.profileInfo.data);
-  const token = useSelector((state) => state.userInfo.token);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.profileInfo.data);
+  const token = useSelector((state) => state.userInfo.token);
+  const [bannerImage, setBannerImage] = useState(null);
+  const introVideo = useSelector((state) => state.configs.introVideo);
+  const achievementsExperience = useSelector(
+    (state) => state.configs.achievementsExperience,
+  );
+  const achievementsProfessionals = useSelector(
+    (state) => state.configs.achievementsProfessionals,
+  );
+  const achievementsProducts = useSelector(
+    (state) => state.configs.achievementsProducts,
+  );
+  const achievementsOrders = useSelector(
+    (state) => state.configs.achievementsOrders,
+  );
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -90,6 +111,106 @@ export default function AdminSettings() {
     updateUserPassword(data);
   };
 
+  const { mutate: updateBannerImage, isPending: isUpdatingBannerImage } =
+    useMutation({
+      mutationFn: (formData) => uploadBannerImage(token, formData),
+      onSuccess: (data) => {
+        if (data.status === "success") {
+          notifySuccess("Banner updated successfully");
+        } else {
+          notifyError(
+            data?.response?.data?.message || "Banner update failed! Try again",
+          );
+        }
+      },
+      onError: () => {
+        notifyError("Banner update failed!");
+      },
+    });
+
+  const submitBannerImage = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+
+    if (bannerImage) {
+      formData.append("image", bannerImage);
+    } else {
+      notifyError("Please select an image");
+      return;
+    }
+
+    updateBannerImage(formData);
+  };
+
+  const { mutate: updateConfigsData, isPending: isUpdateConfigsPending } =
+    useMutation({
+      mutationFn: (formData) => updateConfigs(token, formData),
+      onSuccess: (data) => {
+        if (data.status === "success") {
+          notifySuccess("Updated successfully");
+        } else {
+          notifyError(
+            data?.response?.data?.message || "Update failed! Try again",
+          );
+        }
+      },
+      onError: () => {
+        notifyError("Update failed!");
+      },
+    });
+
+  const {
+    register: registerMainData,
+    handleSubmit: handleMainDataSubmit,
+    reset: resetMainData,
+    formState: { errors: mainDataErrors },
+  } = useForm();
+  const onSubmitMainData = (data) => {
+    const formData = {
+      INTRO_VIDEO: data.introVideo,
+    };
+
+    updateConfigsData(formData);
+  };
+
+  useEffect(() => {
+    resetMainData({
+      introVideoURL: introVideo,
+    });
+  }, [introVideo, resetMainData]);
+
+  const {
+    register: registerAchievements,
+    handleSubmit: handleAchievementsSubmit,
+    reset: resetAchievements,
+    formState: { errors: achievementsErrors },
+  } = useForm();
+  const onSubmitAchievements = (data) => {
+    const formData = {
+      ACHIEVEMENTS_EXPERIENCE: data.experience,
+      ACHIEVEMENTS_PROFESSIONALS: data.professionals,
+      ACHIEVEMENTS_PRODUCTS: data.totalProducts,
+      ACHIEVEMENTS_ORDERS: data.ordersPlaced,
+    };
+
+    updateConfigsData(formData);
+  };
+
+  useEffect(() => {
+    resetAchievements({
+      experience: +achievementsExperience,
+      professionals: +achievementsProfessionals,
+      totalProducts: +achievementsProducts,
+      ordersPlaced: +achievementsOrders,
+    });
+  }, [
+    achievementsExperience,
+    achievementsProfessionals,
+    achievementsProducts,
+    achievementsOrders,
+    resetAchievements,
+  ]);
+
   return (
     <div className="space-y-10 sm:px-6 lg:col-span-9 lg:px-0">
       <form onSubmit={handleDataSubmit(onSubmitData)}>
@@ -132,7 +253,7 @@ export default function AdminSettings() {
               disabled={isUpdateUserPending}
               className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isUpdateUserPending ? "Saving..." : "Save"}
+              {isUpdateUserPending ? <Spinner size={5} /> : "Save"}
             </button>
           </div>
         </div>
@@ -241,7 +362,205 @@ export default function AdminSettings() {
               disabled={isUpdatePasswordPending}
               className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isUpdatePasswordPending ? "Saving..." : "Save"}
+              {isUpdatePasswordPending ? <Spinner size={5} /> : "Save"}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <form onSubmit={handleMainDataSubmit(onSubmitMainData)}>
+        <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
+          <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
+            <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
+              Main Section Video
+            </h3>
+
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-6">
+                <label
+                  htmlFor="intro-video"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Intro Video URL
+                </label>
+                <input
+                  type="url"
+                  name="intro-video"
+                  id="intro-video"
+                  placeholder="https://www.youtube.com/...."
+                  {...registerMainData("introVideoURL", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {mainDataErrors.introVideoURL && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid URL
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+            <button
+              type="submit"
+              disabled={isUpdateConfigsPending}
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <form onSubmit={submitBannerImage}>
+        <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
+          <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
+            <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
+              Main Section Banner
+            </h3>
+
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-6 sm:col-span-4">
+                <label
+                  htmlFor="banner"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Banner Image
+                </label>
+                <ImageUploader
+                  onImagesChange={(images) => setBannerImage(images[0])}
+                  initialImages={["http://localhost:3001/designs/banner.png"]}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+            <button
+              type="submit"
+              disabled={isUpdatingBannerImage}
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isUpdatingBannerImage ? <Spinner size={5} /> : "Save"}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <form onSubmit={handleAchievementsSubmit(onSubmitAchievements)}>
+        <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
+          <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
+            <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
+              Achievements Section
+            </h3>
+
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="experience"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Years Experience
+                </label>
+                <input
+                  type="number"
+                  name="experience"
+                  id="experience"
+                  {...registerAchievements("experience", {
+                    required: true,
+                    min: 0,
+                    valueAsNumber: true,
+                  })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {achievementsErrors.experience && (
+                  <span className="text-sm text-red-600">
+                    Please enter a positive number
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="professionals"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Skilled Professionals
+                </label>
+                <input
+                  type="number"
+                  name="professionals"
+                  id="professionals"
+                  {...registerAchievements("professionals", {
+                    required: true,
+                    min: 0,
+                    valueAsNumber: true,
+                  })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {achievementsErrors.professionals && (
+                  <span className="text-sm text-red-600">
+                    Please enter a positive number
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="total-products"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Total Products
+                </label>
+                <input
+                  type="number"
+                  name="total-products"
+                  id="total-products"
+                  {...registerAchievements("totalProducts", {
+                    required: true,
+                    min: 0,
+                    valueAsNumber: true,
+                  })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {achievementsErrors.totalProducts && (
+                  <span className="text-sm text-red-600">
+                    Please enter a positive number
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="orders-placed"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Orders Placed
+                </label>
+                <input
+                  type="number"
+                  name="orders-placed"
+                  id="orders-placed"
+                  {...registerAchievements("ordersPlaced", {
+                    required: true,
+                    min: 0,
+                    valueAsNumber: true,
+                  })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {achievementsErrors.ordersPlaced && (
+                  <span className="text-sm text-red-600">
+                    Please enter a positive number
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+            <button
+              type="submit"
+              disabled={isUpdateConfigsPending}
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
             </button>
           </div>
         </div>

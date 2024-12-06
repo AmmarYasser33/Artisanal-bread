@@ -1,16 +1,18 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import VideoModal from "../components/VideoModal";
 import Nav from "../components/Nav";
 
 export default function Hero() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const introVideo = useSelector((state) => state.configs.introVideo);
   const { t } = useTranslation();
 
   return (
     <div
       id="hero"
-      className="relative min-h-screen bg-[url('/carousel-2.jpg')] bg-cover bg-center"
+      className={`relative min-h-screen bg-[url('${"http://localhost:3001/"}designs/banner.png')] bg-cover bg-center`}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
@@ -38,7 +40,8 @@ export default function Hero() {
 
         {isModalOpen && (
           <VideoModal
-            videoUrl={"https://youtu.be/b7Yl-ufPIrM?si=2gKQkfEpCtEProVF"}
+            // videoUrl={"https://youtu.be/b7Yl-ufPIrM?si=2gKQkfEpCtEProVF"}
+            videoUrl={introVideo}
             onClose={() => setIsModalOpen(false)}
             isPlaying={true}
           />
