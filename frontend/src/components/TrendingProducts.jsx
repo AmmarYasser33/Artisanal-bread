@@ -10,6 +10,7 @@ import Spinner from "../components/Spinner";
 
 export default function TrendingProducts() {
   const token = useSelector((state) => state.userInfo.token);
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
@@ -103,7 +104,7 @@ export default function TrendingProducts() {
                   <button
                     type="button"
                     onClick={() => {
-                      if (token) {
+                      if (isLogin) {
                         addProductToCart(product._id);
                       } else {
                         notifyError(t("products.order.login"));

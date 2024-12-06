@@ -11,6 +11,7 @@ import Nav from "../components/Nav";
 export default function Products() {
   const [categories, setCategories] = useState(["All"]);
 
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
   const token = useSelector((state) => state.userInfo.token);
   const dispatch = useDispatch();
 
@@ -142,7 +143,7 @@ export default function Products() {
                   <button
                     type="button"
                     onClick={() => {
-                      if (token) {
+                      if (isLogin) {
                         addProductToCart(product._id);
                       } else {
                         notifyError("Please login to place an order!");
