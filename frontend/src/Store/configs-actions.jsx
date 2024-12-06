@@ -41,6 +41,48 @@ const fetchConfigs = (token) => {
           findConfigByKey(res?.data, "ACHIEVEMENTS_ORDERS")?.value,
         ),
       );
+      dispatch(
+        configActions.setAddress(findConfigByKey(res?.data, "ADDRESS")?.value),
+      );
+      dispatch(
+        configActions.setPhone(findConfigByKey(res?.data, "PHONE")?.value),
+      );
+      dispatch(
+        configActions.setEmail(findConfigByKey(res?.data, "EMAIL")?.value),
+      );
+      dispatch(
+        configActions.setLocationLink(
+          findConfigByKey(res?.data, "LOCATION_LINK")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setXCoordinate(
+          findConfigByKey(res?.data, "X_COORDINATE")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setYCoordinate(
+          findConfigByKey(res?.data, "Y_COORDINATE")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setFacebook(
+          findConfigByKey(res?.data, "FACEBOOK")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setWhatsapp(
+          findConfigByKey(res?.data, "WHATSAPP")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setInstagram(
+          findConfigByKey(res?.data, "INSTAGRAM")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setYoutube(findConfigByKey(res?.data, "YOUTUBE")?.value),
+      );
     } catch (error) {
       console.error(error);
     }

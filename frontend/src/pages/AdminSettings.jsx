@@ -36,6 +36,16 @@ export default function AdminSettings() {
   const achievementsOrders = useSelector(
     (state) => state.configs.achievementsOrders,
   );
+  const contactAddress = useSelector((state) => state.configs.address);
+  const contactPhone = useSelector((state) => state.configs.phone);
+  const contactLocation = useSelector((state) => state.configs.locationLink);
+  const contactMapX = useSelector((state) => state.configs.xCoordinate);
+  const contactMapY = useSelector((state) => state.configs.yCoordinate);
+  const contactEmail = useSelector((state) => state.configs.email);
+  const contactFacebook = useSelector((state) => state.configs.facebook);
+  const contactWhatsapp = useSelector((state) => state.configs.whatsapp);
+  const contactInstagram = useSelector((state) => state.configs.instagram);
+  const contactYoutube = useSelector((state) => state.configs.youtube);
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -209,6 +219,56 @@ export default function AdminSettings() {
     achievementsProducts,
     achievementsOrders,
     resetAchievements,
+  ]);
+
+  const {
+    register: registerContactInfo,
+    handleSubmit: handleContactInfoSubmit,
+    reset: resetContactInfo,
+    formState: { errors: contactInfoErrors },
+  } = useForm();
+  const onSubmitContactInfo = (data) => {
+    const formData = {
+      ADDRESS: data.address,
+      PHONE: data.phone,
+      X_COORDINATE: data.mapX,
+      Y_COORDINATE: data.mapY,
+      LOCATION_LINK: data.location,
+      EMAIL: data.contactEmail,
+      FACEBOOK: data.facebook,
+      WHATSAPP: data.whatsapp,
+      INSTAGRAM: data.instagram,
+      YOUTUBE: data.youtube,
+    };
+
+    updateConfigsData(formData);
+  };
+
+  useEffect(() => {
+    resetContactInfo({
+      address: contactAddress,
+      phone: contactPhone,
+      mapX: contactMapX,
+      mapY: contactMapY,
+      location: contactLocation,
+      contactEmail: contactEmail,
+      facebook: contactFacebook,
+      whatsapp: contactWhatsapp,
+      instagram: contactInstagram,
+      youtube: contactYoutube,
+    });
+  }, [
+    contactAddress,
+    contactPhone,
+    contactMapX,
+    contactMapY,
+    contactLocation,
+    contactEmail,
+    contactFacebook,
+    contactWhatsapp,
+    contactInstagram,
+    contactYoutube,
+    resetContactInfo,
   ]);
 
   return (
@@ -549,6 +609,247 @@ export default function AdminSettings() {
                 {achievementsErrors.ordersPlaced && (
                   <span className="text-sm text-red-600">
                     Please enter a positive number
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+            <button
+              type="submit"
+              disabled={isUpdateConfigsPending}
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <form onSubmit={handleContactInfoSubmit(onSubmitContactInfo)}>
+        <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
+          <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
+            <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
+              Contact Info.
+            </h3>
+
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="address"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Address
+                </label>
+                <input
+                  type="text"
+                  name="address"
+                  id="address"
+                  {...registerContactInfo("address", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.address && (
+                  <span className="text-sm text-red-600">
+                    Address is required
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Phone
+                </label>
+                <input
+                  type="text"
+                  name="phone"
+                  id="phone"
+                  {...registerContactInfo("phone", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.phone && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid phone number
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="map-x"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Map X Coordinate
+                </label>
+                <input
+                  type="text"
+                  name="map-x"
+                  id="map-x"
+                  placeholder="30.0113975"
+                  {...registerContactInfo("mapX", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.mapX && (
+                  <span className="text-sm text-red-600">
+                    Map X coordinate is required
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="map-y"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Map Y Coordinate
+                </label>
+                <input
+                  type="text"
+                  name="map-y"
+                  id="map-y"
+                  placeholder="31.1949437"
+                  {...registerContactInfo("mapY", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.mapY && (
+                  <span className="text-sm text-red-600">
+                    Map Y coordinate is required
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-4">
+                <label
+                  htmlFor="location"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Location Link
+                </label>
+                <input
+                  type="text"
+                  name="location"
+                  id="location"
+                  placeholder="https://maps.app.goo.gl/ADaDXmUKtsyqkivq7"
+                  {...registerContactInfo("location", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.location && (
+                  <span className="text-sm text-red-600">
+                    Location link is required
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-4">
+                <label
+                  htmlFor="contact-email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <input
+                  type="text"
+                  name="contact-email"
+                  id="contact-email"
+                  {...registerContactInfo("contactEmail", {
+                    required: true,
+                    pattern: /\S+@\S+\.\S+/,
+                  })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.contactEmail && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid email address
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="facebook"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Facebook
+                </label>
+                <input
+                  type="text"
+                  name="facebook"
+                  id="facebook"
+                  placeholder="https://facebook.com/..."
+                  {...registerContactInfo("facebook", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.facebook && (
+                  <span className="text-sm text-red-600">
+                    Facebook link is required
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="whatsapp"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  WhatsApp Number
+                </label>
+                <input
+                  type="text"
+                  name="whatsapp"
+                  id="whatsapp"
+                  placeholder="20123456789"
+                  {...registerContactInfo("whatsapp", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.whatsapp && (
+                  <span className="text-sm text-red-600">
+                    WhatsApp link is required
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="instagram"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Instagram
+                </label>
+                <input
+                  type="text"
+                  name="instagram"
+                  id="instagram"
+                  placeholder="https://instagram.com/..."
+                  {...registerContactInfo("instagram", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.instagram && (
+                  <span className="text-sm text-red-600">
+                    Instagram link is required
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="youtube"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Youtube Channel
+                </label>
+                <input
+                  type="text"
+                  name="youtube"
+                  id="youtube"
+                  placeholder="https://youtube.com/..."
+                  {...registerContactInfo("youtube", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {contactInfoErrors.youtube && (
+                  <span className="text-sm text-red-600">
+                    Youtube link is required
                   </span>
                 )}
               </div>

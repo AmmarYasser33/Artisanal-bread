@@ -1,4 +1,5 @@
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
 import {
   IconLocationDot,
   IconTelephoneFill,
@@ -15,69 +16,76 @@ import { Popup } from "react-leaflet/Popup";
 
 import "leaflet/dist/leaflet.css";
 
-const position = [30.0113975, 31.1949437];
-
 export default function Footer() {
   const { t } = useTranslation();
+  const address = useSelector((state) => state.configs.address);
+  const phone = useSelector((state) => state.configs.phone);
+  const mapX = useSelector((state) => state.configs.xCoordinate);
+  const mapY = useSelector((state) => state.configs.yCoordinate);
+  const locationLink = useSelector((state) => state.configs.locationLink);
+  const email = useSelector((state) => state.configs.email);
+  const facebook = useSelector((state) => state.configs.facebook);
+  const whatsapp = useSelector((state) => state.configs.whatsapp);
+  const instagram = useSelector((state) => state.configs.instagram);
+  const youtube = useSelector((state) => state.configs.youtube);
+
+  const position = [mapX, mapY];
 
   return (
     <div className="flex flex-col items-center space-y-10 bg-primary-900 p-7 text-center text-white md:flex-row md:space-y-0 rtl:font-roboto">
       <div className="mr-0 ltr:md:ml-16 ltr:lg:mr-52 rtl:md:mr-16 rtl:lg:ml-52">
-        <h1 className="mb-8 text-2xl font-bold">
-          {/* Get in Touch */}
-          {t("footer.heading")}
-        </h1>
+        <h1 className="mb-8 text-2xl font-bold">{t("footer.heading")}</h1>
 
         <a
-          href="https://maps.app.goo.gl/ADaDXmUKtsyqkivq7"
+          href={locationLink}
           target="_blank"
           className="mb-2 flex items-center justify-center font-roboto"
         >
           <IconLocationDot className="h-5 w-5 ltr:mr-2 rtl:ml-2" />
-          <span>El-Maadi, Cairo, Egypt</span>
+          <span>{address}</span>
         </a>
         <a
-          href="tel:+20123456789"
+          href={`tel:+${phone}`}
           className="mb-2 flex items-center justify-center font-roboto"
           target="_blank"
         >
           <IconTelephoneFill className="h-5 w-5 ltr:mr-2 rtl:ml-2" />
-          <span>+201069262663</span>
+          <span>+{phone}</span>
         </a>
         <a
-          href="mailto:ammar.yassr.33@gmail.com"
+          href={`mailto:${email}`}
           className="mb-6 flex items-center justify-center font-roboto"
           target="_blank"
         >
           <IconMail className="h-5 w-5 ltr:mr-2 rtl:ml-2" />
-          <span>ammar.yassr.33@gmail.com</span>
+          <span>{email}</span>
         </a>
 
         {/* Social */}
         <div className="flex justify-center space-x-2 rtl:space-x-reverse">
           <a
-            href="https://facebook.com"
+            href={facebook}
             target="_blank"
             className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
           >
             <IconFacebook className="h-6 w-6" />
           </a>
           <a
-            href="https://wa.me/+201069262663"
+            href={`https://wa.me/+${whatsapp}`}
             target="_blank"
             className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
           >
             <IconWhatsapp className="h-6 w-6" />
           </a>
           <a
-            href="https://instagram.com"
+            href={instagram}
             target="_blank"
             className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
           >
             <IconInstagram className="h-6 w-6" />
           </a>
           <a
-            href="https://youtube.com"
+            href={youtube}
             target="_blank"
             className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
           >

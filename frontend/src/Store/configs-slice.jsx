@@ -8,6 +8,16 @@ const configsSlice = createSlice({
     achievementsProfessionals: "",
     achievementsProducts: "",
     achievementsOrders: "",
+    address: "",
+    phone: "",
+    email: "",
+    locationLink: "",
+    xCoordinate: "",
+    yCoordinate: "",
+    facebook: "",
+    whatsapp: "",
+    instagram: "",
+    youtube: "",
   },
   reducers: {
     setIntroVideo(state, action) {
@@ -24,6 +34,36 @@ const configsSlice = createSlice({
     },
     setAchievementsOrders(state, action) {
       state.achievementsOrders = action.payload;
+    },
+    setAddress(state, action) {
+      state.address = action.payload;
+    },
+    setPhone(state, action) {
+      state.phone = action.payload;
+    },
+    setEmail(state, action) {
+      state.email = action.payload;
+    },
+    setXCoordinate(state, action) {
+      state.xCoordinate = action.payload;
+    },
+    setYCoordinate(state, action) {
+      state.yCoordinate = action.payload;
+    },
+    setLocationLink(state, action) {
+      state.locationLink = action.payload;
+    },
+    setFacebook(state, action) {
+      state.facebook = action.payload;
+    },
+    setWhatsapp(state, action) {
+      state.whatsapp = action.payload;
+    },
+    setInstagram(state, action) {
+      state.instagram = action.payload;
+    },
+    setYoutube(state, action) {
+      state.youtube = action.payload;
     },
   },
 });
