@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   IconLocationDot,
   IconTelephoneFill,
@@ -17,17 +18,22 @@ import "leaflet/dist/leaflet.css";
 const position = [30.0113975, 31.1949437];
 
 export default function Footer() {
+  const { t } = useTranslation();
+
   return (
-    <div className="flex flex-col items-center space-y-10 bg-primary-900 p-7 text-center text-white md:flex-row md:space-y-0">
-      <div className="mr-0 md:mr-16 lg:mr-52">
-        <h1 className="mb-8 text-2xl font-bold">Get in Touch</h1>
+    <div className="flex flex-col items-center space-y-10 bg-primary-900 p-7 text-center text-white md:flex-row md:space-y-0 rtl:font-roboto">
+      <div className="mr-0 ltr:md:ml-16 ltr:lg:mr-52 rtl:md:mr-16 rtl:lg:ml-52">
+        <h1 className="mb-8 text-2xl font-bold">
+          {/* Get in Touch */}
+          {t("footer.heading")}
+        </h1>
 
         <a
           href="https://maps.app.goo.gl/ADaDXmUKtsyqkivq7"
           target="_blank"
           className="mb-2 flex items-center justify-center font-roboto"
         >
-          <IconLocationDot className="mr-2 h-5 w-5" />
+          <IconLocationDot className="h-5 w-5 ltr:mr-2 rtl:ml-2" />
           <span>El-Maadi, Cairo, Egypt</span>
         </a>
         <a
@@ -35,7 +41,7 @@ export default function Footer() {
           className="mb-2 flex items-center justify-center font-roboto"
           target="_blank"
         >
-          <IconTelephoneFill className="mr-2 h-5 w-5" />
+          <IconTelephoneFill className="h-5 w-5 ltr:mr-2 rtl:ml-2" />
           <span>+201069262663</span>
         </a>
         <a
@@ -43,12 +49,12 @@ export default function Footer() {
           className="mb-6 flex items-center justify-center font-roboto"
           target="_blank"
         >
-          <IconMail className="mr-2 h-5 w-5" />
+          <IconMail className="h-5 w-5 ltr:mr-2 rtl:ml-2" />
           <span>ammar.yassr.33@gmail.com</span>
         </a>
 
         {/* Social */}
-        <div className="flex justify-center space-x-2">
+        <div className="flex justify-center space-x-2 rtl:space-x-reverse">
           <a
             href="https://facebook.com"
             target="_blank"

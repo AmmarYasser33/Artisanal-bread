@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Navigation, A11y, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -49,11 +50,13 @@ const data = [
 ];
 
 export default function Testimonials() {
+  const { t } = useTranslation();
+
   return (
-    <div className="bg-primary-100">
+    <div className="bg-primary-100 rtl:font-roboto">
       <div className="mx-auto max-w-7xl items-center justify-center px-0 py-28 md:py-36 lg:px-8">
         <h3 className="mb-16 text-center text-4xl font-bold leading-10 text-secondary-700">
-          Meet Our Happy Clients
+          {t("testimonials.heading")}
         </h3>
 
         <Swiper
@@ -82,7 +85,7 @@ export default function Testimonials() {
                 <div
                   className={`rounded-lg p-5 shadow-lg ${isActive ? "bg-primary-600" : "bg-white"}`}
                 >
-                  <div className="flex items-center space-x-6">
+                  <div className="flex items-center space-x-6 rtl:space-x-reverse">
                     <img
                       src={testimonial.image}
                       alt={testimonial.name}

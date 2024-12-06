@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   IconBreadSlice,
   IconCartPlus,
@@ -6,77 +7,76 @@ import {
 } from "../Icons";
 
 export default function BakeryInfo() {
+  const { t } = useTranslation();
+
   return (
-    <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:flex-row lg:px-8">
+    <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:flex-row lg:px-8 rtl:font-roboto rtl:tracking-wider">
       <div>
-        <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-primary-500">
-          Our Services
+        <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-primary-500 rtl:font-bold">
+          {t("services.heading")}
         </h2>
         <h3 className="mb-8 text-[2.6rem] font-bold leading-10 text-secondary-500">
-          What Do We Offer For You?
+          {t("services.subheading")}
         </h3>
 
         <p className="mb-16 max-w-lg font-roboto text-base text-gray-600">
-          Our bakery offers a wide range of products, from bread to cakes, and
-          pastries to cookies. We guarantee the quality of our products and
-          ensure that they are fresh and delicious.
+          {t("services.description")}
         </p>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 rtl:space-x-reverse">
               <div className="rounded-full bg-primary-500 p-2">
                 <IconBreadSlice className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500">
-                Quality Products
+                {t("services.service1.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              Producing the best quality products is our top priority.
+              {t("services.service1.description")}
             </p>
           </div>
 
           <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 rtl:space-x-reverse">
               <div className="rounded-full bg-primary-500 p-2">
                 <IconCakeCandles className="h-5 w-5 text-white" />
               </div>
-              <h4 className="text-xl font-bold text-secondary-500">
-                Custom Products
+              <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
+                {t("services.service2.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              We offer custom products to meet your specific needs.
+              {t("services.service2.description")}
             </p>
           </div>
 
           <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 rtl:space-x-reverse">
               <div className="rounded-full bg-primary-500 p-2">
                 <IconCartPlus className="h-5 w-5 text-white" />
               </div>
-              <h4 className="text-xl font-bold text-secondary-500">
-                Online Order
+              <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
+                {t("services.service3.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              You can order our products online and have them delivered to you.
+              {t("services.service3.description")}
             </p>
           </div>
 
           <div className="flex flex-col space-y-3">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-4 rtl:space-x-reverse">
               <div className="rounded-full bg-primary-500 p-2">
                 <IconTruckDelivery className="h-5 w-5 text-white" />
               </div>
-              <h4 className="text-xl font-bold text-secondary-500">
-                Home Delivery
+              <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
+                {t("services.service4.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              We offer this service to make it easier for you to get our
-              products.
+              {t("services.service4.description")}
             </p>
           </div>
         </div>

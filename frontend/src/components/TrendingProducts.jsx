@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getTrendingProducts, addToCart } from "../util/Http";
@@ -9,6 +10,7 @@ import Spinner from "../components/Spinner";
 
 export default function TrendingProducts() {
   const token = useSelector((state) => state.userInfo.token);
+  const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const notifySuccess = (msg) => toast.success(msg);
@@ -29,16 +31,14 @@ export default function TrendingProducts() {
     mutationFn: (productId) => addToCart(token, productId),
     onSuccess: (data) => {
       if (data?.status === "success") {
-        notifySuccess("Added to cart successfully");
+        notifySuccess(t("cart.add.success"));
         dispatch(fetchCartCounter(token));
       } else {
-        notifyError(
-          data?.response?.data?.message || "Failed to add to cart! Try again.",
-        );
+        notifyError(data?.response?.data?.message || t("cart.add.error"));
       }
     },
     onError: () => {
-      notifyError("Failed to add to cart!");
+      notifyError(t("cart.add.error"));
     },
   });
 
@@ -46,15 +46,15 @@ export default function TrendingProducts() {
     <div className="bg-primary-100">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex items-center justify-between">
-          <h2 className="text-3xl font-extrabold tracking-tight text-gray-900">
-            Trending Products
+          <h2 className="text-3xl text-gray-900 ltr:font-sans ltr:font-extrabold ltr:tracking-tight rtl:font-roboto rtl:font-bold rtl:tracking-normal">
+            {t("trending.heading")}
           </h2>
 
           <Link
             to="/products"
             className="rounded-md border border-transparent bg-primary-400 px-4 py-2 font-roboto text-base font-medium text-secondary-800 shadow-md hover:bg-primary-300"
           >
-            All Products
+            {t("trending.allProducts")}
           </Link>
         </div>
 
@@ -67,7 +67,7 @@ export default function TrendingProducts() {
         {isError && (
           <div className="py-20">
             <p className="text-center font-roboto text-2xl font-semibold text-red-600">
-              Error getting products! Please try again later.
+              {t("products.fetch.error")}
             </p>
           </div>
         )}
@@ -97,7 +97,7 @@ export default function TrendingProducts() {
 
                 <div className="flex items-center justify-between px-1">
                   <p className="text-center font-roboto text-lg font-medium text-gray-900">
-                    {product.price} L.E
+                    {product.price} {t("currency")}
                   </p>
 
                   <button
@@ -106,7 +106,7 @@ export default function TrendingProducts() {
                       if (token) {
                         addProductToCart(product._id);
                       } else {
-                        notifyError("Please login to place an order!");
+                        notifyError(t("products.order.login"));
                       }
                     }}
                     disabled={isAddingToCart}

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import CountUp from "react-countup";
 import {
   IconBadge,
@@ -6,45 +7,49 @@ import {
   IconCartPlus,
 } from "../Icons";
 
-const stats = [
-  {
-    title: "Years Experience",
-    number: 6,
-    icon: (
-      <IconBadge className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
-    ),
-  },
-  {
-    title: "Skilled Professionals",
-    number: 175,
-    icon: (
-      <IconUserGroup className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
-    ),
-  },
-  {
-    title: "Total Products",
-    number: 86,
-    icon: (
-      <IconBreadSlice className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
-    ),
-  },
-  {
-    title: "Orders Placed",
-    number: 9357,
-    icon: (
-      <IconCartPlus className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
-    ),
-  },
-];
-
 export default function Stats() {
+  const { t } = useTranslation();
+
+  const stats = [
+    {
+      title: t("stats.experience"),
+      number: 6,
+      icon: (
+        <IconBadge className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+      ),
+    },
+    {
+      title: t("stats.professionals"),
+      number: 175,
+      icon: (
+        <IconUserGroup className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+      ),
+    },
+    {
+      title: t("stats.products"),
+      number: 86,
+      icon: (
+        <IconBreadSlice className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+      ),
+    },
+    {
+      title: t("stats.orders"),
+      number: 9357,
+      icon: (
+        <IconCartPlus className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+      ),
+    },
+  ];
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-40 sm:px-6 lg:px-8">
-      <div className="mb-8 text-center">
-        <h2 className="font-roboto text-xl font-extrabold uppercase text-primary-500">
-          Baking the Numbers
+      <div className="mb-8 text-center tracking-wide ltr:font-roboto rtl:font-cairo">
+        <h2 className="uppercase text-primary-500 ltr:text-xl ltr:font-extrabold rtl:mb-2 rtl:text-3xl rtl:font-bold">
+          {t("stats.heading")}
         </h2>
-        <p className="text-lg font-semibold text-gray-500">Our Achievements</p>
+        <p className="font-semibold text-gray-500 ltr:text-lg rtl:text-xl">
+          {t("stats.subheading")}
+        </p>
       </div>
       <ul
         role="list"
