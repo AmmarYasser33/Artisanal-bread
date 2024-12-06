@@ -51,6 +51,7 @@ const data = [
 
 export default function Testimonials() {
   const { t } = useTranslation();
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
 
   return (
     <div className="bg-primary-100 rtl:font-roboto">
@@ -60,6 +61,8 @@ export default function Testimonials() {
         </h3>
 
         <Swiper
+          key={isArLang ? "ar" : "en"}
+          dir={isArLang ? "rtl" : "ltr"}
           modules={[Navigation, A11y, EffectCoverflow]}
           effect="coverflow"
           // loop={true}
