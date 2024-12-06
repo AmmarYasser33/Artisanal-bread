@@ -42,6 +42,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
 
@@ -89,7 +90,7 @@ function App() {
         closeOnClick
         draggable
         pauseOnFocusLoss={false}
-        // className={isArLang?"ar_toast":""}
+        rtl={isArLang}
       />
 
       <Routes>
