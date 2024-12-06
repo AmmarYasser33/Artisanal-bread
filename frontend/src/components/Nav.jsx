@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
+import LangSwitch from "../components/LangSwitch";
 import {
   IconClose,
   IconIconMenu,
@@ -9,6 +11,7 @@ import {
 } from "../Icons";
 
 export default function Nav() {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const role = useSelector((state) => state.userInfo.role);
@@ -27,7 +30,7 @@ export default function Nav() {
           </span>
         </Link>
         <div className="flex space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-          <div className="flex items-center justify-center space-x-1">
+          <div className="flex items-center justify-center space-x-1 rtl:space-x-reverse">
             {isLogin ? (
               <Link
                 to={role === "admin" ? "/admin" : "/dashboard"}
@@ -38,9 +41,9 @@ export default function Nav() {
             ) : (
               <Link
                 to="/login"
-                className="mr-1 rounded-lg bg-primary-600 px-4 py-2 text-center font-roboto text-base font-medium text-white hover:bg-primary-800 focus:outline-none"
+                className="rounded-lg bg-primary-600 px-4 py-2 text-center font-roboto text-base font-medium text-white hover:bg-primary-800 focus:outline-none ltr:mr-1 rtl:ml-1"
               >
-                Login
+                {t("nav.login")}
               </Link>
             )}
 
@@ -85,7 +88,7 @@ export default function Nav() {
                 }
                 aria-current="page"
               >
-                Home
+                {t("nav.home")}
               </NavLink>
             </li>
             <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
@@ -95,7 +98,7 @@ export default function Nav() {
                   `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
                 }
               >
-                Products
+                {t("nav.products")}
               </NavLink>
             </li>
             <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
@@ -105,7 +108,7 @@ export default function Nav() {
                   `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
                 }
               >
-                Courses
+                {t("nav.courses")}
               </NavLink>
             </li>
             <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
@@ -115,9 +118,13 @@ export default function Nav() {
                   `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
                 }
               >
-                About
+                {t("nav.about")}
               </NavLink>
             </li>
+
+            <div className="flex items-center justify-center">
+              <LangSwitch />
+            </div>
           </ul>
         </div>
       </div>

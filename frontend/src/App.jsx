@@ -46,6 +46,16 @@ function App() {
   const role = useSelector((state) => state.userInfo.role);
 
   useEffect(() => {
+    if (localStorage.getItem("i18nextLng") === "ar") {
+      document.documentElement.setAttribute("dir", "rtl");
+      document.documentElement.setAttribute("lang", "ar");
+    } else {
+      document.documentElement.setAttribute("dir", "ltr");
+      document.documentElement.setAttribute("lang", "en");
+    }
+  }, []);
+
+  useEffect(() => {
     if (JSON.parse(localStorage.getItem("userData"))) {
       dispatch(getUserInfoFromLocalStorage());
     }

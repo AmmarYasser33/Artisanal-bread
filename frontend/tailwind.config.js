@@ -8,6 +8,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Playfair Display", "serif"],
+        cairo: ["Cairo", "sans-serif"],
         roboto: ["Roboto", "sans-serif"],
       },
       colors: {
