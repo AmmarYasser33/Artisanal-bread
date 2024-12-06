@@ -24,6 +24,7 @@ export default function AdminSettings() {
   const token = useSelector((state) => state.userInfo.token);
   const [bannerImage, setBannerImage] = useState(null);
   const introVideo = useSelector((state) => state.configs.introVideo);
+  const aboutVideo = useSelector((state) => state.configs.aboutVideo);
   const achievementsExperience = useSelector(
     (state) => state.configs.achievementsExperience,
   );
@@ -177,7 +178,8 @@ export default function AdminSettings() {
   } = useForm();
   const onSubmitMainData = (data) => {
     const formData = {
-      INTRO_VIDEO: data.introVideo,
+      INTRO_VIDEO_URL: data.introVideoURL,
+      ABOUT_VIDEO_URL: data.aboutVideoURL,
     };
 
     updateConfigsData(formData);
@@ -186,8 +188,9 @@ export default function AdminSettings() {
   useEffect(() => {
     resetMainData({
       introVideoURL: introVideo,
+      aboutVideoURL: aboutVideo,
     });
-  }, [introVideo, resetMainData]);
+  }, [introVideo, aboutVideo, resetMainData]);
 
   const {
     register: registerAchievements,
@@ -452,6 +455,28 @@ export default function AdminSettings() {
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
                 {mainDataErrors.introVideoURL && (
+                  <span className="text-sm text-red-600">
+                    Please enter a valid URL
+                  </span>
+                )}
+              </div>
+
+              <div className="col-span-6">
+                <label
+                  htmlFor="about-video"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  About Us Video URL
+                </label>
+                <input
+                  type="url"
+                  name="about-video"
+                  id="about-video"
+                  placeholder="https://www.youtube.com/...."
+                  {...registerMainData("aboutVideoURL", { required: true })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {mainDataErrors.aboutVideoURL && (
                   <span className="text-sm text-red-600">
                     Please enter a valid URL
                   </span>

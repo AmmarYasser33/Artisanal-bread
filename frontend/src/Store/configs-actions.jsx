@@ -22,6 +22,11 @@ const fetchConfigs = (token) => {
         ),
       );
       dispatch(
+        configActions.setAboutVideo(
+          findConfigByKey(res?.data, "ABOUT_VIDEO_URL")?.value,
+        ),
+      );
+      dispatch(
         configActions.setAchievementsExperience(
           findConfigByKey(res?.data, "ACHIEVEMENTS_EXPERIENCE")?.value,
         ),

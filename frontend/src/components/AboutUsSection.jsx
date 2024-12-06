@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import VideoModal from "../components/VideoModal";
 
 export default function AboutUsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const aboutVideo = useSelector((state) => state.configs.aboutVideo);
 
   return (
     <div className="mx-auto mt-24 flex max-w-7xl flex-col items-center justify-center space-y-24 px-4 sm:px-6 lg:mt-16 lg:flex-row lg:px-8">
@@ -51,7 +53,7 @@ export default function AboutUsSection() {
         </div>
         {isModalOpen && (
           <VideoModal
-            videoUrl={"https://youtu.be/SieaFan7-N0?si=8MMMeVUsOegJxCN_"}
+            videoUrl={aboutVideo}
             onClose={() => setIsModalOpen(false)}
             isPlaying={true}
           />

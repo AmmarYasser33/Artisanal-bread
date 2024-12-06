@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   IconLocationOutline,
   IconPhone,
@@ -11,9 +12,15 @@ import { Popup } from "react-leaflet/Popup";
 
 import "leaflet/dist/leaflet.css";
 
-const position = [30.0113975, 31.1949437];
-
 export default function ContactUsSection() {
+  const address = useSelector((state) => state.configs.address);
+  const phone = useSelector((state) => state.configs.phone);
+  const mapX = useSelector((state) => state.configs.xCoordinate);
+  const mapY = useSelector((state) => state.configs.yCoordinate);
+  const email = useSelector((state) => state.configs.email);
+
+  const position = [mapX, mapY];
+
   return (
     <div className="mx-auto my-24 max-w-7xl items-center justify-center px-4 sm:px-6 lg:mt-16 lg:px-8">
       <h1 className="mb-16 text-center text-3xl font-bold uppercase">
@@ -57,7 +64,7 @@ export default function ContactUsSection() {
           <div className="flex flex-col space-y-1">
             <h2 className="text-xl font-bold text-gray-600">Address</h2>
             <p className="font-roboto text-base text-secondary-900">
-              1234 Street Name, City Name, Egypt
+              {address}
             </p>
           </div>
         </div>
@@ -68,7 +75,7 @@ export default function ContactUsSection() {
           <div className="flex flex-col space-y-1">
             <h2 className="text-xl font-bold text-gray-600">Call Us</h2>
             <p className="font-roboto text-base text-secondary-900">
-              +20 123 456 789
+              +{phone.replace(/(\d{2})(\d{3})(\d{3})(\d{4})/, "$1 $2 $3 $4")}
             </p>
           </div>
         </div>
@@ -78,9 +85,7 @@ export default function ContactUsSection() {
           </div>
           <div className="flex flex-col space-y-1">
             <h2 className="text-xl font-bold text-gray-600">Email Us</h2>
-            <p className="font-roboto text-base text-secondary-900">
-              info@example.com
-            </p>
+            <p className="font-roboto text-base text-secondary-900">{email}</p>
           </div>
         </div>
       </div>

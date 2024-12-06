@@ -4,6 +4,7 @@ const configsSlice = createSlice({
   name: "configs",
   initialState: {
     introVideo: "",
+    aboutVideo: "",
     achievementsExperience: "",
     achievementsProfessionals: "",
     achievementsProducts: "",
@@ -22,6 +23,9 @@ const configsSlice = createSlice({
   reducers: {
     setIntroVideo(state, action) {
       state.introVideo = action.payload;
+    },
+    setAboutVideo(state, action) {
+      state.aboutVideo = action.payload;
     },
     setAchievementsExperience(state, action) {
       state.achievementsExperience = action.payload;
