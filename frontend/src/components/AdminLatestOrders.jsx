@@ -48,7 +48,7 @@ export default function AdminLatestOrders() {
           <thead className="border-b border-slate-200 bg-gray-50 text-xs uppercase text-gray-700">
             <tr className="">
               <th scope="col" className="px-6 py-3">
-                ID
+                No.
               </th>
               <th scope="col" className="px-3 py-3">
                 Customer
@@ -97,7 +97,7 @@ export default function AdminLatestOrders() {
                     to={`/admin/orders/${order._id}`}
                     className="hover:underline"
                   >
-                    #{order._id}
+                    #{order.orderNumber}
                   </Link>
                 </th>
                 <td className="px-3 py-4">
