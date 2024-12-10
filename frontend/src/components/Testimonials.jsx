@@ -80,13 +80,16 @@ export default function Testimonials() {
             600: {
               slidesPerView: 2,
             },
+            0: {
+              slidesPerView: 1,
+            },
           }}
         >
           {data.map((testimonial) => (
             <SwiperSlide key={testimonial.id}>
               {({ isActive }) => (
                 <div
-                  className={`rounded-lg p-5 shadow-lg ${isActive ? "bg-primary-600" : "bg-white"}`}
+                  className={`rounded-lg p-5 shadow-lg max-[600px]:px-11 ${isActive ? "bg-primary-600" : "bg-white"}`}
                 >
                   <div className="flex items-center space-x-6 rtl:space-x-reverse">
                     <img

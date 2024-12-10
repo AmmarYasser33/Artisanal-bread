@@ -12,7 +12,7 @@ const Footer = React.lazy(() => import("../components/Footer"));
 
 export default function Home() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <HeroSection />
       <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
         <Stats />
