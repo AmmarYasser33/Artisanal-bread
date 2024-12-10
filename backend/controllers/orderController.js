@@ -102,13 +102,24 @@ exports.updateOrderStatus = catchAsync(async (req, res, next) => {
 exports.orderAgain = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
-  const oldOrder = await Order.findById(id).lean();
+  // const oldOrder = await Order.findById(id).lean();
+
+  const [oldOrder, counter] = await Promise.all([
+    Order.findById(id).lean(),
+
+    Counter.findOneAndUpdate(
+      { name: "order_number" },
+      { $inc: { seq: 1 } },
+      { new: true, upsert: true }
+    ),
+  ]);
 
   if (!oldOrder) {
     return next(new ApiError("Order not found", 404));
   }
 
   const order = await Order.create({
+    orderNumber: counter.seq,
     user: req.user.id,
     cartItems: oldOrder.cartItems,
     totalPrice: oldOrder.totalPrice,
