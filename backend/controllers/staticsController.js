@@ -67,7 +67,12 @@ exports.getStatics = catchAsync(async (req, res, next) => {
         {
           $group: {
             _id: null,
-            totalSales: { $sum: "$totalPrice" }, // Sum of totalPrice
+            // totalSales: { $sum: "$totalPrice" }, // Sum of totalPrice
+            totalSales: {
+              $sum: {
+                $cond: [{ $eq: ["$status", "delivered"] }, "$totalPrice", 0],
+              },
+            },
             avgOrderPrice: { $avg: "$totalPrice" }, // Average totalPrice
             deliveries: {
               $sum: { $cond: [{ $eq: ["$status", "delivered"] }, 1, 0] }, // Count delivered orders
