@@ -9,7 +9,7 @@ const ContactUsSection = React.lazy(
 
 export default function About() {
   return (
-    <div>
+    <div className="overflow-x-hidden">
       <div className="bg-secondary-500 shadow-lg">
         <Nav />
       </div>
