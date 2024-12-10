@@ -202,17 +202,17 @@ export default function UserOrders() {
                         <OrderStatus status={order.status} />
                       </dl>
                       <div className="grid w-full gap-4 sm:grid-cols-2 xl:flex xl:w-64 xl:items-center xl:justify-end">
-                        {order.status === "delivered" ||
-                          (order.status === "cancelled" && (
-                            <button
-                              type="button"
-                              className="w-full rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
-                              disabled={isOrderingAgain}
-                              onClick={() => orderAgainMutation(order._id)}
-                            >
-                              Order again
-                            </button>
-                          ))}
+                        {(order.status === "delivered" ||
+                          order.status === "cancelled") && (
+                          <button
+                            type="button"
+                            className="w-full rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
+                            disabled={isOrderingAgain}
+                            onClick={() => orderAgainMutation(order._id)}
+                          >
+                            Order again
+                          </button>
+                        )}
                         {order.status === "pending" && (
                           <button
                             type="button"
