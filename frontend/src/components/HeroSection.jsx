@@ -10,10 +10,14 @@ export default function Hero() {
   const { t } = useTranslation();
 
   return (
-    <div
-      id="hero"
-      className={`relative min-h-screen bg-[url('${"http://localhost:3001/"}designs/banner.png')] bg-cover bg-center`}
-    >
+    <div id="hero" className="relative min-h-screen">
+      {/* Background Image */}
+      <img
+        src={`${"http://localhost:3001/"}designs/banner.png`}
+        alt="Background Image"
+        className="absolute inset-0 z-0 h-full w-full object-cover"
+      />
+
       {/* Overlay */}
       <div className="absolute inset-0 bg-black opacity-50"></div>
 
