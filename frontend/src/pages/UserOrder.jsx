@@ -175,13 +175,13 @@ export default function UserOrder() {
                             <dl className="flex items-center justify-between gap-4">
                               <dt className="text-gray-500">Original price</dt>
                               <dd className="text-base font-medium text-gray-900">
-                                {order.totalPrice} L.E
+                                {order.totalPrice - +order.shippingPrice} L.E
                               </dd>
                             </dl>
                             <dl className="flex items-center justify-between gap-4">
                               <dt className="text-gray-500">Shipping</dt>
                               <dd className="text-base font-medium text-gray-900">
-                                0 L.E
+                                {order.shippingPrice} L.E
                               </dd>
                             </dl>
                           </div>

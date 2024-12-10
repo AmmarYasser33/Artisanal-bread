@@ -13,6 +13,7 @@ import Nav from "../components/Nav";
 export default function Cart() {
   const token = useSelector((state) => state.userInfo.token);
   const user = useSelector((state) => state.profileInfo.data);
+  const shippingPrice = useSelector((state) => state.configs.shippingPrice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -233,7 +234,7 @@ export default function Cart() {
                           {cartData?.numberOfItems || 0} Products + Shipping
                         </p>
                         <p className="text-xl font-semibold leading-8 text-primary-700">
-                          {cartData?.data?.totalPrice || 0} L.E
+                          {cartData?.data?.totalPrice + +shippingPrice || 0} L.E
                         </p>
                       </>
                     )}

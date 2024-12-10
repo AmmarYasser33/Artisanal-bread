@@ -1,6 +1,7 @@
 const Order = require("../models/orderModel");
 const Cart = require("../models/cartModel");
 const Counter = require("../models/counterModel");
+const Config = require("../models/configModel");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
@@ -37,7 +38,7 @@ exports.getAllOrders = factory.getAll(
 exports.getOrder = factory.getOne(Order, orderPopOptions);
 
 exports.createCashOrder = catchAsync(async (req, res, next) => {
-  const [cart, counter] = await Promise.all([
+  const [cart, counter, SHIPPING_PRICE] = await Promise.all([
     Cart.findById(req.params.cartId),
 
     Counter.findOneAndUpdate(
@@ -45,18 +46,23 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
       { $inc: { seq: 1 } },
       { new: true, upsert: true }
     ),
+
+    Config.findOne({ key: "SHIPPING_PRICE" }),
   ]);
 
   if (!cart) {
     return next(new ApiError("Cart not found", 404));
   }
 
+  const shippingPrice = +SHIPPING_PRICE?.value || 0;
+
   const [order] = await Promise.all([
     Order.create({
       orderNumber: counter.seq,
       user: req.user.id,
       cartItems: cart.cartItems,
-      totalPrice: cart.totalPrice,
+      shippingPrice,
+      totalPrice: cart.totalPrice + shippingPrice,
       orderName: req.body.orderName,
       orderPhone: req.body.orderPhone,
       orderAddress: req.body.orderAddress,

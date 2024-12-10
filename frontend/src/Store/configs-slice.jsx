@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const configsSlice = createSlice({
   name: "configs",
   initialState: {
+    shippingPrice: 0,
     introVideo: "",
     aboutVideo: "",
     achievementsExperience: "",
@@ -21,6 +22,9 @@ const configsSlice = createSlice({
     youtube: "",
   },
   reducers: {
+    setShippingPrice(state, action) {
+      state.shippingPrice = action.payload;
+    },
     setIntroVideo(state, action) {
       state.introVideo = action.payload;
     },

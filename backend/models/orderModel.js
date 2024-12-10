@@ -22,6 +22,10 @@ const orderSchema = new mongoose.Schema(
         price: Number,
       },
     ],
+    shippingPrice: {
+      type: Number,
+      default: 0,
+    },
     totalPrice: Number,
     orderName: String,
     orderPhone: String,

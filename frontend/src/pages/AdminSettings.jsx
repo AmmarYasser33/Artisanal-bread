@@ -23,6 +23,7 @@ export default function AdminSettings() {
   const user = useSelector((state) => state.profileInfo.data);
   const token = useSelector((state) => state.userInfo.token);
   const [bannerImage, setBannerImage] = useState(null);
+  const shippingPrice = useSelector((state) => state.configs.shippingPrice);
   const introVideo = useSelector((state) => state.configs.introVideo);
   const aboutVideo = useSelector((state) => state.configs.aboutVideo);
   const achievementsExperience = useSelector(
@@ -274,6 +275,26 @@ export default function AdminSettings() {
     resetContactInfo,
   ]);
 
+  const {
+    register: registerShippingPrice,
+    handleSubmit: handleShippingPriceSubmit,
+    reset: resetShippingPrice,
+    formState: { errors: shippingPriceErrors },
+  } = useForm();
+  const onSubmitShippingPrice = (data) => {
+    const formData = {
+      SHIPPING_PRICE: data.shippingPrice,
+    };
+
+    updateConfigsData(formData);
+  };
+
+  useEffect(() => {
+    resetShippingPrice({
+      shippingPrice: shippingPrice,
+    });
+  }, [shippingPrice, resetShippingPrice]);
+
   return (
     <div className="space-y-10 sm:px-6 lg:col-span-9 lg:px-0">
       <form onSubmit={handleDataSubmit(onSubmitData)}>
@@ -435,7 +456,7 @@ export default function AdminSettings() {
         <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
             <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
-              Main Section Video
+              Main Videos
             </h3>
 
             <div className="grid grid-cols-6 gap-6">
@@ -875,6 +896,52 @@ export default function AdminSettings() {
                 {contactInfoErrors.youtube && (
                   <span className="text-sm text-red-600">
                     Youtube link is required
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+            <button
+              type="submit"
+              disabled={isUpdateConfigsPending}
+              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <form onSubmit={handleShippingPriceSubmit(onSubmitShippingPrice)}>
+        <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
+          <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
+            <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
+              Orders Info.
+            </h3>
+
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="shipping"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Shipping Price
+                </label>
+                <input
+                  type="number"
+                  name="shipping"
+                  id="shipping"
+                  {...registerShippingPrice("shippingPrice", {
+                    required: true,
+                    min: 0,
+                    valueAsNumber: true,
+                  })}
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                />
+                {shippingPriceErrors.shippingPrice && (
+                  <span className="text-sm text-red-600">
+                    Please enter a positive number
                   </span>
                 )}
               </div>

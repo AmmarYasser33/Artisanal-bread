@@ -17,6 +17,11 @@ const fetchConfigs = (token) => {
       const res = response.data;
 
       dispatch(
+        configActions.setShippingPrice(
+          findConfigByKey(res?.data, "SHIPPING_PRICE")?.value,
+        ),
+      );
+      dispatch(
         configActions.setIntroVideo(
           findConfigByKey(res?.data, "INTRO_VIDEO_URL")?.value,
         ),
