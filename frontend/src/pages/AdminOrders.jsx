@@ -132,14 +132,14 @@ export default function AdminOrders() {
                     >
                       <dl className="w-full sm:w-1/2 md:mr-3 lg:w-1/4 lg:flex-1 2xl:w-auto">
                         <dt className="text-base font-medium text-gray-500">
-                          Order ID:
+                          Order NO.:
                         </dt>
                         <dd className="mt-1.5 text-base font-semibold text-gray-900">
                           <Link
                             to={`/admin/orders/${order._id}`}
                             className="hover:underline"
                           >
-                            #{order._id}
+                            #{order.orderNumber}
                           </Link>
                         </dd>
                       </dl>

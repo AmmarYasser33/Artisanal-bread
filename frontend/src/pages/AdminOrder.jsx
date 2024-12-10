@@ -49,9 +49,7 @@ export default function AdminOrder() {
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-semibold text-secondary-700 sm:text-2xl">
                 Order{" "}
-                <span className="text-xs text-gray-500 sm:text-base md:text-lg">
-                  #{id}
-                </span>
+                <span className="text-gray-500">#{order.orderNumber}</span>
               </h2>
               <OrderStatus status={order.status} />
             </div>

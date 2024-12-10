@@ -166,16 +166,16 @@ export default function UserOrders() {
                       key={order._id}
                       className="flex flex-wrap items-center gap-y-4 py-6"
                     >
-                      <dl className="w-full sm:w-1/2 md:mr-3 lg:w-1/4 lg:flex-1 2xl:w-auto">
+                      <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                         <dt className="text-base font-medium text-gray-500">
-                          Order ID:
+                          Order NO.:
                         </dt>
                         <dd className="mt-1.5 text-base font-semibold text-gray-900">
                           <Link
                             to={`/dashboard/orders/${order._id}`}
                             className="hover:underline"
                           >
-                            #{order._id}
+                            #{order.orderNumber}
                           </Link>
                         </dd>
                       </dl>
