@@ -12,6 +12,7 @@ import saveUserInfoIntoLocalStorage, {
 } from "../Store/userInfo-actions";
 import { authFormsHandler } from "../util/Http";
 import Nav from "../components/Nav";
+import Spinner from "../components/Spinner";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -190,29 +191,13 @@ export default function Login() {
                     </div>
 
                     <div className="mt-6">
-                      {/* <button
+                      <button
                         type="submit"
-                        className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+                        disabled={isPending}
+                        className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
-                        Sign in
-                      </button> */}
-
-                      {!isPending ? (
-                        <button
-                          type="submit"
-                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                        >
-                          Sign in
-                        </button>
-                      ) : (
-                        <button
-                          type="button"
-                          disabled
-                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-800 px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                        >
-                          Login in...
-                        </button>
-                      )}
+                        {isPending ? <Spinner size={5} /> : "Sign in"}
+                      </button>
                     </div>
                   </form>
 

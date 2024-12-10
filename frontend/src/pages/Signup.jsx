@@ -6,6 +6,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { authFormsHandler } from "../util/Http";
 import Nav from "../components/Nav";
+import Spinner from "../components/Spinner";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -238,22 +239,13 @@ export default function Signup() {
                     </div>
 
                     <div className="mt-7">
-                      {!isPending ? (
-                        <button
-                          type="submit"
-                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                        >
-                          Register
-                        </button>
-                      ) : (
-                        <button
-                          type="submit"
-                          className="flex w-full justify-center rounded-md border border-transparent bg-primary-800 px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-                          disabled
-                        >
-                          Registering...
-                        </button>
-                      )}
+                      <button
+                        type="submit"
+                        disabled={isPending}
+                        className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                      >
+                        {isPending ? <Spinner size={5} /> : "Register"}
+                      </button>
                     </div>
                   </form>
 

@@ -206,11 +206,15 @@ export default function UserOrders() {
                           order.status === "cancelled") && (
                           <button
                             type="button"
-                            className="w-full rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
+                            className="w-full rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={isOrderingAgain}
                             onClick={() => orderAgainMutation(order._id)}
                           >
-                            Order again
+                            {isOrderingAgain ? (
+                              <Spinner size={6} />
+                            ) : (
+                              "Order again"
+                            )}
                           </button>
                         )}
                         {order.status === "pending" && (
@@ -220,7 +224,11 @@ export default function UserOrders() {
                             disabled={isCanceling}
                             onClick={() => cancelOrderMutation(order._id)}
                           >
-                            Cancel order
+                            {isCanceling ? (
+                              <Spinner size={6} />
+                            ) : (
+                              "Cancel order"
+                            )}
                           </button>
                         )}
                         <Link

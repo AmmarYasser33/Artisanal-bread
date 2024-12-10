@@ -9,6 +9,7 @@ import { profileActions } from "../Store/profileInfo-slice";
 import { cartActions } from "../Store/cartCounter-slice";
 import { useMutation } from "@tanstack/react-query";
 import { updateMe, updatePassword } from "../util/Http";
+import Spinner from "../components/Spinner";
 
 export default function UserProfile() {
   const user = useSelector((state) => state.profileInfo.data);
@@ -223,7 +224,7 @@ export default function UserProfile() {
               disabled={isUpdateUserPending}
               className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isUpdateUserPending ? "Saving..." : "Save"}
+              {isUpdateUserPending ? <Spinner size={5} /> : "Save"}
             </button>
           </div>
         </div>
@@ -332,7 +333,7 @@ export default function UserProfile() {
               disabled={isUpdatePasswordPending}
               className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isUpdatePasswordPending ? "Saving..." : "Save"}
+              {isUpdatePasswordPending ? <Spinner size={5} /> : "Save"}
             </button>
           </div>
         </div>
