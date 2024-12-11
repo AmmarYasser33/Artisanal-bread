@@ -127,7 +127,7 @@ export default function Products() {
                 <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
                   <img
                     src={`http://localhost:3001/${product.image}`}
-                    alt={`${product.name} image`}
+                    alt="product image"
                     className="h-full w-full object-cover object-center"
                   />
                 </div>
@@ -137,7 +137,7 @@ export default function Products() {
                   <div className="group-hover:text-primary-800">
                     {/* <Link to="/product" className="group-hover:text-primary-800"> */}
                     <span className="absolute inset-0" />
-                    {product.name}
+                    {isArLang ? product.arName : product.enName}
                     {/* </Link> */}
                   </div>
                 </h3>

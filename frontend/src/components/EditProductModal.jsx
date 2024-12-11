@@ -64,7 +64,8 @@ export default function EditProductModal({
     formState: { errors },
   } = useForm({
     defaultValues: {
-      name: product?.name,
+      enName: product?.enName,
+      arName: product?.arName,
       price: product?.price,
       isFeatured: product?.isFeatured,
       description: product?.description,
@@ -84,7 +85,8 @@ export default function EditProductModal({
       formData.append("image", images[0]);
     }
 
-    formData.append("name", data.name);
+    formData.append("enName", data.enName);
+    formData.append("arName", data.arName);
     formData.append("price", data.price);
     formData.append("isFeatured", data.isFeatured);
     formData.append("description", data.description);
@@ -146,7 +148,7 @@ export default function EditProductModal({
                             type="text"
                             placeholder="Product name"
                             className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
-                            {...register("name", {
+                            {...register("enName", {
                               required: "Product name is required",
                               minLength: {
                                 value: 2,
@@ -154,9 +156,27 @@ export default function EditProductModal({
                               },
                             })}
                           />
-                          {errors.name && (
+                          {errors.enName && (
                             <p className="my-1 text-sm text-red-500">
-                              {errors.name?.message}
+                              {errors.enName?.message}
+                            </p>
+                          )}
+
+                          <input
+                            type="text"
+                            placeholder="اسم المنتج"
+                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            {...register("arName", {
+                              required: "Product name is required",
+                              minLength: {
+                                value: 2,
+                                message: "Product name is too short",
+                              },
+                            })}
+                          />
+                          {errors.arName && (
+                            <p className="my-1 text-sm text-red-500">
+                              {errors.arName?.message}
                             </p>
                           )}
 

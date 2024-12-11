@@ -1,21 +1,24 @@
 import { Link, useParams } from "react-router-dom";
-import { IconChevronLeft } from "../Icons";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getOrder } from "../util/Http";
 import ChangeOrderStatus from "../components/ChangeOrderStatus";
 import OrderStatus from "../components/OrderStatus";
 import Spinner from "../components/Spinner";
+import { IconChevronLeft } from "../Icons";
 
 export default function AdminOrder() {
   const { id } = useParams();
   const token = JSON.parse(localStorage.getItem("token"));
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const { i18n } = useTranslation();
 
   const {
     data: order,
     isLoading: isOrderLoading,
     isError: isOrderError,
   } = useQuery({
-    queryKey: ["order", token, id],
+    queryKey: ["order", token, id, i18n.language],
     queryFn: () => getOrder(token, id),
     staleTime: 0,
     select: (res) => res.data,
@@ -107,10 +110,12 @@ export default function AdminOrder() {
                                       <img
                                         className="h-auto max-h-full w-full"
                                         src={`http://localhost:3001/${item?.product?.image}`}
-                                        alt={`${item?.product?.name} image`}
+                                        alt="product image"
                                       />
                                     </div>
-                                    {item?.product?.name}
+                                    {isArLang
+                                      ? item?.product?.arName
+                                      : item?.product?.enName}
                                   </div>
                                 </td>
 

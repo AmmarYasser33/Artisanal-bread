@@ -138,7 +138,9 @@ export default function Cart() {
                     <CartIem
                       key={item._id}
                       id={item._id}
-                      name={item.product.name}
+                      name={
+                        isArLang ? item.product.arName : item.product.enName
+                      }
                       image={item.product.image}
                       price={item.product.price}
                       category={

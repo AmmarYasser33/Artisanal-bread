@@ -1,14 +1,17 @@
 import { Link, useParams } from "react-router-dom";
-import { IconChevronLeft } from "../Icons";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getOrder, orderAgain, cancelOrder } from "../util/Http";
 import OrderStatus from "../components/OrderStatus";
 import Spinner from "../components/Spinner";
+import { IconChevronLeft } from "../Icons";
 
 export default function UserOrder() {
   const { id } = useParams();
   const token = JSON.parse(localStorage.getItem("token"));
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const { i18n } = useTranslation();
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -19,7 +22,7 @@ export default function UserOrder() {
     isError: isOrderError,
     refetch: refetchOrder,
   } = useQuery({
-    queryKey: ["order", token, id],
+    queryKey: ["order", token, id, i18n.language],
     queryFn: () => getOrder(token, id),
     staleTime: 0,
     select: (res) => res.data,
@@ -147,10 +150,12 @@ export default function UserOrder() {
                                       <img
                                         className="h-auto max-h-full w-full"
                                         src={`http://localhost:3001/${item?.product?.image}`}
-                                        alt={`${item?.product?.name} image`}
+                                        alt="product image"
                                       />
                                     </div>
-                                    {item?.product?.name}
+                                    {isArLang
+                                      ? item?.product?.arName
+                                      : item?.product?.enName}
                                   </div>
                                 </td>
 

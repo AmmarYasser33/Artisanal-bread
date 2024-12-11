@@ -2,13 +2,22 @@ const { check } = require("express-validator");
 const validatorMiddleware = require("./validatorMiddleware");
 
 exports.createProductValidator = [
-  check("name")
+  check("enName")
     .notEmpty()
-    .withMessage("Name is required")
+    .withMessage("English name is required")
     .isString()
-    .withMessage("Name must be a string")
+    .withMessage("English name must be a string")
     .isLength({ min: 2 })
-    .withMessage("Name must be at least 2 characters long")
+    .withMessage("English name must be at least 2 characters long")
+    .trim(),
+
+  check("arName")
+    .notEmpty()
+    .withMessage("Arabic name is required")
+    .isString()
+    .withMessage("Arabic name must be a string")
+    .isLength({ min: 2 })
+    .withMessage("Arabic name must be at least 2 characters long")
     .trim(),
 
   check("description")

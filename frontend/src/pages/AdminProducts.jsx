@@ -74,7 +74,9 @@ export default function AdminProducts() {
                     <th scope="col" className="px-6 py-3">
                       Product name
                     </th>
-
+                    <th scope="col" className="px-6 py-3">
+                      اسم المنتج
+                    </th>
                     <th scope="col" className="px-6 py-3">
                       Category
                     </th>
@@ -97,7 +99,7 @@ export default function AdminProducts() {
                           <img
                             src={`http://localhost:3001/${product.image}`}
                             className="rounded-md"
-                            alt={`${product.name} image`}
+                            alt="product image"
                           />
                         </div>
                       </td>
@@ -105,9 +107,14 @@ export default function AdminProducts() {
                         scope="row"
                         className="whitespace-nowrap px-6 py-4 font-semibold"
                       >
-                        {product.name}
+                        {product.enName}
                       </th>
-
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap px-6 py-4 font-semibold"
+                      >
+                        {product.arName}
+                      </th>
                       <td className="px-6 py-4">
                         {isArLang
                           ? product.category.arName

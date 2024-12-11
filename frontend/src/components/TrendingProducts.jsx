@@ -11,7 +11,8 @@ import Spinner from "../components/Spinner";
 export default function TrendingProducts() {
   const token = useSelector((state) => state.userInfo.token);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
-  const { t } = useTranslation();
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
   const notifySuccess = (msg) => toast.success(msg);
@@ -22,7 +23,7 @@ export default function TrendingProducts() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["trendingProducts"],
+    queryKey: ["trendingProducts", i18n.language],
     queryFn: getTrendingProducts,
     staleTime: 0,
     select: (res) => res.data,
@@ -81,7 +82,7 @@ export default function TrendingProducts() {
                 <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
                   <img
                     src={`http://localhost:3001/${product.image}`}
-                    alt={`${product.name} image`}
+                    alt="product image"
                     className="h-full w-full object-cover object-center"
                   />
                 </div>
@@ -91,7 +92,7 @@ export default function TrendingProducts() {
                   <div className="group-hover:text-primary-800">
                     {/* <Link to="/product" className="group-hover:text-primary-800"> */}
                     <span className="absolute inset-0" />
-                    {product.name}
+                    {isArLang ? product.arName : product.enName}
                     {/* </Link> */}
                   </div>
                 </h3>
