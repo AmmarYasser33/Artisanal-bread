@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,8 @@ export default function Cart() {
   const token = useSelector((state) => state.userInfo.token);
   const user = useSelector((state) => state.profileInfo.data);
   const shippingPrice = useSelector((state) => state.configs.shippingPrice);
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const { i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,7 +28,7 @@ export default function Cart() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["cart", token],
+    queryKey: ["cart", token, i18n.language],
     queryFn: () => getCart(token),
     enabled: !!token,
   });
@@ -138,7 +141,11 @@ export default function Cart() {
                       name={item.product.name}
                       image={item.product.image}
                       price={item.product.price}
-                      category={item.product.category.name}
+                      category={
+                        isArLang
+                          ? item.product.category.arName
+                          : item.product.category.enName
+                      }
                       quantity={item.quantity}
                     />
                   ))}

@@ -2,10 +2,13 @@ const mongoose = require("mongoose");
 
 const categorySchema = new mongoose.Schema(
   {
-    name: {
+    arName: {
       type: String,
       required: true,
-      unique: [true, "Category already exists"],
+    },
+    enName: {
+      type: String,
+      required: true,
     },
   },
   { timestamps: true }

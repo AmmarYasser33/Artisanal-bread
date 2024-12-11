@@ -68,7 +68,9 @@ export default function AdminCategories() {
                     <th scope="col" className="px-6 py-3">
                       Category
                     </th>
-
+                    <th scope="col" className="px-6 py-3">
+                      Arabic Name
+                    </th>
                     <th scope="col" className="px-6 py-3">
                       Created At
                     </th>
@@ -87,7 +89,13 @@ export default function AdminCategories() {
                         scope="row"
                         className="whitespace-nowrap px-6 py-4 font-semibold"
                       >
-                        {category.name}
+                        {category.enName}
+                      </th>
+                      <th
+                        scope="row"
+                        className="whitespace-nowrap px-6 py-4 font-semibold"
+                      >
+                        {category.arName}
                       </th>
 
                       <td className="px-6 py-4 text-sm text-gray-700">

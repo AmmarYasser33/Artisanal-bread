@@ -10,7 +10,7 @@ const factory = require("./handlerFactory");
 const productPopOptions = [
   {
     path: "category",
-    select: "name",
+    select: "arName enName",
   },
 ];
 

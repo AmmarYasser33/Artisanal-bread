@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../util/Http";
 import { IconBxsEdit, IconPlusLg, IconTrashDelete } from "../Icons";
@@ -8,6 +9,8 @@ import EditProductModal from "../components/EditProductModal";
 import Spinner from "../components/Spinner";
 
 export default function AdminProducts() {
+  const { i18n } = useTranslation();
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
@@ -18,7 +21,7 @@ export default function AdminProducts() {
     isLoading: isProductsLoading,
     isError: isProductsError,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["products", i18n.language],
     queryFn: () => getProducts(),
     staleTime: 0,
     select: (res) => res.data,
@@ -105,7 +108,11 @@ export default function AdminProducts() {
                         {product.name}
                       </th>
 
-                      <td className="px-6 py-4">{product.category.name}</td>
+                      <td className="px-6 py-4">
+                        {isArLang
+                          ? product.category.arName
+                          : product.category.enName}
+                      </td>
                       <td className="px-6 py-4">{product.price} L.E</td>
                       <td className="px-6 py-4">
                         <button

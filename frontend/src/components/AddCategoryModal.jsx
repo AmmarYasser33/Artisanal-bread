@@ -95,16 +95,32 @@ export default function AddCategoryModal({ isModalOpen, setIsModalOpen }) {
                   <div className="mt-2">
                     <form onSubmit={handleSubmit(onSubmit)}>
                       <div className="mt-5 bg-white">
+                        <div className="pb-2">
+                          <input
+                            type="text"
+                            placeholder="اسم الفئة بالعربي"
+                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            {...register("arName", {
+                              required: "Category arabic name is required",
+                            })}
+                          />
+                          {errors.arName && (
+                            <p className="my-1 text-sm text-red-500">
+                              {errors.name?.message}
+                            </p>
+                          )}
+                        </div>
+
                         <div className="pb-5">
                           <input
                             type="text"
-                            placeholder="Category name"
+                            placeholder="Category english name"
                             className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
-                            {...register("name", {
-                              required: "Category name is required",
+                            {...register("enName", {
+                              required: "Category english name is required",
                             })}
                           />
-                          {errors.name && (
+                          {errors.enName && (
                             <p className="my-1 text-sm text-red-500">
                               {errors.name?.message}
                             </p>

@@ -9,7 +9,7 @@ const cartPopOptions = [
     select: "name price image category",
     populate: {
       path: "category",
-      select: "name",
+      select: "arName enName",
     },
   },
 ];

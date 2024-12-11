@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -13,6 +14,8 @@ export default function Products() {
 
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const token = useSelector((state) => state.userInfo.token);
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const { i18n } = useTranslation();
   const dispatch = useDispatch();
 
   const notifySuccess = (msg) => toast.success(msg);
@@ -60,19 +63,23 @@ export default function Products() {
       setCategories([
         "All",
         ...new Set(
-          categoriesData.data.map((category) => category.name.toLowerCase()),
+          isArLang
+            ? categoriesData.data.map((category) => category.arName)
+            : categoriesData.data.map((category) => category.enName),
         ),
       ]);
     }
-  }, [categoriesData]);
+  }, [categoriesData, isArLang, i18n.language]);
 
   const [activeFilter, setActiveFilter] = useState("all");
 
   const filteredProducts =
     activeFilter === "all"
       ? productsData?.data
-      : productsData?.data.filter(
-          (product) => product.category.name.toLowerCase() === activeFilter,
+      : productsData?.data.filter((product) =>
+          isArLang
+            ? product.category.arName.toLowerCase() === activeFilter
+            : product.category.enName.toLowerCase() === activeFilter,
         );
 
   if (isProductsError) return <p>Error retrieving products</p>;

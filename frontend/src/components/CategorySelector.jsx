@@ -17,6 +17,8 @@ export default function CategorySelector({
   selectedCategory,
   categories,
 }) {
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+
   return (
     <Listbox value={selectedCategory} onChange={setSelectedCategory}>
       {({ open }) => (
@@ -24,7 +26,13 @@ export default function CategorySelector({
           <div className="relative mt-3">
             <ListboxButton className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
               <span className="block truncate">
-                {selectedCategory ? selectedCategory.name : "Select Category:"}
+                {!selectedCategory && isArLang
+                  ? "اختر الفئة:"
+                  : "Select a category:"}
+                {selectedCategory &&
+                  (isArLang
+                    ? selectedCategory.arName
+                    : selectedCategory.enName)}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <IconChevronDown
@@ -61,7 +69,7 @@ export default function CategorySelector({
                             "block truncate",
                           )}
                         >
-                          {category.name}
+                          {isArLang ? category.arName : category.enName}
                         </span>
 
                         {selected ? (

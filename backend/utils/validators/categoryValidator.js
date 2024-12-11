@@ -2,11 +2,17 @@ const { check } = require("express-validator");
 const validatorMiddleware = require("./validatorMiddleware");
 
 exports.createCategoryValidator = [
-  check("name")
+  check("arName")
     .notEmpty()
-    .withMessage("Category name is required")
+    .withMessage("Category Arabic name is required")
     .isString()
-    .withMessage("Category name must be a string"),
+    .withMessage("Category Arabic name must be a string"),
+
+  check("enName")
+    .notEmpty()
+    .withMessage("Category English name is required")
+    .isString()
+    .withMessage("Category English name must be a string"),
 
   validatorMiddleware,
 ];
@@ -18,10 +24,15 @@ exports.updateCategoryValidator = [
     .isMongoId()
     .withMessage("Invalid Category ID"),
 
-  check("name")
+  check("arName")
     .optional()
     .isString()
-    .withMessage("Category name must be a string"),
+    .withMessage("Category Arabic name must be a string"),
+
+  check("enName")
+    .optional()
+    .isString()
+    .withMessage("Category English name must be a string"),
 
   validatorMiddleware,
 ];
