@@ -26,13 +26,13 @@ export default function CategorySelector({
           <div className="relative mt-3">
             <ListboxButton className="relative w-full cursor-default rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 text-left shadow-sm focus:border-primary-500 focus:outline-none focus:ring-1 focus:ring-primary-500">
               <span className="block truncate">
-                {!selectedCategory && isArLang
-                  ? "اختر الفئة:"
-                  : "Select a category:"}
-                {selectedCategory &&
-                  (isArLang
+                {!selectedCategory
+                  ? isArLang
+                    ? "اختر الفئة:"
+                    : "Select a category:"
+                  : isArLang
                     ? selectedCategory.arName
-                    : selectedCategory.enName)}
+                    : selectedCategory.enName}
               </span>
               <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                 <IconChevronDown
