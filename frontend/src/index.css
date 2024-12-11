@@ -8,6 +8,10 @@
   color: #fff;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 /* play video button */
 .play-btn {
   width: 94px;
