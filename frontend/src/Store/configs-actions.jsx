@@ -91,7 +91,7 @@ const fetchConfigs = (token) => {
         ),
       );
       dispatch(
-        configActions.setYoutube(findConfigByKey(res?.data, "YOUTUBE")?.value),
+        configActions.setTiktok(findConfigByKey(res?.data, "TIKTOK")?.value),
       );
     } catch (error) {
       console.error(error);

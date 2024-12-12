@@ -6,7 +6,7 @@ import {
   IconMail,
   IconFacebook,
   IconInstagram,
-  IconYoutube,
+  IconTiktok,
   IconWhatsapp,
 } from "../Icons";
 import { MapContainer } from "react-leaflet/MapContainer";
@@ -27,7 +27,7 @@ export default function Footer() {
   const facebook = useSelector((state) => state.configs.facebook);
   const whatsapp = useSelector((state) => state.configs.whatsapp);
   const instagram = useSelector((state) => state.configs.instagram);
-  const youtube = useSelector((state) => state.configs.youtube);
+  const tiktok = useSelector((state) => state.configs.tiktok);
 
   const position = [mapX, mapY];
 
@@ -85,11 +85,11 @@ export default function Footer() {
             <IconInstagram className="h-6 w-6" />
           </a>
           <a
-            href={youtube}
+            href={tiktok}
             target="_blank"
             className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
           >
-            <IconYoutube className="h-6 w-6" />
+            <IconTiktok className="h-6 w-6" />
           </a>
         </div>
       </div>

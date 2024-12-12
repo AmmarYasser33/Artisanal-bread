@@ -19,7 +19,7 @@ const configsSlice = createSlice({
     facebook: "",
     whatsapp: "",
     instagram: "",
-    youtube: "",
+    tiktok: "",
   },
   reducers: {
     setShippingPrice(state, action) {
@@ -70,8 +70,8 @@ const configsSlice = createSlice({
     setInstagram(state, action) {
       state.instagram = action.payload;
     },
-    setYoutube(state, action) {
-      state.youtube = action.payload;
+    setTiktok(state, action) {
+      state.tiktok = action.payload;
     },
   },
 });

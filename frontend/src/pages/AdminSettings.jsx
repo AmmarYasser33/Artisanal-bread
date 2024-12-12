@@ -47,7 +47,7 @@ export default function AdminSettings() {
   const contactFacebook = useSelector((state) => state.configs.facebook);
   const contactWhatsapp = useSelector((state) => state.configs.whatsapp);
   const contactInstagram = useSelector((state) => state.configs.instagram);
-  const contactYoutube = useSelector((state) => state.configs.youtube);
+  const contactTiktok = useSelector((state) => state.configs.tiktok);
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -242,7 +242,7 @@ export default function AdminSettings() {
       FACEBOOK: data.facebook,
       WHATSAPP: data.whatsapp,
       INSTAGRAM: data.instagram,
-      YOUTUBE: data.youtube,
+      TIKTOK: data.tiktok,
     };
 
     updateConfigsData(formData);
@@ -259,7 +259,7 @@ export default function AdminSettings() {
       facebook: contactFacebook,
       whatsapp: contactWhatsapp,
       instagram: contactInstagram,
-      youtube: contactYoutube,
+      tiktok: contactTiktok,
     });
   }, [
     contactAddress,
@@ -271,7 +271,7 @@ export default function AdminSettings() {
     contactFacebook,
     contactWhatsapp,
     contactInstagram,
-    contactYoutube,
+    contactTiktok,
     resetContactInfo,
   ]);
 
@@ -880,22 +880,22 @@ export default function AdminSettings() {
 
               <div className="col-span-6 sm:col-span-3">
                 <label
-                  htmlFor="youtube"
+                  htmlFor="tiktok"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Youtube Channel
+                  TikTok
                 </label>
                 <input
                   type="text"
-                  name="youtube"
-                  id="youtube"
-                  placeholder="https://youtube.com/..."
-                  {...registerContactInfo("youtube", { required: true })}
+                  name="tiktok"
+                  id="tiktok"
+                  placeholder="https://tiktok.com/..."
+                  {...registerContactInfo("tiktok", { required: true })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
-                {contactInfoErrors.youtube && (
+                {contactInfoErrors.tiktok && (
                   <span className="text-sm text-red-600">
-                    Youtube link is required
+                    TikTok link is required
                   </span>
                 )}
               </div>
