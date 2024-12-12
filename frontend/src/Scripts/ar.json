@@ -33,6 +33,8 @@
   "products.fetch.empty": "لا توجد منتجات متاحة!",
   "products.order.login": "سجل الدخول قبل الطلب!",
   "products.order.admin": "لا يمكن للأدمن الطلب!",
+  "courses.fetch.error": "خطأ في استرجاع الدورات! يرجى المحاولة لاحقًا.",
+  "courses.fetch.empty": "لا توجد دورات متاحة!",
   "cart.add.success": "تمت الإضافة إلى السلة",
   "cart.add.error": "خطأ في إضافة المنتج إلى السلة!"
 }

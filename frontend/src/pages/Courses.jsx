@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getCourses } from "../util/Http";
@@ -7,12 +8,14 @@ import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 
 export default function Courses() {
+  const { t, i18n } = useTranslation();
+
   const {
     data: courses,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["courses"],
+    queryKey: ["courses", i18n.language],
     queryFn: () => getCourses(),
     staleTime: 0,
     select: (res) => res.data,
@@ -28,7 +31,7 @@ export default function Courses() {
         {isLoading && <Spinner />}
         {isError && (
           <p className="mt-10 text-center font-roboto text-2xl font-bold text-red-600">
-            Error getting courses!
+            {t("courses.fetch.error")}
           </p>
         )}
         {courses && (
@@ -59,7 +62,7 @@ export default function Courses() {
 
                 <div className="flex items-center justify-between px-1">
                   <p className="text-center font-roboto text-xl font-medium text-gray-900">
-                    {course.price} L.E
+                    {course.price} {t("currency")}
                   </p>
 
                   <Link

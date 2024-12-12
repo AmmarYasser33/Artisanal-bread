@@ -33,6 +33,8 @@
   "products.fetch.empty": "No products available!",
   "products.order.login": "Please login to place an order!",
   "products.order.admin": "Admins can't place orders!",
+  "courses.fetch.error": "Error getting courses! Please try again later.",
+  "courses.fetch.empty": "No courses available!",
   "cart.add.success": "Added to cart successfully",
   "cart.add.error": "Failed to add to cart!"
 }
