@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
+
 export default function InstagramFloatIcon() {
+  const instagram = useSelector((state) => state.configs.instagram);
+
   return (
     <div className="fixed bottom-5 right-5 z-[1000]">
       <a
-        href="https://www.instagram.com/baker_way_/profilecard/?igsh=dDhoM3IzOTlyenhp"
+        href={instagram}
         target="_blank"
         rel="noopener noreferrer"
         className="flex transform items-center justify-center rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-500 p-3 shadow-lg transition-all duration-300 hover:scale-110"
