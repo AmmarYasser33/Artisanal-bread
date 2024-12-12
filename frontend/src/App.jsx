@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -13,6 +13,7 @@ import fetchProfileData from "./Store/profileInfo-actions";
 import fetchConfigs from "./Store/configs-actions";
 import PR from "./components/ProtectedRoute";
 import AR from "./components/AdminRoute";
+import InstagramFloatIcon from "./components/InstagramFloatIcon";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
 import Courses from "./pages/Courses";
@@ -43,6 +44,7 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   const dispatch = useDispatch();
+  const location = useLocation();
   const isArLang = localStorage.getItem("i18nextLng") === "ar";
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
@@ -97,6 +99,8 @@ function App() {
         pauseOnFocusLoss={false}
         rtl={isArLang}
       />
+
+      {location.pathname.includes("/admin") || location.pathname.includes("/dashboard") ? null : <InstagramFloatIcon />}
 
       <Routes>
         <Route path="/" element={<Home />} />
