@@ -30,7 +30,9 @@
   "testimonials.heading": "Meet Our Happy Clients",
   "footer.heading": "Get in Touch",
   "products.fetch.error": "Error getting products! Please try again later.",
+  "products.fetch.empty": "No products available!",
   "products.order.login": "Please login to place an order!",
+  "products.order.admin": "Admins can't place orders!",
   "cart.add.success": "Added to cart successfully",
   "cart.add.error": "Failed to add to cart!"
 }

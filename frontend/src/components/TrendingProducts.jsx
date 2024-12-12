@@ -11,6 +11,7 @@ import Spinner from "../components/Spinner";
 export default function TrendingProducts() {
   const token = useSelector((state) => state.userInfo.token);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const role = useSelector((state) => state.userInfo.role);
   const isArLang = localStorage.getItem("i18nextLng") === "ar";
   const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
@@ -105,7 +106,9 @@ export default function TrendingProducts() {
                   <button
                     type="button"
                     onClick={() => {
-                      if (isLogin) {
+                      if (isLogin && role === "admin") {
+                        notifyError(t("products.order.admin"));
+                      } else if (isLogin) {
                         addProductToCart(product._id);
                       } else {
                         notifyError(t("products.order.login"));

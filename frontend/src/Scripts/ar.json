@@ -30,7 +30,9 @@
   "testimonials.heading": "رضا عملائنا أولويتنا",
   "footer.heading": "تواصل معنا",
   "products.fetch.error": "خطأ في استرجاع المنتجات! يرجى المحاولة لاحقًا.",
+  "products.fetch.empty": "لا توجد منتجات متاحة!",
   "products.order.login": "سجل الدخول قبل الطلب!",
+  "products.order.admin": "لا يمكن للأدمن الطلب!",
   "cart.add.success": "تمت الإضافة إلى السلة",
   "cart.add.error": "خطأ في إضافة المنتج إلى السلة!"
 }

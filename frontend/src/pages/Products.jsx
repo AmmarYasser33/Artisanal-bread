@@ -14,8 +14,9 @@ export default function Products() {
 
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const token = useSelector((state) => state.userInfo.token);
+  const role = useSelector((state) => state.userInfo.role);
   const isArLang = localStorage.getItem("i18nextLng") === "ar";
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
 
   const notifySuccess = (msg) => toast.success(msg);
@@ -25,16 +26,14 @@ export default function Products() {
     mutationFn: (productId) => addToCart(token, productId),
     onSuccess: (data) => {
       if (data?.status === "success") {
-        notifySuccess("Added to cart successfully");
+        notifySuccess(t("cart.add.success"));
         dispatch(fetchCartCounter(token));
       } else {
-        notifyError(
-          data?.response?.data?.message || "Failed to add to cart! Try again.",
-        );
+        notifyError(data?.response?.data?.message || t("cart.add.error"));
       }
     },
     onError: () => {
-      notifyError("Failed to add to cart!");
+      notifyError(t("cart.add.error"));
     },
   });
 
@@ -82,7 +81,7 @@ export default function Products() {
             : product.category.enName.toLowerCase() === activeFilter,
         );
 
-  if (isProductsError) return <p>Error retrieving products</p>;
+  if (isProductsError) return <p>{t("products.fetch.error")}</p>;
 
   return (
     <div className="min-h-screen bg-primary-50">
@@ -104,7 +103,7 @@ export default function Products() {
               }`}
               onClick={() => setActiveFilter(filter.toLowerCase())}
             >
-              {filter}
+              {isArLang ? (filter === "All" ? "الكل" : filter) : filter}
             </button>
           ))
         ) : (
@@ -133,7 +132,7 @@ export default function Products() {
                 </div>
                 {/* </Link> */}
 
-                <h3 className="mt-4 text-base font-bold tracking-wide text-gray-800 drop-shadow-sm">
+                <h3 className="mt-4 text-base font-bold tracking-wide text-gray-800 drop-shadow-sm rtl:font-roboto">
                   <div className="group-hover:text-primary-800">
                     {/* <Link to="/product" className="group-hover:text-primary-800"> */}
                     <span className="absolute inset-0" />
@@ -144,16 +143,18 @@ export default function Products() {
 
                 <div className="flex items-center justify-between px-1">
                   <p className="text-center font-roboto text-lg font-medium text-gray-900">
-                    {product.price} L.E
+                    {product.price} {t("currency")}
                   </p>
 
                   <button
                     type="button"
                     onClick={() => {
-                      if (isLogin) {
+                      if (isLogin && role === "admin") {
+                        notifyError(t("products.order.admin"));
+                      } else if (isLogin) {
                         addProductToCart(product._id);
                       } else {
-                        notifyError("Please login to place an order!");
+                        notifyError(t("products.order.login"));
                       }
                     }}
                     disabled={isAddingToCart}
@@ -166,7 +167,7 @@ export default function Products() {
             ))
           ) : (
             <p className="mt-10 text-center font-roboto text-2xl font-bold text-primary-700">
-              No products found!
+              {t("products.fetch.empty")}
             </p>
           )}
         </div>
