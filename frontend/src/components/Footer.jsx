@@ -94,22 +94,24 @@ export default function Footer() {
         </div>
       </div>
 
-      <MapContainer
-        center={position}
-        zoom={14}
-        scrollWheelZoom={true}
-        className="h-80 w-full shadow-2xl"
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker position={position}>
-          <Popup>
-            Welcome to Artisanal bread! <br /> We are here.
-          </Popup>
-        </Marker>
-      </MapContainer>
+      {mapX && mapY && (
+        <MapContainer
+          center={position}
+          zoom={14}
+          scrollWheelZoom={true}
+          className="h-80 w-full shadow-2xl"
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <Marker position={position}>
+            <Popup>
+              Welcome to Artisanal bread! <br /> We are here.
+            </Popup>
+          </Marker>
+        </MapContainer>
+      )}
     </div>
   );
 }
