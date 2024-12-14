@@ -10,7 +10,10 @@ const configsSlice = createSlice({
     achievementsProfessionals: "",
     achievementsProducts: "",
     achievementsOrders: "",
-    address: "",
+    arAddress: "",
+    enAddress: "",
+    arOpeningHours: "",
+    enOpeningHours: "",
     phone: "",
     email: "",
     locationLink: "",
@@ -43,8 +46,17 @@ const configsSlice = createSlice({
     setAchievementsOrders(state, action) {
       state.achievementsOrders = action.payload;
     },
-    setAddress(state, action) {
-      state.address = action.payload;
+    setArAddress(state, action) {
+      state.arAddress = action.payload;
+    },
+    setEnAddress(state, action) {
+      state.enAddress = action.payload;
+    },
+    setArOpeningHours(state, action) {
+      state.arOpeningHours = action.payload;
+    },
+    setEnOpeningHours(state, action) {
+      state.enOpeningHours = action.payload;
     },
     setPhone(state, action) {
       state.phone = action.payload;

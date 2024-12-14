@@ -52,7 +52,24 @@ const fetchConfigs = (token) => {
         ),
       );
       dispatch(
-        configActions.setAddress(findConfigByKey(res?.data, "ADDRESS")?.value),
+        configActions.setArAddress(
+          findConfigByKey(res?.data, "AR_ADDRESS")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setEnAddress(
+          findConfigByKey(res?.data, "EN_ADDRESS")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setArOpeningHours(
+          findConfigByKey(res?.data, "AR_OPENING_HOURS")?.value,
+        ),
+      );
+      dispatch(
+        configActions.setEnOpeningHours(
+          findConfigByKey(res?.data, "EN_OPENING_HOURS")?.value,
+        ),
       );
       dispatch(
         configActions.setPhone(findConfigByKey(res?.data, "PHONE")?.value),

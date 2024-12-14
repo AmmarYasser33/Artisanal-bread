@@ -18,7 +18,9 @@ import "leaflet/dist/leaflet.css";
 
 export default function Footer() {
   const { t } = useTranslation();
-  const address = useSelector((state) => state.configs.address);
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const arAddress = useSelector((state) => state.configs.arAddress);
+  const enAddress = useSelector((state) => state.configs.enAddress);
   const phone = useSelector((state) => state.configs.phone);
   const mapX = useSelector((state) => state.configs.xCoordinate);
   const mapY = useSelector((state) => state.configs.yCoordinate);
@@ -42,7 +44,7 @@ export default function Footer() {
           className="mb-2 flex items-center justify-center font-roboto"
         >
           <IconLocationDot className="h-5 w-5 ltr:mr-2 rtl:ml-2" />
-          <span>{address}</span>
+          <span>{isArLang ? arAddress : enAddress}</span>
         </a>
         <a
           href={`tel:+${phone}`}
