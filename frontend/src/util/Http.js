@@ -554,3 +554,29 @@ export const uploadBannerImage = async (token, formData) => {
     return error;
   }
 };
+
+// Chefs
+
+export const getChefs = async () => {
+  try {
+    const response = await axios.get(`${baseServerUrl}chefs`);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateChef = async (token, chefId, formData) => {
+  try {
+    const response = await axios.patch(
+      `${baseServerUrl}chefs/${chefId}`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

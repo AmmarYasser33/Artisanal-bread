@@ -42,6 +42,7 @@
   "aboutus.story": "Our Story",
   "team.heading": "Our Masterful Chefs",
   "team.subheading": "Meet the Artisans Behind Every Delicious Creation",
+  "team.error": "Error getting chefs data!",
   "contacts.help": "Need Help?",
   "contacts.contactUs": "Contact Us",
   "contacts.opening": "Opening Hours",

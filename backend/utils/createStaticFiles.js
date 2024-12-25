@@ -6,6 +6,7 @@ const usersPath = path.join(rootPath, "users");
 const productsPath = path.join(rootPath, "products");
 const coursesPath = path.join(rootPath, "courses");
 const designsPath = path.join(rootPath, "designs");
+const chefsPath = path.join(rootPath, "chefs");
 
 function ensureDirectories() {
   if (!fs.existsSync(rootPath)) {
@@ -31,6 +32,11 @@ function ensureDirectories() {
   if (!fs.existsSync(designsPath)) {
     fs.mkdirSync(designsPath);
     console.log("Created designs directory");
+  }
+
+  if (!fs.existsSync(chefsPath)) {
+    fs.mkdirSync(chefsPath);
+    console.log("Created chefs directory");
   }
 }
 

@@ -5,6 +5,7 @@ const productRoutes = require("./productRoutes");
 const courseRoutes = require("./courseRoutes");
 const cartRoutes = require("./cartRoutes");
 const orderRoutes = require("./orderRoutes");
+const chefRoutes = require("./chefRoutes");
 const staticsRoutes = require("./staticsRoutes");
 const configRoutes = require("./configRoutes");
 
@@ -16,6 +17,7 @@ const mountRoutes = (app) => {
   app.use("/api/v1/courses", courseRoutes);
   app.use("/api/v1/cart", cartRoutes);
   app.use("/api/v1/orders", orderRoutes);
+  app.use("/api/v1/chefs", chefRoutes);
   app.use("/api/v1/statics", staticsRoutes);
   app.use("/api/v1/configs", configRoutes);
 };
