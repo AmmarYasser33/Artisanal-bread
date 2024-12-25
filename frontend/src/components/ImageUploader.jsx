@@ -8,6 +8,10 @@ export default function ImageUploader({
 }) {
   const [isImgDragging, setIsImgDragging] = useState(false);
   const [uploadedImages, setUploadedImages] = useState([]); // Store { file, url } objects
+  const [fileInputId] = useState(
+    () =>
+      `dropzone-file-${Math.random().toString(36).substring(2, 9)}-${Date.now()}`,
+  );
 
   useEffect(() => {
     if (
@@ -81,7 +85,7 @@ export default function ImageUploader({
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
         >
-          <label htmlFor="dropzone-file" className="cursor-pointer">
+          <label htmlFor={fileInputId} className="w-full cursor-pointer">
             <div className="flex flex-col items-center justify-center pb-6 pt-3">
               <IconCloudUpload className="mb-3 h-8 w-8 text-gray-500" />
               <p className="mb-2 text-sm text-gray-500">
@@ -95,7 +99,7 @@ export default function ImageUploader({
             </div>
           </label>
           <input
-            id="dropzone-file"
+            id={fileInputId}
             type="file"
             className="hidden"
             onChange={handleFileChange}
@@ -107,11 +111,13 @@ export default function ImageUploader({
 
       {uploadedImages.length > 0 && (
         <div className="border-gray-30 mt-1 flex w-full flex-wrap items-center justify-center rounded-sm border p-3">
-          {uploadedImages.map(({ url }, index) => (
-            <div key={index} className="relative me-3 mt-3 h-20 w-20">
+          {uploadedImages.map(({ url }) => (
+            <div
+              key={`${url}-${Date.now()}`}
+              className="relative me-3 mt-3 h-20 w-20"
+            >
               <img
                 src={url}
-                alt={`Uploaded ${index}`}
                 className="h-full w-full rounded-md object-cover"
               />
               <button
