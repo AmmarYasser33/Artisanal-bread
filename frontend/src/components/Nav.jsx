@@ -18,7 +18,7 @@ export default function Nav() {
   const cartCounter = useSelector((state) => state.cartCounter.counter);
 
   return (
-    <nav className="border-gray-200">
+    <nav className="border-gray-200 print:hidden">
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
         <Link
           to="/"

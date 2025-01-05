@@ -5,7 +5,7 @@ import { getOrder } from "../util/Http";
 import ChangeOrderStatus from "../components/ChangeOrderStatus";
 import OrderStatus from "../components/OrderStatus";
 import Spinner from "../components/Spinner";
-import { IconChevronLeft } from "../Icons";
+import { IconChevronLeft, IconBxsPrinter } from "../Icons";
 
 export default function AdminOrder() {
   const { id } = useParams();
@@ -25,7 +25,7 @@ export default function AdminOrder() {
   });
 
   return (
-    <section className="space-y-6 bg-white py-2 antialiased shadow-lg sm:overflow-hidden sm:rounded-md sm:px-6 md:py-5 lg:col-span-9 lg:px-0">
+    <section className="space-y-6 bg-white py-2 antialiased shadow-lg sm:overflow-hidden sm:rounded-md sm:px-6 md:py-5 lg:col-span-9 lg:px-0 print:shadow-none">
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         {isOrderLoading ? (
           <div className="flex h-80 items-center justify-center">
@@ -39,7 +39,7 @@ export default function AdminOrder() {
           </div>
         ) : (
           <div className="mx-auto max-w-5xl">
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-3 print:hidden">
               <Link
                 to="/admin/orders"
                 className="flex items-center gap-0 rounded-md border border-transparent bg-primary-300 px-6 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:gap-1 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-700 focus:ring-offset-2 focus:ring-offset-primary-100"
@@ -47,6 +47,14 @@ export default function AdminOrder() {
                 <IconChevronLeft className="h-3 w-3" />
                 <span>All Orders</span>
               </Link>
+
+              <button
+                onClick={() => window.print()}
+                className="rounded-md border border-transparent bg-primary-300 px-3 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:gap-1 hover:bg-primary-600"
+              >
+                <IconBxsPrinter className="h-5 w-5" />
+                <span className="sr-only">Print Order</span>
+              </button>
             </div>
 
             <div className="flex items-center gap-3">
@@ -162,7 +170,7 @@ export default function AdminOrder() {
                       </div>
                     </div>
 
-                    <div className="mt-16 flex items-center justify-center">
+                    <div className="mt-16 flex items-center justify-center print:hidden">
                       <ChangeOrderStatus
                         currentStatus={order.status}
                         orderId={id}
