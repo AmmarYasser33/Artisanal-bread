@@ -11,6 +11,8 @@ import "./index.css";
 
 const queryClient = new QueryClient();
 
+// TODO: use 'react-intersection-observer' to lazy load images and components
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <QueryClientProvider client={queryClient}>
