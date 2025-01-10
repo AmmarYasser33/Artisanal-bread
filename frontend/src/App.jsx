@@ -41,6 +41,7 @@ import AdminCourse from "./pages/AdminCourse";
 import AdminUsers from "./pages/AdminUsers";
 import AdminUser from "./pages/AdminUser";
 import AdminSettings from "./pages/AdminSettings";
+import AdminTestimonials from "./pages/AdminTestimonials";
 import NotFound from "./pages/NotFound";
 
 function App() {
@@ -150,6 +151,7 @@ function App() {
           <Route path="users" element={<AdminUsers />} />
           <Route path="users/:id" element={<AdminUser />} />
           <Route path="settings" element={<AdminSettings />} />
+          <Route path="testimonials" element={<AdminTestimonials />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />

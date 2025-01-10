@@ -580,3 +580,60 @@ export const updateChef = async (token, chefId, formData) => {
     return error;
   }
 };
+
+// Testimonials
+
+export const getTestimonials = async () => {
+  try {
+    const response = await axios.get(`${baseServerUrl}testimonials`);
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const addTestimonial = async (token, formData) => {
+  try {
+    const response = await axios.post(
+      `${baseServerUrl}testimonials`,
+      formData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const updateTestimonial = async (token, testimonialId, formData) => {
+  try {
+    const response = await axios.patch(
+      `${baseServerUrl}testimonials/${testimonialId}`,
+      formData,
+      { headers: { Authorization: `Bearer ${token}` } },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteTestimonial = async (token, testimonialId) => {
+  try {
+    const response = await axios.delete(
+      `${baseServerUrl}testimonials/${testimonialId}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    return error;
+  }
+};

@@ -28,6 +28,7 @@
   "services.service4.title": "توصيل منزلي",
   "services.service4.description": "نقدم هذه الخدمة لتسهيل الحصول على منتجاتنا.",
   "testimonials.heading": "رضا عملائنا أولويتنا",
+  "testimonials.fetch.error": "خطأ في استرجاع شهادات العملاء! يرجى المحاولة لاحقًا.",
   "footer.heading": "تواصل معنا",
   "products.fetch.error": "خطأ في استرجاع المنتجات! يرجى المحاولة لاحقًا.",
   "products.fetch.empty": "لا توجد منتجات متاحة!",

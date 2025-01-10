@@ -1,57 +1,29 @@
 import { useTranslation } from "react-i18next";
+import { useQuery } from "@tanstack/react-query";
+import { getTestimonials } from "../util/Http";
 import { Navigation, A11y, EffectCoverflow } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import Spinner from "./Spinner";
+import { BASE_URL } from "../util/Globals";
 
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 
-const data = [
-  {
-    id: 0,
-    name: "Ammar Yasser",
-    title: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/44.jpg",
-    quote:
-      "Excellent service, I am very happy with the company, they are very professional and always deliver on time.",
-  },
-  {
-    id: 1,
-    name: "Omar Yasser",
-    title: "CEO",
-    image: "https://randomuser.me/api/portraits/men/62.jpg",
-    quote:
-      "I am very happy with the service of the company, they are very professional and always deliver on time.",
-  },
-  {
-    id: 2,
-    name: "Ammar Yasser",
-    title: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/44.jpg",
-    quote:
-      "Excellent service, I am very happy with the company, they are very professional and always deliver on time.",
-  },
-  {
-    id: 3,
-    name: "Tamer Yasser",
-    title: "COO",
-    image: "https://randomuser.me/api/portraits/men/50.jpg",
-    quote:
-      "I am very happy with the service of the company, they are very professional and always deliver on time.",
-  },
-  {
-    id: 4,
-    name: "Ammar Yasser",
-    title: "Software Engineer",
-    image: "https://randomuser.me/api/portraits/men/44.jpg",
-    quote:
-      "Excellent service, I am very happy with the company, they are very professional and always deliver on time.",
-  },
-];
-
 export default function Testimonials() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const isArLang = localStorage.getItem("i18nextLng") === "ar";
+
+  const {
+    data: testimonials,
+    isLoading: isTestimonialsLoading,
+    isError: isTestimonialsError,
+  } = useQuery({
+    queryKey: ["testimonials", i18n.language],
+    queryFn: () => getTestimonials(),
+    staleTime: 0,
+    select: (res) => res.data,
+  });
 
   return (
     <div className="bg-primary-100 rtl:font-roboto">
@@ -61,12 +33,14 @@ export default function Testimonials() {
         </h3>
 
         <Swiper
-          key={isArLang ? "ar" : "en"}
+          key={
+            isArLang ? "ar" + testimonials?.length : "en" + testimonials?.length
+          }
           dir={isArLang ? "rtl" : "ltr"}
           modules={[Navigation, A11y, EffectCoverflow]}
           effect="coverflow"
           // loop={true}
-          initialSlide={data.length > 1 ? 1 : 0}
+          initialSlide={testimonials?.length > 1 ? 1 : 0}
           slidesPerView={2}
           centeredSlides={true}
           navigation
@@ -85,42 +59,57 @@ export default function Testimonials() {
             },
           }}
         >
-          {data.map((testimonial) => (
-            <SwiperSlide key={testimonial.id}>
-              {({ isActive }) => (
-                <div
-                  className={`rounded-lg p-5 shadow-lg max-[600px]:px-11 ${isActive ? "bg-primary-600" : "bg-white"}`}
-                >
-                  <div className="flex items-center space-x-6 rtl:space-x-reverse">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="h-14 w-14 rounded-full ring-2 ring-gray-100 ring-offset-2 ring-offset-primary-500"
-                    />
+          {isTestimonialsLoading && (
+            <div className="flex items-center justify-center">
+              <Spinner />
+            </div>
+          )}
 
-                    <div className="flex flex-col space-y-1">
-                      <h4
-                        className={`mb-0 text-[1.35rem] font-semibold leading-7 tracking-wide ${isActive ? "text-white" : "text-secondary-500"}`}
-                      >
-                        {testimonial.name}
-                      </h4>
-                      <p
-                        className={`font-roboto text-sm ${isActive ? "text-white" : "text-gray-800"}`}
-                      >
-                        {testimonial.title}
-                      </p>
-                    </div>
-                  </div>
+          {isTestimonialsError && (
+            <div className="flex items-center justify-center">
+              <p className="text-2xl font-bold text-red-600">
+                {t("testimonials.fetch.error")}
+              </p>
+            </div>
+          )}
 
-                  <p
-                    className={`mt-5 font-roboto text-lg ${isActive ? "text-white" : "text-gray-900"}`}
+          {testimonials &&
+            testimonials.length > 0 &&
+            testimonials.map((testimonial) => (
+              <SwiperSlide key={testimonial._id}>
+                {({ isActive }) => (
+                  <div
+                    className={`rounded-lg p-5 shadow-lg max-[600px]:px-11 ${isActive ? "bg-primary-600" : "bg-white"}`}
                   >
-                    {testimonial.quote}
-                  </p>
-                </div>
-              )}
-            </SwiperSlide>
-          ))}
+                    <div className="flex items-center space-x-6 rtl:space-x-reverse">
+                      <img
+                        src={`${BASE_URL}${testimonial.image}`}
+                        className="h-14 w-14 rounded-full ring-2 ring-gray-100 ring-offset-2 ring-offset-primary-500"
+                      />
+
+                      <div className="flex flex-col space-y-1">
+                        <h4
+                          className={`mb-0 text-[1.35rem] font-semibold leading-7 tracking-wide ${isActive ? "text-white" : "text-secondary-500"}`}
+                        >
+                          {testimonial.name}
+                        </h4>
+                        <p
+                          className={`font-roboto text-sm ${isActive ? "text-white" : "text-gray-800"}`}
+                        >
+                          {testimonial.title}
+                        </p>
+                      </div>
+                    </div>
+
+                    <p
+                      className={`mt-5 font-roboto text-lg ${isActive ? "text-white" : "text-gray-900"}`}
+                    >
+                      {testimonial.comment}
+                    </p>
+                  </div>
+                )}
+              </SwiperSlide>
+            ))}
         </Swiper>
       </div>
     </div>
