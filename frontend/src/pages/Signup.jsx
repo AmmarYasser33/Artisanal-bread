@@ -11,16 +11,19 @@ import Spinner from "../components/Spinner";
 export default function Signup() {
   const navigate = useNavigate();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const role = useSelector((state) => state.userInfo.role);
 
   const notifySuccess = () => toast.success("Account created successfully");
   const notifyError = (msg) =>
     toast.error(msg || "Account creation failed! Please try again.");
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && role === "user") {
       navigate("/");
+    } else if (isLogin && role === "admin") {
+      navigate("/admin");
     }
-  }, [isLogin, navigate]);
+  }, [isLogin, navigate, role]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: authFormsHandler,

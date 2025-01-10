@@ -18,16 +18,19 @@ export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const role = useSelector((state) => state.userInfo.role);
 
   const notifySuccess = () => toast.success("Login successfully!");
   const notifyError = (msg) =>
     toast.error(msg || "Something went wrong, please try again!");
 
   useEffect(() => {
-    if (isLogin) {
+    if (isLogin && role === "user") {
       navigate("/");
+    } else if (isLogin && role === "admin") {
+      navigate("/admin");
     }
-  }, [isLogin, navigate]);
+  }, [isLogin, navigate, role]);
 
   const { mutate, isPending } = useMutation({
     mutationFn: authFormsHandler,
@@ -42,6 +45,7 @@ export default function Login() {
         dispatch(saveIsLoginState(true));
 
         dispatch(saveTokenState(res.token));
+
         if (res.data?.user?.role === "user") {
           dispatch(userActions.setRole("user"));
           dispatch(saveRoleState("user"));
