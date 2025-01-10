@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 
 import Spinner from "../components/Spinner";
 import HeroSection from "../components/HeroSection";
+import IntroVideoSection from "../components/IntroVideoSection";
 const Stats = React.lazy(() => import("../components/Stats"));
 const BakeryInfo = React.lazy(() => import("../components/BakeryInfo"));
 const TrendingProducts = React.lazy(
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <div className="overflow-x-hidden">
       <HeroSection />
+      <IntroVideoSection />
       <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
         <Stats />
       </Suspense>
