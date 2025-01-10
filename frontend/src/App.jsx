@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+import socket from "./socket";
 import {
   getIsLoginState,
   getRoleState,
@@ -86,6 +87,23 @@ function App() {
   useEffect(() => {
     dispatch(fetchConfigs(token));
   }, [dispatch, token]);
+
+  useEffect(() => {
+    socket.on("newOrder", (data) => {
+      console.log("New order received:", data);
+
+      if (token && role === "admin") {
+        toast.success(`New Order #${data.orderNumber}, ${data.orderName}`, {autoClose: false});
+        const audio = new Audio("/sounds/notification.mp3");
+        audio.play();
+      }
+    });
+
+    // Cleanup event listener on unmount
+    return () => {
+      socket.off("newOrder");
+    };
+  }, [token, role]);
 
   // #eaa636
   return (

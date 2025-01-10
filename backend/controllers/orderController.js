@@ -2,6 +2,7 @@ const Order = require("../models/orderModel");
 const Cart = require("../models/cartModel");
 const Counter = require("../models/counterModel");
 const Config = require("../models/configModel");
+const { emitEvent } = require("../socket");
 const factory = require("./handlerFactory");
 const catchAsync = require("../utils/catchAsync");
 const ApiError = require("../utils/ApiError");
@@ -72,6 +73,11 @@ exports.createCashOrder = catchAsync(async (req, res, next) => {
     Cart.findByIdAndDelete(req.params.cartId),
   ]);
 
+  emitEvent("newOrder", {
+    orderNumber: order.orderNumber,
+    orderName: order.orderName,
+  });
+
   res.status(201).json({
     status: "success",
     data: order,
@@ -127,6 +133,11 @@ exports.orderAgain = catchAsync(async (req, res, next) => {
     orderPhone: oldOrder.orderPhone,
     orderAddress: oldOrder.orderAddress,
     orderDate: oldOrder.orderDate,
+  });
+
+  emitEvent("newOrder", {
+    orderNumber: order.orderNumber,
+    orderName: order.orderName,
   });
 
   res.status(201).json({
