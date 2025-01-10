@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import Nav from "../components/Nav";
+// import Nav from "../components/Nav";
 import LogoutModal from "../components/LogoutModal";
 import {
   Icon277Exit,
@@ -19,9 +19,9 @@ export default function UserDashboard() {
 
   return (
     <>
-      <div className="bg-secondary-500 shadow-lg">
+      {/* <div className="bg-secondary-500 shadow-lg">
         <Nav />
-      </div>
+      </div> */}
 
       <div className="min-h-screen bg-gradient-to-tl from-primary-100 to-primary-300 p-10 font-roboto lg:grid lg:grid-cols-12 lg:gap-x-5 print:px-0">
         <aside className="px-2 py-6 sm:px-6 lg:col-span-3 lg:px-0 lg:py-0 print:hidden">
