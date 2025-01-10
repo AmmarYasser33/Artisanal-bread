@@ -7,6 +7,7 @@ import { getCompletedCourse, updateCourse } from "../util/Http";
 import { IconPlusLg, IconTrashDelete } from "../Icons";
 import ImageUploader from "../components/ImageUploader";
 import Spinner from "../components/Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function AdminCourse() {
   const { id } = useParams();
@@ -466,7 +467,7 @@ export default function AdminCourse() {
                     </label>
                     <ImageUploader
                       onImagesChange={(images) => setImage(images[0])}
-                      initialImages={[`http://localhost:3001/${course?.image}`]}
+                      initialImages={[`${BASE_URL}${course?.image}`]}
                     />
                   </div>
                 )}

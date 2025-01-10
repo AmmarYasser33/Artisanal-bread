@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import Nav from "../components/Nav";
+import { BASE_URL } from "../util/Globals";
 
 export default function Hero() {
   const { t } = useTranslation();
@@ -8,7 +9,7 @@ export default function Hero() {
     <div id="hero" className="relative min-h-[50vh]">
       {/* Background Image */}
       <img
-        src={`${"http://localhost:3001/"}designs/banner.png`}
+        src={`${BASE_URL}designs/banner.png`}
         alt="Background Image"
         className="absolute inset-0 z-0 h-full w-full object-cover"
       />

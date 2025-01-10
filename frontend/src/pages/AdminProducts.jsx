@@ -7,6 +7,7 @@ import AddProductModal from "../components/AddProductModal";
 import DeleteProductModal from "../components/DeleteProductModal";
 import EditProductModal from "../components/EditProductModal";
 import Spinner from "../components/Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function AdminProducts() {
   const { i18n } = useTranslation();
@@ -97,7 +98,7 @@ export default function AdminProducts() {
                       <td className="w-4 p-4">
                         <div className="flex max-h-full w-16 max-w-full items-center drop-shadow-sm md:w-32">
                           <img
-                            src={`http://localhost:3001/${product.image}`}
+                            src={`${BASE_URL}${product.image}`}
                             className="rounded-md"
                             alt="product image"
                           />

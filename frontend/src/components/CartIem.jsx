@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { cartActions } from "../Store/cartCounter-slice";
 import { deleteCartItem, updateCartItem } from "../util/Http";
 import { IconTrashDelete, IconMathMinus, IconPlusLg } from "../Icons";
+import { BASE_URL } from "../util/Globals";
 
 export default function CartIem({
   id,
@@ -59,7 +60,7 @@ export default function CartIem({
     <div className="flex flex-col gap-5 border-b border-gray-200 py-6 min-[500px]:flex-row min-[500px]:items-center">
       <div className="w-full px-16 min-[500px]:px-0 md:max-w-32">
         <img
-          src={`http://localhost:3001/${image}`}
+          src={`${BASE_URL}${image}`}
           alt={`${name} product image`}
           className="mx-auto rounded-xl md:rounded-md"
         />

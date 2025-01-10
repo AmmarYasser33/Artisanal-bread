@@ -6,6 +6,7 @@ import { getOrder, orderAgain, cancelOrder } from "../util/Http";
 import OrderStatus from "../components/OrderStatus";
 import Spinner from "../components/Spinner";
 import { IconChevronLeft } from "../Icons";
+import { BASE_URL } from "../util/Globals";
 
 export default function UserOrder() {
   const { id } = useParams();
@@ -149,7 +150,7 @@ export default function UserOrder() {
                                     <div className="aspect-square flex h-14 w-14 shrink-0 items-center">
                                       <img
                                         className="h-auto max-h-full w-full"
-                                        src={`http://localhost:3001/${item?.product?.image}`}
+                                        src={`${BASE_URL}${item?.product?.image}`}
                                         alt="product image"
                                       />
                                     </div>

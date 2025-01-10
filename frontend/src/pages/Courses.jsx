@@ -6,6 +6,7 @@ import { IconScreenFull } from "../Icons";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function Courses() {
   const { t, i18n } = useTranslation();
@@ -41,7 +42,7 @@ export default function Courses() {
                 <Link to={`/courses/${course._id}`}>
                   <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
                     <img
-                      src={`http://localhost:3001/${course.image}`}
+                      src={`${BASE_URL}${course.image}`}
                       alt={`${course.name} image`}
                       className="h-full w-full object-fill object-center"
                     />

@@ -6,6 +6,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { getChefs, updateChef } from "../util/Http";
 import ImageUploader from "./ImageUploader";
 import Spinner from "./Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function AdminTeamSection() {
   const token = useSelector((state) => state.userInfo.token);
@@ -320,7 +321,7 @@ export default function AdminTeamSection() {
                   </label>
                   <ImageUploader
                     onImagesChange={(images) => setChef1Image(images[0])}
-                    initialImages={[`http://localhost:3001/${chefs[0].image}`]}
+                    initialImages={[`${BASE_URL}${chefs[0].image}`]}
                   />
                 </div>
               </div>
@@ -515,7 +516,7 @@ export default function AdminTeamSection() {
                   </label>
                   <ImageUploader
                     onImagesChange={(images) => setChef2Image(images[0])}
-                    initialImages={[`http://localhost:3001/${chefs[1].image}`]}
+                    initialImages={[`${BASE_URL}${chefs[1].image}`]}
                   />
                 </div>
               </div>

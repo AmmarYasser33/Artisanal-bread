@@ -19,6 +19,7 @@ const AdminTeamSection = React.lazy(
 );
 import ImageUploader from "../components/ImageUploader";
 import Spinner from "../components/Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function AdminSettings() {
   const navigate = useNavigate();
@@ -547,7 +548,7 @@ export default function AdminSettings() {
                 </label>
                 <ImageUploader
                   onImagesChange={(images) => setBannerImage(images[0])}
-                  initialImages={["http://localhost:3001/designs/banner.png"]}
+                  initialImages={[`${BASE_URL}designs/banner.png`]}
                 />
               </div>
             </div>

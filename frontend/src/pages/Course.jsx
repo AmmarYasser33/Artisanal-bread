@@ -11,6 +11,7 @@ const CourseRequirements = React.lazy(
 );
 const CourseContent = React.lazy(() => import("../components/CourseContent"));
 const Footer = React.lazy(() => import("../components/Footer"));
+import { BASE_URL } from "../util/Globals";
 
 export default function Course() {
   const { id } = useParams();
@@ -80,7 +81,7 @@ export default function Course() {
             </div>
 
             <img
-              src={`http://localhost:3001/${course.image}`}
+              src={`${BASE_URL}${course.image}`}
               alt={`${course.title} image`}
               className="h-auto max-h-96 w-full object-cover object-center lg:h-96 lg:w-auto"
             />

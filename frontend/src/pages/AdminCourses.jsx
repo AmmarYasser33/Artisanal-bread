@@ -5,6 +5,7 @@ import { getCourses } from "../util/Http";
 import { IconBxsEdit, IconPlusLg, IconTrashDelete } from "../Icons";
 import DeleteCourseModal from "../components/DeleteCourseModal";
 import Spinner from "../components/Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function AdminCourses() {
   const [selectedId, setSelectedId] = useState(null);
@@ -91,7 +92,7 @@ export default function AdminCourses() {
                       <td className="w-4 p-4">
                         <div className="flex max-h-full w-16 max-w-full items-center drop-shadow-sm md:w-32">
                           <img
-                            src={`http://localhost:3001/${course.image}`}
+                            src={`${BASE_URL}${course.image}`}
                             className="rounded-sm"
                             alt={`${course.title} image`}
                           />

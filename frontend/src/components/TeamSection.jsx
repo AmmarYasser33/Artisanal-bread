@@ -8,6 +8,7 @@ import {
   IconInstagram,
 } from "../Icons";
 import Spinner from "./Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function TeamSection() {
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ export default function TeamSection() {
             >
               <div>
                 <img
-                  src={`http://localhost:3001/${chef.image}`}
+                  src={`${BASE_URL}${chef.image}`}
                   className="max-h-[26rem]"
                   alt="chef image"
                 />

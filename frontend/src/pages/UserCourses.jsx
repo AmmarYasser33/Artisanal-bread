@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMyCourses } from "../util/Http";
 import Spinner from "../components/Spinner";
 import { IconPlayButtonO } from "../Icons";
+import { BASE_URL } from "../util/Globals";
 
 export default function UserCourses() {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -48,7 +49,7 @@ export default function UserCourses() {
                       <Link to={`/course/${course._id}`}>
                         <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
                           <img
-                            src={`http://localhost:3001${course.image}`}
+                            src={`${BASE_URL}${course.image}`}
                             alt={`${course.name} course image`}
                             className="h-full w-full object-fill object-center"
                           />

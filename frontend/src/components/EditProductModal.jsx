@@ -13,6 +13,7 @@ import { IconClipboardEdit } from "../Icons";
 import CategorySelector from "./CategorySelector";
 import ImageUploader from "./ImageUploader";
 import Spinner from "./Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function EditProductModal({
   isModalOpen,
@@ -249,7 +250,7 @@ export default function EditProductModal({
                           <ImageUploader
                             onImagesChange={(images) => setImages(images)}
                             initialImages={[
-                              `http://localhost:3001/${product?.image}`,
+                              `${BASE_URL}${product?.image}`,
                             ]}
                           />
                         </div>

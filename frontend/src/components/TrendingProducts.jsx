@@ -7,6 +7,7 @@ import { getTrendingProducts, addToCart } from "../util/Http";
 import fetchCartCounter from "../Store/cartCounter-actions";
 import { IconBagPlusFill } from "../Icons";
 import Spinner from "../components/Spinner";
+import { BASE_URL } from "../util/Globals";
 
 export default function TrendingProducts() {
   const token = useSelector((state) => state.userInfo.token);
@@ -82,7 +83,7 @@ export default function TrendingProducts() {
                 {/* <Link to="/product"> */}
                 <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
                   <img
-                    src={`http://localhost:3001/${product.image}`}
+                    src={`${BASE_URL}${product.image}`}
                     alt="product image"
                     className="h-full w-full object-cover object-center"
                   />
