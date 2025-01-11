@@ -51,5 +51,19 @@
   "contacts.callUs": "اتصل بنا",
   "contacts.emailUs": "راسلنا",
   "cart.add.success": "تمت الإضافة إلى السلة",
-  "cart.add.error": "خطأ في إضافة المنتج إلى السلة!"
+  "cart.add.error": "خطأ في إضافة المنتج إلى السلة!",
+  "cart.fetch.error": "خطأ في استرجاع بيانات السلة!",
+  "cart.empty": "ابدأ بالطلب الآن!",
+  "cart.bag.title": "سلة التسوق",
+  "cart.products": "منتج",
+  "cart.shipping": "الشحن",
+  "cart.bag.productDetails": "تفاصيل المنتج",
+  "cart.bag.quantity": "الكمية",
+  "cart.bag.total": "الإجمالي",
+  "cart.orderInfo.title": "بيانات الطلب",
+  "cart.orderInfo.name": "الاسم",
+  "cart.orderInfo.phone": "الهاتف",
+  "cart.orderInfo.address": "العنوان",
+  "cart.orderInfo.deliverAt": "التوصيل في:",
+  "cart.order.now": "طلب الآن"
 }

@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useDispatch } from "react-redux";
 import { cartActions } from "../Store/cartCounter-slice";
@@ -15,6 +16,8 @@ export default function CartIem({
   quantity,
 }) {
   const token = JSON.parse(localStorage.getItem("token"));
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const dispatch = useDispatch();
 
@@ -76,13 +79,13 @@ export default function CartIem({
             </h6>
             <h6 className="text-base font-medium leading-7 text-gray-600 transition-all duration-300">
               <span className="mr-1">{price}</span>
-              L.E
+              {t("currency")}
             </h6>
           </div>
         </div>
 
         <div className="flex h-full items-center max-md:mt-3 max-[500px]:justify-center">
-          <div className="flex h-full items-center">
+          <div className="flex h-full items-center rtl:flex-row-reverse">
             <button
               onClick={() => {
                 if (quantity > 1) {
@@ -115,7 +118,7 @@ export default function CartIem({
 
         <div className="flex h-full flex-col items-start gap-3 max-md:mt-3 max-[500px]:items-center max-[500px]:justify-center md:items-end md:justify-end">
           <p className="text-center text-lg font-bold leading-8 text-gray-600 transition-all duration-300">
-            {price * quantity} L.E
+            {price * quantity} {t("currency")}
           </p>
 
           <button

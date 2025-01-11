@@ -51,5 +51,19 @@
   "contacts.callUs": "Call Us",
   "contacts.emailUs": "Email Us",
   "cart.add.success": "Added to cart successfully",
-  "cart.add.error": "Failed to add to cart!"
+  "cart.add.error": "Failed to add to cart!",
+  "cart.fetch.error": "Error retrieving cart data!",
+  "cart.empty": "Start shopping now!",
+  "cart.bag.title": "Shopping Bag",
+  "cart.products": "Products",
+  "cart.shipping": "Shipping",
+  "cart.bag.productDetails": "Product Details",
+  "cart.bag.quantity": "Quantity",
+  "cart.bag.total": "Total",
+  "cart.orderInfo.title": "Order Info.",
+  "cart.orderInfo.name": "Name",
+  "cart.orderInfo.phone": "Phone",
+  "cart.orderInfo.address": "Address",
+  "cart.orderInfo.deliverAt": "Deliver At:",
+  "cart.order.now": "Order Now"
 }

@@ -16,7 +16,7 @@ export default function Cart() {
   const user = useSelector((state) => state.profileInfo.data);
   const shippingPrice = useSelector((state) => state.configs.shippingPrice);
   const isArLang = localStorage.getItem("i18nextLng") === "ar";
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -86,48 +86,48 @@ export default function Cart() {
         <Nav />
       </div>
 
-      <section className="after:contents-[''] relative z-10 font-roboto after:absolute after:right-0 after:top-0 after:z-0 after:h-full after:bg-primary-50 xl:after:w-1/3">
+      <section className="after:contents-[''] relative z-10 font-roboto after:absolute after:top-0 after:z-0 after:h-full after:bg-primary-50 xl:after:w-1/3 ltr:after:right-0 rtl:after:left-0">
         <div className="lg-6 relative z-10 mx-auto w-full max-w-7xl px-4 md:px-5">
           <div className="grid grid-cols-12">
-            <div className="col-span-12 w-full pb-8 pt-14 max-xl:mx-auto max-xl:max-w-3xl lg:py-20 lg:pr-8 xl:col-span-8">
+            <div className="col-span-12 w-full pb-8 pt-14 max-xl:mx-auto max-xl:max-w-3xl lg:py-20 xl:col-span-8 ltr:lg:pr-8 rtl:lg:pl-8">
               {isError && (
                 <h3 className="text-3xl font-bold text-red-600">
-                  Error retrieving cart!
+                  {t("cart.fetch.error")}
                 </h3>
               )}
               {isLoading && <Spinner />}
               {!cartData && !isLoading && !isError && (
-                <h3 className="text-3xl font-bold">Start shopping now!</h3>
+                <h3 className="text-3xl font-bold">{t("cart.empty")}</h3>
               )}
               {cartData && cartData.data.cartItems.length === 0 && (
-                <h3 className="text-3xl font-bold">Start shopping now!</h3>
+                <h3 className="text-3xl font-bold">{t("cart.empty")}</h3>
               )}
               {cartData && cartData.data.cartItems.length > 0 && (
                 <>
                   <div className="flex items-center justify-between border-b border-gray-300 pb-8">
                     <h2 className="font-manrope text-3xl font-bold leading-10 text-black">
-                      Shopping Bag
+                      {t("cart.bag.title")}
                     </h2>
                     <h2 className="font-manrope text-xl font-bold leading-8 text-gray-600">
-                      {cartData?.numberOfItems || 0} Products
+                      {cartData?.numberOfItems || 0} {t("cart.products")}
                     </h2>
                   </div>
                   <div className="mt-8 grid grid-cols-12 border-b border-gray-200 pb-6 max-md:hidden">
                     <div className="col-span-12 md:col-span-7">
                       <p className="text-lg font-normal leading-8 text-gray-400">
-                        Product Details
+                        {t("cart.bag.productDetails")}
                       </p>
                     </div>
                     <div className="col-span-12 md:col-span-5">
                       <div className="grid grid-cols-5">
                         <div className="col-span-3">
                           <p className="text-center text-lg font-normal leading-8 text-gray-400">
-                            Quantity
+                            {t("cart.bag.quantity")}
                           </p>
                         </div>
                         <div className="col-span-2">
                           <p className="text-center text-lg font-normal leading-8 text-gray-400">
-                            Total
+                            {t("cart.bag.total")}
                           </p>
                         </div>
                       </div>
@@ -155,18 +155,18 @@ export default function Cart() {
               )}
             </div>
 
-            <div className="col-span-12 mx-auto w-full max-w-3xl bg-primary-50 py-20 max-xl:px-6 lg:pl-8 xl:col-span-4 xl:max-w-lg">
+            <div className="col-span-12 mx-auto w-full max-w-3xl bg-primary-50 py-20 max-xl:px-6 xl:col-span-4 xl:max-w-lg ltr:lg:pl-8 rtl:lg:pr-8">
               <h2 className="font-manrope border-b border-gray-300 pb-8 text-3xl font-bold leading-10 text-black">
-                Order Info.
+                {t("cart.orderInfo.title")}
               </h2>
               <div className="mt-8">
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="flex w-full pb-4">
                     <input
                       type="text"
-                      placeholder="Name"
+                      placeholder={t("cart.orderInfo.name")}
                       {...register("orderName", { required: true })}
-                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700"
+                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5"
                     />
                   </div>
                   {errors.orderName && (
@@ -178,12 +178,12 @@ export default function Cart() {
                   <div className="flex w-full pb-4">
                     <input
                       type="tel"
-                      placeholder="Phone"
+                      placeholder={t("cart.orderInfo.phone")}
                       {...register("orderPhone", {
                         required: true,
                         pattern: /^(010|011|012|015)\d{8}$/,
                       })}
-                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700"
+                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5 rtl:text-right"
                     />
                   </div>
                   {errors.orderPhone && (
@@ -194,9 +194,9 @@ export default function Cart() {
 
                   <div className="flex w-full pb-4">
                     <textarea
-                      placeholder="Address"
+                      placeholder={t("cart.orderInfo.address")}
                       {...register("orderAddress", { required: true })}
-                      className="w-full rounded-lg border border-gray-300 bg-white py-2.5 pl-5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700"
+                      className="w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5"
                     />
                   </div>
                   {errors.orderAddress && (
@@ -210,7 +210,7 @@ export default function Cart() {
                       htmlFor="delivery-date"
                       className="text-base font-normal leading-6 text-gray-600"
                     >
-                      Deliver At:
+                      {t("cart.orderInfo.deliverAt")}
                     </label>
                     <input
                       type="datetime-local"
@@ -228,7 +228,7 @@ export default function Cart() {
                           );
                         },
                       })}
-                      className="h-11 grow rounded-lg border border-gray-300 bg-white py-2.5 pl-5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700"
+                      className="h-11 grow rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5"
                     />
                   </div>
                   {errors.orderDate && (
@@ -245,10 +245,12 @@ export default function Cart() {
                     ) : (
                       <>
                         <p className="text-xl font-medium leading-8 text-black">
-                          {cartData?.numberOfItems || 0} Products + Shipping
+                          {cartData?.numberOfItems || 0} {t("cart.products")} +
+                          {t("cart.shipping")}
                         </p>
                         <p className="text-xl font-semibold leading-8 text-primary-700">
-                          {cartData?.data?.totalPrice + +shippingPrice || 0} L.E
+                          {cartData?.data?.totalPrice + +shippingPrice || 0}{" "}
+                          {t("currency")}
                         </p>
                       </>
                     )}
@@ -258,7 +260,7 @@ export default function Cart() {
                     disabled={isPending}
                     className="w-full rounded-xl bg-primary-600 px-6 py-3 text-center text-lg font-semibold text-white transition-all duration-300 hover:bg-primary-800 disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    {isPending ? <Spinner size={6} /> : "Order Now"}
+                    {isPending ? <Spinner size={6} /> : t("cart.order.now")}
                   </button>
                 </form>
               </div>
