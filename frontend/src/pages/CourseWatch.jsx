@@ -1,4 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
@@ -12,6 +13,7 @@ const Footer = React.lazy(() => import("../components/Footer"));
 export default function CourseWatch() {
   const { id } = useParams();
   const token = useSelector((state) => state.userInfo.token);
+  const { t } = useTranslation();
   const [lessonIndex, setLessonIndex] = useState(0);
 
   useEffect(() => {
@@ -29,11 +31,6 @@ export default function CourseWatch() {
     select: (res) => res.data,
   });
 
-  useEffect(() => {
-    console.log("watch course", course);
-    console.log("watch course lessons", course?.lessons);
-  }, [course]);
-
   return (
     <div>
       <div className="bg-secondary-500 shadow-lg">
@@ -48,12 +45,12 @@ export default function CourseWatch() {
 
       {isError && (
         <p className="mt-10 text-center font-roboto text-2xl font-bold text-red-600">
-          Error getting course!
+          {t("user.course.error")}
         </p>
       )}
 
       {!isLoading && !isError && course && (
-        <div className="">
+        <div className="rtl:font-roboto">
           <div className="bg-primary-900 shadow-lg">
             <div className="mx-auto h-[17rem] max-w-5xl sm:h-96 md:h-[31rem]">
               <ReactPlayer
@@ -71,7 +68,7 @@ export default function CourseWatch() {
           <div className="bg-white py-10">
             <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-6xl lg:px-8">
               <h2 className="relative text-center text-2xl font-bold text-secondary-500 md:text-3xl">
-                Course Units
+                {t("user.course.units")}
                 <span className="absolute -bottom-3 left-1/2 h-2 w-20 -translate-x-1/2 transform bg-primary-500 md:w-28"></span>
               </h2>
 

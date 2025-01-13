@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,6 +15,7 @@ import Spinner from "../components/Spinner";
 export default function UserProfile() {
   const user = useSelector((state) => state.profileInfo.data);
   const token = useSelector((state) => state.userInfo.token);
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -24,15 +26,15 @@ export default function UserProfile() {
     mutationFn: (formData) => updateMe(token, formData),
     onSuccess: (data) => {
       if (data.status === "success") {
-        notifySuccess("User updated successfully");
+        notifySuccess(t("user.profile.info.update.success"));
       } else {
         notifyError(
-          data?.response?.data?.message || "User update failed! Try again.",
+          data?.response?.data?.message || t("user.profile.info.update.error"),
         );
       }
     },
     onError: () => {
-      notifyError("User update failed!");
+      notifyError(t("user.profile.info.update.error"));
     },
   });
 
@@ -61,7 +63,7 @@ export default function UserProfile() {
       mutationFn: (formData) => updatePassword(token, formData),
       onSuccess: (data) => {
         if (data.status === "success") {
-          notifySuccess("Password updated successfully");
+          notifySuccess(t("user.profile.passwords.update.success"));
 
           localStorage.removeItem("userData");
           dispatch(userActions.setRole(""));
@@ -76,12 +78,12 @@ export default function UserProfile() {
         } else {
           notifyError(
             data?.response?.data?.message ||
-              "Password update failed! Try again.",
+              t("user.profile.passwords.update.error"),
           );
         }
       },
       onError: () => {
-        notifyError("Password update failed!");
+        notifyError(t("user.profile.passwords.update.error"));
       },
     });
 
@@ -101,7 +103,7 @@ export default function UserProfile() {
         <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
             <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
-              Personal Information
+              {t("user.profile.info.heading")}
             </h3>
 
             <div className="grid grid-cols-6 gap-6">
@@ -110,7 +112,7 @@ export default function UserProfile() {
                   htmlFor="first-name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  First name
+                  {t("user.profile.info.fname")}
                 </label>
                 <input
                   type="text"
@@ -122,7 +124,7 @@ export default function UserProfile() {
                 />
                 {dataErrors.firstName && (
                   <span className="text-sm text-red-600">
-                    Please enter a valid first name
+                    {t("validation.name")}
                   </span>
                 )}
               </div>
@@ -132,7 +134,7 @@ export default function UserProfile() {
                   htmlFor="last-name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Last name
+                  {t("user.profile.info.lname")}
                 </label>
                 <input
                   type="text"
@@ -149,7 +151,7 @@ export default function UserProfile() {
                   htmlFor="email-address"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Email address
+                  {t("user.profile.info.email")}
                 </label>
                 <input
                   type="text"
@@ -164,7 +166,7 @@ export default function UserProfile() {
                 />
                 {dataErrors.email && (
                   <span className="text-sm text-red-600">
-                    Please enter a valid email address
+                    {t("validation.email")}
                   </span>
                 )}
               </div>
@@ -174,7 +176,7 @@ export default function UserProfile() {
                   htmlFor="phone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Phone
+                  {t("user.profile.info.phone")}
                 </label>
                 <input
                   type="text"
@@ -189,7 +191,7 @@ export default function UserProfile() {
                 />
                 {dataErrors.phone && (
                   <span className="text-sm text-red-600">
-                    Please enter a valid EGY phone number
+                    {t("validation.phone")}
                   </span>
                 )}
               </div>
@@ -199,32 +201,35 @@ export default function UserProfile() {
                   htmlFor="delivery-address"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Delivery Address
+                  {t("user.profile.info.address")}
                 </label>
                 <input
                   type="text"
                   name="delivery-address"
                   id="delivery-address"
                   autoComplete="delivery-address"
-                  // value="6th of October City, Giza, Egypt"
                   {...registerData("address", { required: true })}
                   className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                 />
                 {dataErrors.address && (
                   <span className="text-sm text-red-600">
-                    Please enter a valid address
+                    {t("validation.address")}
                   </span>
                 )}
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+          <div className="bg-gray-50 px-4 py-3 sm:px-6 ltr:text-right rtl:text-left">
             <button
               type="submit"
               disabled={isUpdateUserPending}
               className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isUpdateUserPending ? <Spinner size={5} /> : "Save"}
+              {isUpdateUserPending ? (
+                <Spinner size={5} />
+              ) : (
+                t("user.profile.btn.save")
+              )}
             </button>
           </div>
         </div>
@@ -234,7 +239,7 @@ export default function UserProfile() {
         <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
           <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
             <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
-              Passwords
+              {t("user.profile.passwords.heading")}
             </h3>
 
             <div className="grid grid-cols-6 gap-6">
@@ -243,7 +248,7 @@ export default function UserProfile() {
                   htmlFor="current-password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Current Password
+                  {t("user.profile.passwords.current")}
                 </label>
                 <input
                   type="password"
@@ -259,7 +264,7 @@ export default function UserProfile() {
                 />
                 {passwordErrors.currentPassword && (
                   <span className="text-sm text-red-600">
-                    Please enter your right current password
+                    {t("validation.currentPassword")}
                   </span>
                 )}
               </div>
@@ -269,7 +274,7 @@ export default function UserProfile() {
                   htmlFor="new-password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  New Password
+                  {t("user.profile.passwords.new")}
                 </label>
                 <input
                   type="password"
@@ -285,12 +290,12 @@ export default function UserProfile() {
                 />
                 {passwordErrors.newPassword?.type === "required" && (
                   <span className="text-sm text-red-600">
-                    New password is required
+                    {t("validation.password.required")}
                   </span>
                 )}
                 {passwordErrors.newPassword?.type === "minLength" && (
                   <span className="text-sm text-red-600">
-                    Password must be at least 6 characters long
+                    {t("validation.password.min")}
                   </span>
                 )}
               </div>
@@ -300,7 +305,7 @@ export default function UserProfile() {
                   htmlFor="confirm-new-password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Confirm New Password
+                  {t("user.profile.passwords.confirm")}
                 </label>
                 <input
                   type="password"
@@ -316,24 +321,28 @@ export default function UserProfile() {
                 />
                 {passwordErrors.passwordConfirm?.type === "required" && (
                   <span className="text-sm text-red-600">
-                    Password confirm is required
+                    {t("validation.password.confirm")}
                   </span>
                 )}
                 {passwordErrors.passwordConfirm?.type === "validate" && (
                   <span className="text-sm text-red-600">
-                    Passwords do not match
+                    {t("validation.password.match")}
                   </span>
                 )}
               </div>
             </div>
           </div>
-          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+          <div className="bg-gray-50 px-4 py-3 sm:px-6 ltr:text-right rtl:text-left">
             <button
               type="submit"
               disabled={isUpdatePasswordPending}
               className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {isUpdatePasswordPending ? <Spinner size={5} /> : "Save"}
+              {isUpdatePasswordPending ? (
+                <Spinner size={5} />
+              ) : (
+                t("user.profile.btn.save")
+              )}
             </button>
           </div>
         </div>

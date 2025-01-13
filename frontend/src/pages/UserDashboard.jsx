@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { NavLink, Outlet } from "react-router-dom";
 import LogoutModal from "../components/LogoutModal";
 import Nav from "../components/Nav";
@@ -11,6 +12,7 @@ import {
 
 export default function UserDashboard() {
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -30,10 +32,10 @@ export default function UserDashboard() {
               aria-current="page"
             >
               <IconAccountEdit
-                className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
+                className="h-6 w-6 flex-shrink-0 text-black ltr:-ml-1 ltr:mr-3 rtl:-mr-1 rtl:ml-3"
                 aria-hidden="true"
               />
-              <span className="truncate">Profile</span>
+              <span className="truncate">{t("user.dashboard.profile")}</span>
             </NavLink>
 
             <NavLink
@@ -45,10 +47,10 @@ export default function UserDashboard() {
               aria-current="page"
             >
               <IconBoxesPacking
-                className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
+                className="h-6 w-6 flex-shrink-0 text-black ltr:-ml-1 ltr:mr-3 rtl:-mr-1 rtl:ml-3"
                 aria-hidden="true"
               />
-              <span className="truncate">Orders</span>
+              <span className="truncate">{t("user.dashboard.orders")}</span>
             </NavLink>
 
             <NavLink
@@ -60,10 +62,10 @@ export default function UserDashboard() {
               aria-current="page"
             >
               <IconVideo
-                className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
+                className="h-6 w-6 flex-shrink-0 text-black ltr:-ml-1 ltr:mr-3 rtl:-mr-1 rtl:ml-3"
                 aria-hidden="true"
               />
-              <span className="truncate">Courses</span>
+              <span className="truncate">{t("user.dashboard.courses")}</span>
             </NavLink>
 
             <button
@@ -71,10 +73,10 @@ export default function UserDashboard() {
               onClick={() => setIsLogoutModalOpen(true)}
             >
               <Icon277Exit
-                className="-ml-1 mr-3 h-6 w-6 flex-shrink-0 text-black"
+                className="h-6 w-6 flex-shrink-0 text-black ltr:-ml-1 ltr:mr-3 rtl:-mr-1 rtl:ml-3"
                 aria-hidden="true"
               />
-              <span className="truncate">Logout</span>
+              <span className="truncate">{t("user.dashboard.logout")}</span>
             </button>
           </nav>
         </aside>

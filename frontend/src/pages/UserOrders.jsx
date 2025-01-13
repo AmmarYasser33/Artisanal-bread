@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { getOrders, orderAgain, cancelOrder } from "../util/Http";
@@ -10,6 +11,7 @@ export default function UserOrders() {
   const [orderType, setOrderType] = useState("all");
   const [duration, setDuration] = useState("all time");
   const token = JSON.parse(localStorage.getItem("token"));
+  const { t } = useTranslation();
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -30,16 +32,16 @@ export default function UserOrders() {
     mutationFn: (orderId) => cancelOrder(token, orderId),
     onSuccess: (data) => {
       if (data.status === "success") {
-        notifySuccess("Order cancelled successfully!");
+        notifySuccess(t("user.orders.cancel.success"));
         refreshOrders();
       } else {
         notifyError(
-          data?.response?.data?.message || "Failed to cancel order! Try again.",
+          data?.response?.data?.message || t("user.orders.cancel.error"),
         );
       }
     },
     onError: () => {
-      notifyError("Error cancelling order!");
+      notifyError(t("user.orders.cancel.error"));
     },
   });
 
@@ -48,17 +50,16 @@ export default function UserOrders() {
       mutationFn: (orderId) => orderAgain(token, orderId),
       onSuccess: (data) => {
         if (data.status === "success") {
-          notifySuccess("Order placed successfully!");
+          notifySuccess(t("user.orders.place.success"));
           refreshOrders();
         } else {
           notifyError(
-            data?.response?.data?.message ||
-              "Failed to place order! Try again.",
+            data?.response?.data?.message || t("user.orders.place.error"),
           );
         }
       },
       onError: () => {
-        notifyError("Error placing order!");
+        notifyError(t("user.orders.place.error"));
       },
     });
 
@@ -78,14 +79,14 @@ export default function UserOrders() {
         <div className="mx-auto max-w-5xl">
           <div className="gap-4 sm:flex sm:items-center sm:justify-between">
             <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl">
-              My orders
+              {t("user.orders.heading")}
             </h2>
             {isOrdersError && (
               <button
                 onClick={() => refreshOrders()}
                 className="inline-flex items-center rounded-lg border border-primary-100 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
               >
-                Retry
+                {t("user.orders.error")}
               </button>
             )}
             {isOrdersLoading ? (
@@ -99,40 +100,62 @@ export default function UserOrders() {
                     htmlFor="order-type"
                     className="sr-only mb-2 block text-sm font-medium text-gray-900"
                   >
-                    Select order type
+                    {t("order.selection.status")}
                   </label>
                   <select
                     defaultValue={"all"}
                     id="order-type"
-                    className="block w-full min-w-[8rem] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                    className="block w-full min-w-[8rem] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 rtl:pr-8"
                     onChange={(e) => setOrderType(e.target.value)} // Update order type
                   >
-                    <option value="all">All orders</option>
-                    <option value="delivered">Delivered</option>
-                    <option value="cancelled">Cancelled</option>
-                    <option value="pending">Pending</option>
-                    <option value="processing">Processing</option>
+                    <option value="all">
+                      {t("order.selection.status.all")}
+                    </option>
+                    <option value="delivered" className="rtl:text-base">
+                      {t("order.status.delivered")}
+                    </option>
+                    <option value="cancelled" className="rtl:text-base">
+                      {t("order.status.cancelled")}
+                    </option>
+                    <option value="pending" className="rtl:text-base">
+                      {t("order.status.pending")}
+                    </option>
+                    <option value="processing" className="rtl:text-base">
+                      {t("order.status.processing")}
+                    </option>
                   </select>
                 </div>
-                <span className="inline-block text-gray-500"> from </span>
+                <span className="inline-block text-gray-500">
+                  {t("order.selection.from")}
+                </span>
                 <div>
                   <label
                     htmlFor="duration"
                     className="sr-only mb-2 block text-sm font-medium text-gray-900"
                   >
-                    Select duration
+                    {t("order.selection.duration")}
                   </label>
                   <select
                     defaultValue={"all time"}
                     id="duration"
-                    className="block w-full min-w-32 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                    className="block w-full min-w-32 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 rtl:pr-8"
                     onChange={(e) => setDuration(e.target.value)} // Update duration
                   >
-                    <option value="all time">All time</option>
-                    <option value="this week">this week</option>
-                    <option value="this month">this month</option>
-                    <option value="last 3 months">last 3 months</option>
-                    <option value="last 6 months">last 6 months</option>
+                    <option value="all time">
+                      {t("order.selection.duration.all")}
+                    </option>
+                    <option value="this week" className="rtl:text-base">
+                      {t("order.selection.duration.week")}
+                    </option>
+                    <option value="this month" className="rtl:text-base">
+                      {t("order.selection.duration.month")}
+                    </option>
+                    <option value="last 3 months" className="rtl:text-base">
+                      {t("order.selection.duration.3months")}
+                    </option>
+                    <option value="last 6 months" className="rtl:text-base">
+                      {t("order.selection.duration.6months")}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -143,7 +166,7 @@ export default function UserOrders() {
               {isOrdersError && (
                 <div className="py-6 text-center">
                   <h4 className="text-xl font-bold text-red-700">
-                    Error loading orders!
+                    {t("user.orders.error")}
                   </h4>
                 </div>
               )}
@@ -155,7 +178,7 @@ export default function UserOrders() {
               {allOrders && allOrders.length === 0 && (
                 <div className="py-6 text-center">
                   <h4 className="text-xl font-bold text-gray-900">
-                    Order history is empty!
+                    {t("user.orders.empty")}
                   </h4>
                 </div>
               )}
@@ -168,7 +191,7 @@ export default function UserOrders() {
                     >
                       <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                         <dt className="text-base font-medium text-gray-500">
-                          Order NO.:
+                          {t("user.orders.orderNo")}
                         </dt>
                         <dd className="mt-1.5 text-base font-semibold text-gray-900">
                           <Link
@@ -181,7 +204,7 @@ export default function UserOrders() {
                       </dl>
                       <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                         <dt className="text-base font-medium text-gray-500">
-                          Date:
+                          {t("user.orders.orderDate")}
                         </dt>
                         <dd className="mt-1.5 text-base font-semibold text-gray-900">
                           {new Date(order.orderDate).toLocaleDateString()}
@@ -189,15 +212,15 @@ export default function UserOrders() {
                       </dl>
                       <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                         <dt className="text-base font-medium text-gray-500">
-                          Total:
+                          {t("user.orders.orderTotal")}
                         </dt>
                         <dd className="mt-1.5 text-base font-semibold text-gray-900">
-                          {order.totalPrice} L.E
+                          {order.totalPrice} {t("currency")}
                         </dd>
                       </dl>
                       <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
                         <dt className="text-base font-medium text-gray-500">
-                          Status:
+                          {t("user.orders.orderStatus")}
                         </dt>
                         <OrderStatus status={order.status} />
                       </dl>
@@ -212,7 +235,7 @@ export default function UserOrders() {
                             {isCanceling ? (
                               <Spinner size={6} />
                             ) : (
-                              "Cancel order"
+                              t("user.orders.cancel")
                             )}
                           </button>
                         ) : (
@@ -225,7 +248,7 @@ export default function UserOrders() {
                             {isOrderingAgain ? (
                               <Spinner size={6} />
                             ) : (
-                              "Order again"
+                              t("user.orders.again")
                             )}
                           </button>
                         )}
@@ -233,7 +256,7 @@ export default function UserOrders() {
                           to={`/dashboard/orders/${order._id}`}
                           className="inline-flex w-full justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:font-semibold hover:text-primary-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
                         >
-                          View details
+                          {t("user.orders.details")}
                         </Link>
                       </div>
                     </div>

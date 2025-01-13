@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getMyCourses } from "../util/Http";
 import Spinner from "../components/Spinner";
@@ -7,6 +8,7 @@ import { BASE_URL } from "../util/Globals";
 
 export default function UserCourses() {
   const token = JSON.parse(localStorage.getItem("token"));
+  const { t } = useTranslation();
 
   const {
     data: courses,
@@ -25,19 +27,19 @@ export default function UserCourses() {
       <div className="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div className="mx-auto max-w-5xl">
           <h2 className="text-xl font-semibold text-gray-900 sm:text-2xl">
-            My Courses
+            {t("user.courses.heading")}
           </h2>
 
           <div className="mt-6 sm:mt-8">
             {isLoading && <Spinner />}
             {isError && (
               <p className="mt-10 text-center font-roboto text-2xl font-bold text-red-600">
-                Error getting enrolled courses!
+                {t("user.courses.error")}
               </p>
             )}
             {courses && courses?.length === 0 && !isLoading && !isError && (
               <p className="mt-14 text-center font-roboto text-2xl font-bold text-primary-800">
-                Start learning by enrolling in a course!
+                {t("user.courses.empty")}
               </p>
             )}
 

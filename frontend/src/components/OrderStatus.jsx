@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import {
   IconTruckDeliveryOutline,
   IconCheck2,
@@ -5,12 +6,9 @@ import {
   IconBxTimeFive,
 } from "../Icons";
 
-const capitalizeFirstLetter = (string) => {
-  if (!string) return "";
-  return string.charAt(0).toUpperCase() + string.slice(1);
-};
-
 export default function OrderStatus({ status }) {
+  const { t } = useTranslation();
+
   const iconClass = "me-1 h-3 w-3";
 
   const statusIcon = {
@@ -28,12 +26,11 @@ export default function OrderStatus({ status }) {
   };
 
   return (
-    // <dd className="me-2 mt-1.5 inline-flex items-center rounded bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800">
     <dd
       className={`me-2 mt-1.5 inline-flex items-center rounded px-2.5 py-0.5 text-xs font-medium ${statusColor[status]}`}
     >
       {statusIcon[status]}
-      {capitalizeFirstLetter(status)}
+      {t(`order.status.${status}`)}
     </dd>
   );
 }

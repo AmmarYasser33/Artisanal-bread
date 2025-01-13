@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import {
   Dialog,
@@ -17,6 +18,7 @@ import { IconBxsError } from "../Icons";
 export default function LogoutModal({ isModalOpen, setIsModalOpen }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const logoutHandler = () => {
     localStorage.removeItem("userData");
@@ -28,7 +30,7 @@ export default function LogoutModal({ isModalOpen, setIsModalOpen }) {
     dispatch(profileActions.setProfileInfo(null));
     dispatch(cartActions.setCounter(0));
 
-    toast.success("Logged out successfully");
+    toast.success(t("logout.success"));
 
     navigate("/");
   };
@@ -81,7 +83,7 @@ export default function LogoutModal({ isModalOpen, setIsModalOpen }) {
                 <div className="mt-3 text-center sm:mt-5">
                   <div className="mt-2">
                     <h3 className="text-xl font-medium text-secondary-800">
-                      Are you sure you want to log out?
+                      {t("logout.warning")}
                     </h3>
                     <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                       <button
@@ -89,7 +91,7 @@ export default function LogoutModal({ isModalOpen, setIsModalOpen }) {
                         className="inline-flex w-full justify-center rounded-md border border-transparent bg-yellow-600 px-4 py-2 text-base font-medium text-white shadow-sm transition duration-300 ease-in-out hover:bg-yellow-800 focus:scale-95 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:col-start-2 sm:text-sm"
                         onClick={logoutHandler}
                       >
-                        Logout
+                        {t("logout.confirm")}
                       </button>
 
                       <button
@@ -97,7 +99,7 @@ export default function LogoutModal({ isModalOpen, setIsModalOpen }) {
                         className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm transition duration-300 ease-in-out hover:bg-gray-100 focus:scale-95 focus:outline-none sm:col-start-1 sm:mt-0 sm:text-sm"
                         onClick={() => setIsModalOpen(false)}
                       >
-                        Cancel
+                        {t("logout.cancel")}
                       </button>
                     </div>
                   </div>
