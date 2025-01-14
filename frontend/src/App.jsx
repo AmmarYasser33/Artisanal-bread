@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
@@ -47,19 +48,22 @@ import NotFound from "./pages/NotFound";
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const { i18n } = useTranslation();
   const isArLang = localStorage.getItem("i18nextLng") === "ar";
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
 
   useEffect(() => {
-    if (localStorage.getItem("i18nextLng") === "ar") {
-      document.documentElement.setAttribute("dir", "rtl");
-      document.documentElement.setAttribute("lang", "ar");
-    } else {
+    if (!isArLang || (token && role === "admin")) {
       document.documentElement.setAttribute("dir", "ltr");
       document.documentElement.setAttribute("lang", "en");
+      i18n.changeLanguage("en");
+    } else {
+      document.documentElement.setAttribute("dir", "rtl");
+      document.documentElement.setAttribute("lang", "ar");
+      i18n.changeLanguage("ar");
     }
-  }, []);
+  }, [token, role, isArLang, i18n]);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("userData"))) {
