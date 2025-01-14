@@ -90,15 +90,15 @@ function App() {
   }, [dispatch, token]);
 
   useEffect(() => {
+    if (token && role === "admin") {
     socket.on("newOrder", (data) => {
-      console.log("New order received:", data);
-
       if (token && role === "admin") {
         toast.success(`New Order #${data.orderNumber}, ${data.orderName}`, {autoClose: false});
         const audio = new Audio("/sounds/notification.mp3");
         audio.play();
       }
     });
+  }
 
     // Cleanup event listener on unmount
     return () => {
