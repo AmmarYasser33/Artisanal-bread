@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -17,12 +18,12 @@ import Spinner from "../components/Spinner";
 export default function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const role = useSelector((state) => state.userInfo.role);
 
-  const notifySuccess = () => toast.success("Login successfully!");
-  const notifyError = (msg) =>
-    toast.error(msg || "Something went wrong, please try again!");
+  const notifySuccess = () => toast.success(t("login.success"));
+  const notifyError = (msg) => toast.error(msg || t("notification.error"));
 
   useEffect(() => {
     if (isLogin && role === "user") {
@@ -58,12 +59,12 @@ export default function Login() {
 
         notifySuccess();
       } else {
-        notifyError(res.data?.message || "Failed to login! Try again.");
+        notifyError(res.data?.message || t("login.error"));
       }
     },
     onError: (error) => {
       if (error.status === 401) {
-        notifyError("email or password is incorrect");
+        notifyError(t("login.invalid"));
       } else {
         notifyError();
       }
@@ -86,7 +87,7 @@ export default function Login() {
         <Nav />
       </div>
 
-      <div className="relative bg-primary-50 px-10 py-10 md:px-36">
+      <div className="relative bg-primary-50 px-10 py-10 md:px-36 rtl:font-roboto">
         <div
           className="absolute left-0 top-0 h-full w-2/3 bg-primary-800"
           style={{ clipPath: "polygon(0 0, 100% 0, 10% 100%, 0% 100%)" }}
@@ -112,7 +113,7 @@ export default function Login() {
                     className="h-7"
                     alt="Artisanal bread logo"
                   />
-                  <span className="self-center whitespace-nowrap text-xl font-bold italic text-primary-500">
+                  <span className="self-center whitespace-nowrap font-sans text-xl font-bold italic text-primary-500">
                     Artisanal bread
                   </span>
                 </Link>
@@ -122,7 +123,7 @@ export default function Login() {
                   alt="Workflow"
                 /> */}
                 <h2 className="mt-6 text-center text-3xl font-bold text-secondary-800">
-                  Hello! Welcome back
+                  {t("login.heading")}
                 </h2>
               </div>
 
@@ -134,7 +135,7 @@ export default function Login() {
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Email address
+                        {t("input.email")}
                       </label>
                       <div className="mt-1">
                         <input
@@ -150,7 +151,7 @@ export default function Login() {
                         />
                         {errors.email && (
                           <span className="text-sm text-red-600">
-                            Please enter a valid email address
+                            {t("validation.email")}
                           </span>
                         )}
                       </div>
@@ -161,7 +162,7 @@ export default function Login() {
                         htmlFor="password"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Password
+                        {t("input.password")}
                       </label>
                       <div className="mt-1">
                         <input
@@ -177,7 +178,7 @@ export default function Login() {
                         />
                         {errors.password && (
                           <span className="text-sm text-red-600">
-                            Please enter a valid password
+                            {t("validation.currentPassword")}
                           </span>
                         )}
                       </div>
@@ -189,7 +190,7 @@ export default function Login() {
                           to="/forgot-password"
                           className="font-medium text-primary-600 hover:text-primary-700"
                         >
-                          Forgot your password?
+                          {t("login.forgot")}
                         </Link>
                       </div>
                     </div>
@@ -200,19 +201,23 @@ export default function Login() {
                         disabled={isPending}
                         className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
-                        {isPending ? <Spinner size={5} /> : "Sign in"}
+                        {isPending ? (
+                          <Spinner size={5} />
+                        ) : (
+                          t("login.btn.login")
+                        )}
                       </button>
                     </div>
                   </form>
 
                   <div className="mt-6 text-center">
                     <p className="text-sm text-gray-600">
-                      Don&apos;t have an account?{" "}
+                      {t("login.noAccount")}{" "}
                       <Link
                         to="/signup"
                         className="font-medium text-primary-600 hover:text-primary-700"
                       >
-                        Register
+                        {t("login.register")}
                       </Link>
                     </p>
                   </div>

@@ -1,5 +1,8 @@
 {
   "currency": "L.E",
+  "notification.error": "Something went wrong! Please try again later.",
+  "input.email": "Email Address",
+  "input.password": "Password",
   "nav.home": "Home",
   "nav.products": "Products",
   "nav.courses": "Courses",
@@ -142,5 +145,13 @@
   "user.courses.error": "Error getting enrolled courses!",
   "user.courses.empty": "Start learning by enrolling in a course!",
   "user.course.error": "Error getting course!",
-  "user.course.units": "Course Units"
+  "user.course.units": "Course Units",
+  "login.success": "Logged in successfully!",
+  "login.error": "Failed to login! Try again.",
+  "login.invalid": "Invalid email or password!",
+  "login.heading": "Hello! Welcome Back",
+  "login.forgot": "Forgot your Password?",
+  "login.noAccount": "Don't have an account?",
+  "login.register": "Register",
+  "login.btn.login": "Sign In"
 }

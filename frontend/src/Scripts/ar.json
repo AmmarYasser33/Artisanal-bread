@@ -1,5 +1,8 @@
 {
   "currency": "ج.م",
+  "notification.error": "حدث خطأ! يرجى المحاولة لاحقًا.",
+  "input.email": "البريد الإلكتروني",
+  "input.password": "كلمة المرور",
   "nav.home": "الرئيسية",
   "nav.products": "المنتجات",
   "nav.courses": "الدورات",
@@ -142,5 +145,13 @@
   "user.courses.error": "خطأ في استرجاع الدورات!",
   "user.courses.empty": "ابدأ التعلم عبر التسجيل في دورة!",
   "user.course.error": "خطأ في استرجاع بيانات الدورة!",
-  "user.course.units": "وحدات الدورة"
+  "user.course.units": "وحدات الدورة",
+  "login.success": "تم تسجيل الدخول!",
+  "login.error": "خطأ في تسجيل الدخول!",
+  "login.invalid": "البريد الإلكتروني أو كلمة المرور غير صحيحة!",
+  "login.heading": "مرحباً بك مجدداً",
+  "login.forgot": "نسيت كلمة المرور؟",
+  "login.noAccount": "ليس لديك حساب؟",
+  "login.register": "التسجيل",
+  "login.btn.login": "الدخــول"
 }
