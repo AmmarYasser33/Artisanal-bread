@@ -5,6 +5,8 @@
   "input.email": "البريد الإلكتروني",
   "input.password": "كلمة المرور",
   "input.password.confirm": "تأكيد كلمة المرور",
+  "auth.error": "ليس لديك صلاحية الوصول لهذه الصفحة",
+  "auth.login": "برجاء تسجيل الدخول أولاً!",
   "nav.home": "الرئيسية",
   "nav.products": "المنتجات",
   "nav.courses": "الدورات",

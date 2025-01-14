@@ -5,6 +5,8 @@
   "input.email": "Email Address",
   "input.password": "Password",
   "input.password.confirm": "Password Confirm",
+  "auth.error": "Not authorized to access this page",
+  "auth.login": "Please login to access this page",
   "nav.home": "Home",
   "nav.products": "Products",
   "nav.courses": "Courses",
