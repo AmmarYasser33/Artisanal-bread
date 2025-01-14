@@ -1,8 +1,10 @@
 {
   "currency": "L.E",
   "notification.error": "Something went wrong! Please try again later.",
+  "input.name": "Name",
   "input.email": "Email Address",
   "input.password": "Password",
+  "input.password.confirm": "Password Confirm",
   "nav.home": "Home",
   "nav.products": "Products",
   "nav.courses": "Courses",
@@ -74,6 +76,7 @@
   "logout.cancel": "Cancel",
   "logout.success": "Logged out successfully!",
   "validation.name": "Please enter a name",
+  "validation.name.min": "Name should be at least 3 characters",
   "validation.email": "Please enter a valid email address",
   "validation.phone": "Please enter a valid EGY phone number",
   "validation.address": "Please enter an address",
@@ -153,5 +156,11 @@
   "login.forgot": "Forgot your Password?",
   "login.noAccount": "Don't have an account?",
   "login.register": "Register",
-  "login.btn.login": "Sign In"
+  "login.btn.login": "Sign In",
+  "signup.success": "Account created successfully",
+  "signup.error": "Failed to create account!",
+  "signup.invalid": "Email already exists!",
+  "signup.btn.register": "Register",
+  "signup.haveAccount": "Already have an account?",
+  "singup.login": "Log in"
 }

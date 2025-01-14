@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -10,12 +11,12 @@ import Spinner from "../components/Spinner";
 
 export default function Signup() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const role = useSelector((state) => state.userInfo.role);
 
-  const notifySuccess = () => toast.success("Account created successfully");
-  const notifyError = (msg) =>
-    toast.error(msg || "Account creation failed! Please try again.");
+  const notifySuccess = () => toast.success(t("signup.success"));
+  const notifyError = (msg) => toast.error(msg || t("signup.error"));
 
   useEffect(() => {
     if (isLogin && role === "user") {
@@ -34,14 +35,13 @@ export default function Signup() {
         navigate("/login");
       } else {
         notifyError(
-          response?.data?.response?.data?.message ||
-            "Failed to create account! Try again.",
+          response?.data?.response?.data?.message || t("signup.error"),
         );
       }
     },
     onError(error) {
       if (error.data.message.split(" ")[0] === "Duplicate") {
-        notifyError("Email already exists");
+        notifyError(t("signup.invalid"));
       } else {
         notifyError();
       }
@@ -109,7 +109,7 @@ export default function Signup() {
                         htmlFor="name"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Name
+                        {t("input.name")}
                       </label>
                       <div className="mt-1">
                         <input
@@ -125,12 +125,12 @@ export default function Signup() {
                         />
                         {errors.name && errors.name.type === "required" && (
                           <span className="text-sm text-red-600">
-                            Name is required
+                            {t("validation.name")}
                           </span>
                         )}
                         {errors.name && errors.name.type === "minLength" && (
                           <span className="text-sm text-red-600">
-                            Name should be at least 3 characters
+                            {t("validation.name.min")}
                           </span>
                         )}
                       </div>
@@ -141,7 +141,7 @@ export default function Signup() {
                         htmlFor="email"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Email address
+                        {t("input.email")}
                       </label>
                       <div className="mt-1">
                         <input
@@ -157,7 +157,7 @@ export default function Signup() {
                         />
                         {errors.email && (
                           <span className="text-sm text-red-600">
-                            Please enter a valid email
+                            {t("validation.email")}
                           </span>
                         )}
                       </div>
@@ -168,7 +168,7 @@ export default function Signup() {
                         htmlFor="password"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Password
+                        {t("input.password")}
                       </label>
                       <div className="mt-1">
                         <input
@@ -185,13 +185,13 @@ export default function Signup() {
                         {errors.password &&
                           errors.password.type === "required" && (
                             <span className="text-sm text-red-600">
-                              Password is required
+                              {t("validation.password.required")}
                             </span>
                           )}
                         {errors.password &&
                           errors.password.type === "minLength" && (
                             <span className="text-sm text-red-600">
-                              Password should be at least 6 characters
+                              {t("validation.password.min")}
                             </span>
                           )}
                       </div>
@@ -203,7 +203,7 @@ export default function Signup() {
                         htmlFor="passwordConfirm"
                         className="block text-sm font-medium text-gray-700"
                       >
-                        Confirm password
+                        {t("input.password.confirm")}
                       </label>
                       <div className="mt-1">
                         <input
@@ -217,19 +217,19 @@ export default function Signup() {
                             minLength: 6,
                             validate: (value) =>
                               value === watch("password") ||
-                              "Passwords do not match",
+                              t("validation.password.match"),
                           })}
                         />
                         {errors.passwordConfirm &&
                           errors.passwordConfirm.type === "required" && (
                             <span className="text-sm text-red-600">
-                              Password confirmation is required
+                              {t("validation.password.confirm")}
                             </span>
                           )}
                         {errors.passwordConfirm &&
                           errors.passwordConfirm.type === "minLength" && (
                             <span className="text-sm text-red-600">
-                              Passwords do not match
+                              {t("validation.password.match")}
                             </span>
                           )}
                         {errors.passwordConfirm &&
@@ -247,19 +247,23 @@ export default function Signup() {
                         disabled={isPending}
                         className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
-                        {isPending ? <Spinner size={5} /> : "Register"}
+                        {isPending ? (
+                          <Spinner size={5} />
+                        ) : (
+                          t("signup.btn.register")
+                        )}
                       </button>
                     </div>
                   </form>
 
                   <div className="mt-6 text-center">
                     <p className="text-sm text-gray-600">
-                      Already have an account?{" "}
+                      {t("signup.haveAccount")}{" "}
                       <Link
                         to="/login"
                         className="font-medium text-primary-600 hover:text-primary-700"
                       >
-                        Log in
+                        {t("singup.login")}
                       </Link>
                     </p>
                   </div>

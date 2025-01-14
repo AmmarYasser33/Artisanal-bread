@@ -1,8 +1,10 @@
 {
   "currency": "ج.م",
   "notification.error": "حدث خطأ! يرجى المحاولة لاحقًا.",
+  "input.name": "الاسم",
   "input.email": "البريد الإلكتروني",
   "input.password": "كلمة المرور",
+  "input.password.confirm": "تأكيد كلمة المرور",
   "nav.home": "الرئيسية",
   "nav.products": "المنتجات",
   "nav.courses": "الدورات",
@@ -70,11 +72,12 @@
   "cart.orderInfo.deliverAt": "التوصيل في:",
   "cart.order.now": "طلب الآن",
   "logout.warning": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
-  "logout.confirm": "الحروج",
+  "logout.confirm": "الخروج",
   "logout.cancel": "إلغاء",
   "logout.success": "تم تسجيل الخروج بنجاح",
   "validation.name": "الرجاء إدخال الاسم",
   "validation.email": "الرجاء إدخال عنوان بريد إلكتروني صحيح",
+  "validation.name.min": "يجب أن يكون الاسم 3 أحرف على الأقل",
   "validation.phone": "الرجاء إدخال رقم هاتف مصري صحيح",
   "validation.address": "الرجاء إدخال عنوان",
   "validation.currentPassword": "الرجاء إدخال كلمة المرور الحالية صحيحة",
@@ -153,5 +156,11 @@
   "login.forgot": "نسيت كلمة المرور؟",
   "login.noAccount": "ليس لديك حساب؟",
   "login.register": "التسجيل",
-  "login.btn.login": "الدخــول"
+  "login.btn.login": "الدخــول",
+  "signup.success": "مرحباً بك معنا",
+  "signup.error": "خطأ في إنشاء الحساب!",
+  "signup.invalid": "الايميل مستخدم بالفعل!",
+  "signup.btn.register": "الاشتــراك",
+  "signup.haveAccount": "لديك حساب بالفعل؟",
+  "singup.login": "تسجيل الدخول"
 }
