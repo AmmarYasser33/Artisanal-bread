@@ -6,11 +6,23 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    arTitle: {
+      type: String,
+      required: true,
+    },
     description: {
       type: String,
       required: true,
     },
+    arDescription: {
+      type: String,
+      required: true,
+    },
     duration: {
+      type: String,
+      required: true,
+    },
+    arDuration: {
       type: String,
       required: true,
     },
@@ -30,7 +42,15 @@ const courseSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    arRequirements: {
+      type: [String],
+      required: true,
+    },
     content: {
+      type: [String],
+      required: true,
+    },
+    arContent: {
       type: [String],
       required: true,
     },
@@ -38,6 +58,7 @@ const courseSchema = new mongoose.Schema(
       type: [
         {
           title: String,
+          arTitle: String,
           video: String,
         },
       ],

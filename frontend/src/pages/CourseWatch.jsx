@@ -13,6 +13,7 @@ const Footer = React.lazy(() => import("../components/Footer"));
 export default function CourseWatch() {
   const { id } = useParams();
   const token = useSelector((state) => state.userInfo.token);
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
   const { t } = useTranslation();
   const [lessonIndex, setLessonIndex] = useState(0);
 
@@ -82,7 +83,7 @@ export default function CourseWatch() {
                     onClick={() => setLessonIndex(index)}
                   >
                     <h3 className="font-roboto text-base font-medium text-secondary-500 md:text-lg">
-                      {lesson.title}
+                      {isArLang ? lesson.arTitle : lesson.title}
                     </h3>
 
                     <IconPlayButtonO className="mx-2 h-6 w-6 text-secondary-500" />

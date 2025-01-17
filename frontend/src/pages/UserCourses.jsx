@@ -9,6 +9,7 @@ import { BASE_URL } from "../util/Globals";
 export default function UserCourses() {
   const token = JSON.parse(localStorage.getItem("token"));
   const { t } = useTranslation();
+  const isArLang = localStorage.getItem("i18nextLng") === "ar";
 
   const {
     data: courses,
@@ -65,7 +66,7 @@ export default function UserCourses() {
                             className="group-hover:text-primary-800"
                           >
                             <span className="absolute inset-0" />
-                            {course.title}
+                            {isArLang ? course.arTitle : course.title}
                           </Link>
                         </div>
                       </h3>

@@ -9,6 +9,13 @@ exports.createCourseValidator = [
     .withMessage("Title must be a string")
     .trim(),
 
+  check("arTitle")
+    .notEmpty()
+    .withMessage("Arabic Title is required")
+    .isString()
+    .withMessage("Arabic Title must be a string")
+    .trim(),
+
   check("description")
     .notEmpty()
     .withMessage("Description is required")
@@ -16,11 +23,25 @@ exports.createCourseValidator = [
     .withMessage("Description must be a string")
     .trim(),
 
+  check("arDescription")
+    .notEmpty()
+    .withMessage("Arabic Description is required")
+    .isString()
+    .withMessage("Arabic Description must be a string")
+    .trim(),
+
   check("duration")
     .notEmpty()
     .withMessage("Duration is required")
     .isString()
     .withMessage("Duration must be a string")
+    .trim(),
+
+  check("arDuration")
+    .notEmpty()
+    .withMessage("Duration in arabic is required")
+    .isString()
+    .withMessage("Duration in arabic must be a string")
     .trim(),
 
   check("price")
@@ -52,6 +73,17 @@ exports.createCourseValidator = [
     .withMessage("Requirement must be a string")
     .trim(),
 
+  check("arRequirements")
+    .isArray({ min: 1 })
+    .withMessage("Arabic Requirements must be an array with at least one item"),
+
+  check("arRequirements.*")
+    .notEmpty()
+    .withMessage("Arabic Requirement is required")
+    .isString()
+    .withMessage("Requirement must be a string")
+    .trim(),
+
   check("content")
     .isArray({ min: 1 })
     .withMessage("Content must be an array with at least one item"),
@@ -59,6 +91,17 @@ exports.createCourseValidator = [
   check("content.*")
     .notEmpty()
     .withMessage("Content item is required")
+    .isString()
+    .withMessage("Content item must be a string")
+    .trim(),
+
+  check("arContent")
+    .isArray({ min: 1 })
+    .withMessage("Arabic Content must be an array with at least one item"),
+
+  check("arContent.*")
+    .notEmpty()
+    .withMessage("Arabic Content item is required")
     .isString()
     .withMessage("Content item must be a string")
     .trim(),
@@ -72,6 +115,13 @@ exports.createCourseValidator = [
     .withMessage("Lesson title is required")
     .isString()
     .withMessage("Lesson title must be a string")
+    .trim(),
+
+  check("lessons.*.arTitle")
+    .notEmpty()
+    .withMessage("Arabic Lesson title is required")
+    .isString()
+    .withMessage("Arabic Lesson title must be a string")
     .trim(),
 
   check("lessons.*.video")
@@ -102,16 +152,34 @@ exports.updateCourseValidator = [
     .withMessage("Title must be a string")
     .trim(),
 
+  check("arTitle")
+    .optional()
+    .isString()
+    .withMessage("Arabic Title must be a string")
+    .trim(),
+
   check("description")
     .optional()
     .isString()
     .withMessage("Description must be a string")
     .trim(),
 
+  check("arDescription")
+    .optional()
+    .isString()
+    .withMessage("Arabic Description must be a string")
+    .trim(),
+
   check("duration")
     .optional()
     .isString()
     .withMessage("Duration must be a string")
+    .trim(),
+
+  check("arDuration")
+    .optional()
+    .isString()
+    .withMessage("Duration in arabic must be a string")
     .trim(),
 
   check("price")
@@ -141,6 +209,17 @@ exports.updateCourseValidator = [
     .withMessage("Requirement must be a string")
     .trim(),
 
+  check("arRequirements")
+    .optional()
+    .isArray({ min: 1 })
+    .withMessage("Arabic Requirements must be an array with at least one item"),
+
+  check("arRequirements.*")
+    .optional()
+    .isString()
+    .withMessage("Arabic Requirement must be a string")
+    .trim(),
+
   check("content")
     .optional()
     .isArray({ min: 1 })
@@ -152,6 +231,17 @@ exports.updateCourseValidator = [
     .withMessage("Content item must be a string")
     .trim(),
 
+  check("arContent")
+    .optional()
+    .isArray({ min: 1 })
+    .withMessage("Arabic Content must be an array with at least one item"),
+
+  check("arContent.*")
+    .optional()
+    .isString()
+    .withMessage("Arabic Content item must be a string")
+    .trim(),
+
   check("lessons")
     .optional()
     .isArray({ min: 1 })
@@ -161,6 +251,12 @@ exports.updateCourseValidator = [
     .optional()
     .isString()
     .withMessage("Lesson title must be a string")
+    .trim(),
+
+  check("lessons.*.arTitle")
+    .optional()
+    .isString()
+    .withMessage("Arabic Lesson title must be a string")
     .trim(),
 
   check("lessons.*.video")

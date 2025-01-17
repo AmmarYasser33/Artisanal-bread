@@ -18,35 +18,43 @@ export default function AdminCourse() {
 
   const [image, setImage] = useState(null);
   const [requirements, setRequirements] = useState([]);
+  const [arRequirements, setArRequirements] = useState([]);
   const [requirement, setRequirement] = useState("");
+  const [arRequirement, setArRequirement] = useState("");
   const handleAddRequirement = () => {
-    if (requirement.trim()) {
+    if (requirement.trim() && arRequirement.trim()) {
       setRequirements((prev) => [...prev, requirement.trim()]);
+      setArRequirements((prev) => [...prev, arRequirement.trim()]);
       setRequirement("");
+      setArRequirement("");
     } else {
-      notifyError("Requirement cannot be empty");
+      notifyError("EN-AR Requirement cannot be empty");
     }
   };
 
   const [contents, setContents] = useState([]);
   const [content, setContent] = useState("");
+  const [arContents, setArContents] = useState([]);
+  const [arContent, setArContent] = useState("");
   const handleAddContent = () => {
-    if (content.trim()) {
+    if (content.trim() && arContent.trim()) {
       setContents((prev) => [...prev, content.trim()]);
+      setArContents((prev) => [...prev, arContent.trim()]);
       setContent("");
+      setArContent("");
     } else {
-      notifyError("Content cannot be empty");
+      notifyError("EN-AR Content cannot be empty");
     }
   };
 
   const [lessons, setLessons] = useState([]);
-  const [lesson, setLesson] = useState({ title: "", video: "" });
+  const [lesson, setLesson] = useState({ title: "", arTitle: "", video: "" });
   const handleAddLesson = () => {
-    if (lesson.title.trim() && lesson.video.trim()) {
+    if (lesson.title.trim() && lesson.arTitle.trim() && lesson.video.trim()) {
       setLessons((prev) => [...prev, lesson]);
-      setLesson({ title: "", video: "" });
+      setLesson({ title: "", arTitle: "", video: "" });
     } else {
-      notifyError("Lesson title and video URL cannot be empty");
+      notifyError("Lesson titles and video URL cannot be empty");
     }
   };
 
@@ -88,13 +96,18 @@ export default function AdminCourse() {
     if (course) {
       reset({
         title: course.title,
+        arTitle: course.arTitle,
         description: course?.description || "",
+        arDescription: course?.arDescription || "",
         duration: course.duration,
+        arDuration: course.arDuration,
         price: course.price,
         video: course.video,
       });
       setRequirements(course.requirements);
+      setArRequirements(course.arRequirements);
       setContents(course.content);
+      setArContents(course.arContent);
       setLessons(course.lessons);
     }
   }, [course, id, reset]);
@@ -114,6 +127,14 @@ export default function AdminCourse() {
       return notifyError("At least one requirement is required");
     }
 
+    if (arRequirements.length) {
+      arRequirements.forEach((req, index) => {
+        formData.append(`arRequirements[${index}]`, req);
+      });
+    } else {
+      return notifyError("At least one Arabic requirement is required");
+    }
+
     if (contents.length) {
       contents.forEach((content, index) => {
         formData.append(`content[${index}]`, content);
@@ -122,9 +143,18 @@ export default function AdminCourse() {
       return notifyError("At least one content is required");
     }
 
+    if (arContents.length) {
+      arContents.forEach((content, index) => {
+        formData.append(`arContent[${index}]`, content);
+      });
+    } else {
+      return notifyError("At least one Arabic content is required");
+    }
+
     if (lessons.length) {
       lessons.forEach((lesson, index) => {
         formData.append(`lessons[${index}][title]`, lesson.title);
+        formData.append(`lessons[${index}][arTitle]`, lesson.arTitle);
         formData.append(`lessons[${index}][video]`, lesson.video);
       });
     } else {
@@ -132,8 +162,11 @@ export default function AdminCourse() {
     }
 
     formData.append("title", data.title);
+    formData.append("arTitle", data.arTitle);
     formData.append("description", data.description);
+    formData.append("arDescription", data.arDescription);
     formData.append("duration", data.duration);
+    formData.append("arDuration", data.arDuration);
     formData.append("price", data.price);
     formData.append("video", data.video);
 
@@ -190,6 +223,28 @@ export default function AdminCourse() {
                     </span>
                   )}
                 </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="arTitle"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Arabic Title
+                  </label>
+                  <input
+                    type="text"
+                    name="arTitle"
+                    id="arTitle"
+                    placeholder="مثال: تعلم كيفية خبز كعكة الشوكولاتة"
+                    autoComplete="arTitle"
+                    {...register("arTitle", { required: true })}
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  />
+                  {errors.arTitle && (
+                    <span className="text-sm text-red-600">
+                      Course Arabic title is required
+                    </span>
+                  )}
+                </div>
 
                 <div className="col-span-6">
                   <label
@@ -201,7 +256,6 @@ export default function AdminCourse() {
                   <textarea
                     type="text"
                     name="description"
-                    // placeholder="e.g. Learn how to bake a delicious chocolate cake from scratch."
                     id="description"
                     autoComplete="family-name"
                     {...register("description", {
@@ -219,6 +273,33 @@ export default function AdminCourse() {
                     </span>
                   )}
                 </div>
+                <div className="col-span-6">
+                  <label
+                    htmlFor="arDescription"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Arabic Description
+                  </label>
+                  <textarea
+                    type="text"
+                    name="arDescription"
+                    id="arDescription"
+                    autoComplete="family-name"
+                    {...register("arDescription", {
+                      required: "Arabic Description is required",
+                      minLength: {
+                        value: 10,
+                        message: "Description must be at least 10 characters",
+                      },
+                    })}
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  />
+                  {errors.arDescription && (
+                    <span className="text-sm text-red-600">
+                      {errors.arDescription.message}
+                    </span>
+                  )}
+                </div>
 
                 <div className="col-span-6 sm:col-span-3">
                   <label
@@ -231,7 +312,6 @@ export default function AdminCourse() {
                     type="text"
                     name="duration"
                     id="duration"
-                    autoComplete="duration"
                     placeholder="e.g. 15 hours"
                     {...register("duration", { required: true })}
                     className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
@@ -239,6 +319,27 @@ export default function AdminCourse() {
                   {errors.duration && (
                     <span className="text-sm text-red-600">
                       Duration is required
+                    </span>
+                  )}
+                </div>
+                <div className="col-span-6 sm:col-span-3">
+                  <label
+                    htmlFor="arDuration"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Arabic Duration
+                  </label>
+                  <input
+                    type="text"
+                    name="arDuration"
+                    id="arDuration"
+                    placeholder="مثال: 15 ساعة"
+                    {...register("arDuration", { required: true })}
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  />
+                  {errors.arDuration && (
+                    <span className="text-sm text-red-600">
+                      Arabic Duration is required
                     </span>
                   )}
                 </div>
@@ -304,16 +405,24 @@ export default function AdminCourse() {
                   >
                     Requirements
                   </label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-col items-center gap-2 max-md:mb-5 md:flex-row">
                     <input
-                      type="url"
+                      type="text"
                       name="requirement"
                       id="requirement"
-                      autoComplete="requirement"
                       placeholder="e.g. Basic baking knowledge"
                       value={requirement}
                       onChange={(e) => setRequirement(e.target.value)}
-                      className="mt-1 block grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    />
+                    <input
+                      type="text"
+                      name="arRequirement"
+                      id="arRequirement"
+                      placeholder="مثال: معرفة أساسية بالخبز"
+                      value={arRequirement}
+                      onChange={(e) => setArRequirement(e.target.value)}
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                     />
                     <button
                       type="button"
@@ -325,17 +434,22 @@ export default function AdminCourse() {
                     </button>
                   </div>
 
-                  <ul className="mt-2 md:ps-4">
+                  <ul className="mt-2 space-y-1 md:ps-4">
                     {requirements.map((requirement, index) => (
                       <li key={index} className="flex items-center gap-1">
-                        <span className="text-gray-700">{requirement}</span>
+                        <span className="text-gray-700">
+                          {`(${requirement} - ${arRequirements[index]})`}
+                        </span>
                         <button
                           type="button"
-                          onClick={() =>
+                          onClick={() => {
                             setRequirements((prev) =>
                               prev.filter((_, i) => i !== index),
-                            )
-                          }
+                            );
+                            setArRequirements((prev) =>
+                              prev.filter((_, i) => i !== index),
+                            );
+                          }}
                           className="text-sm font-medium text-red-600 hover:text-red-800 focus:outline-none"
                         >
                           <IconTrashDelete className="h-4 w-4" />
@@ -352,16 +466,24 @@ export default function AdminCourse() {
                   >
                     Content
                   </label>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-col items-center gap-2 max-md:mb-5 md:flex-row">
                     <input
-                      type="url"
+                      type="text"
                       name="content"
                       id="content"
-                      autoComplete="content"
                       placeholder="e.g. Introduction to cake baking"
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
-                      className="mt-1 block grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    />
+                    <input
+                      type="text"
+                      name="arContent"
+                      id="arContent"
+                      placeholder="مثال: مقدمة إلى أساسيات الخبز"
+                      value={arContent}
+                      onChange={(e) => setArContent(e.target.value)}
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                     />
                     <button
                       type="button"
@@ -373,17 +495,23 @@ export default function AdminCourse() {
                     </button>
                   </div>
 
-                  <ul className="mt-2 md:ps-4">
+                  <ul className="mt-2 space-y-1 md:ps-4">
                     {contents?.map((content, index) => (
                       <li key={index} className="flex items-center gap-1">
-                        <span className="text-gray-700">{content}</span>
+                        <span className="text-gray-700">
+                          {`(${content} - ${arContents[index]})`}
+                        </span>
+
                         <button
                           type="button"
-                          onClick={() =>
+                          onClick={() => {
                             setContents((prev) =>
                               prev.filter((_, i) => i !== index),
-                            )
-                          }
+                            );
+                            setArContents((prev) =>
+                              prev.filter((_, i) => i !== index),
+                            );
+                          }}
                           className="text-sm font-medium text-red-600 hover:text-red-800 focus:outline-none"
                         >
                           <IconTrashDelete className="h-4 w-4" />
@@ -400,18 +528,28 @@ export default function AdminCourse() {
                   >
                     Lessons
                   </label>
-                  <div className="flex flex-col items-center gap-2 md:flex-row">
+                  <div className="grid grid-cols-6 gap-2 md:mb-5">
                     <input
-                      type="url"
+                      type="text"
                       name="lesson-title"
                       id="lesson-title"
-                      autoComplete="lesson-title"
                       placeholder="lesson title"
                       value={lesson.title}
                       onChange={(e) =>
                         setLesson({ ...lesson, title: e.target.value })
                       }
-                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
+                    />
+                    <input
+                      type="text"
+                      name="lesson-arTitle"
+                      id="lesson-arTitle"
+                      placeholder="عنوان الدرس"
+                      value={lesson.arTitle}
+                      onChange={(e) =>
+                        setLesson({ ...lesson, arTitle: e.target.value })
+                      }
+                      className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
                     />
                     <input
                       type="url"
@@ -423,7 +561,7 @@ export default function AdminCourse() {
                       onChange={(e) =>
                         setLesson({ ...lesson, video: e.target.value })
                       }
-                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="col-span-5 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
                     />
                     <button
                       type="button"
@@ -434,11 +572,11 @@ export default function AdminCourse() {
                       <span>Add</span>
                     </button>
                   </div>
-                  <ul className="mt-2 md:ps-4">
+                  <ul className="mt-2 space-y-1 md:ps-4">
                     {lessons.map((lesson, index) => (
                       <li key={index} className="flex items-center gap-1">
                         <span className="text-gray-700 underline underline-offset-2">
-                          {lesson.title}:
+                          {`(${lesson.title} - ${lesson.arTitle}) : `}
                         </span>
                         <span className="text-gray-700">{lesson.video}</span>
                         <button
@@ -458,7 +596,7 @@ export default function AdminCourse() {
                 </div>
 
                 {course && course.image && (
-                  <div className="col-span-6 sm:col-span-3">
+                  <div className="col-span-6 md:col-span-3">
                     <label
                       htmlFor="image"
                       className="block text-sm font-medium text-gray-700"
