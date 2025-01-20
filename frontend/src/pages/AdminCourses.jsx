@@ -106,7 +106,9 @@ export default function AdminCourses() {
                       </th>
 
                       <td className="px-6 py-4">{course.duration}</td>
-                      <td className="px-6 py-4">{course.lessons.length}</td>
+                      <td className="px-6 py-4">
+                        {course.isOnline ? course.lessons.length : "Offline"}
+                      </td>
                       <td className="px-6 py-4">{course.price} L.E</td>
                       <td className="px-6 py-4">
                         <Link

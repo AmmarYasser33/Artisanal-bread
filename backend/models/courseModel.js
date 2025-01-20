@@ -18,6 +18,10 @@ const courseSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    isOnline: {
+      type: Boolean,
+      required: true,
+    },
     duration: {
       type: String,
       required: true,
@@ -62,7 +66,6 @@ const courseSchema = new mongoose.Schema(
           video: String,
         },
       ],
-      required: true,
     },
   },
   { timestamps: true }

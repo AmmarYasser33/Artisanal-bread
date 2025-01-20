@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { getMyCourses } from "../util/Http";
 import Spinner from "../components/Spinner";
-import { IconPlayButtonO } from "../Icons";
+import { IconPlayButtonO, OutlineDoubleArrow } from "../Icons";
 import { BASE_URL } from "../util/Globals";
 
 export default function UserCourses() {
@@ -49,7 +49,9 @@ export default function UserCourses() {
                 {courses && courses.length > 0 ? (
                   courses.map((course) => (
                     <div key={course._id} className="group relative px-1 pb-2">
-                      <Link to={`/course/${course._id}`}>
+                      <Link
+                        to={`/course${course.isOnline ? "" : "s"}/${course._id}`}
+                      >
                         <div className="h-56 w-full overflow-hidden rounded-md bg-gray-200 shadow-md group-hover:opacity-75 lg:h-72 xl:h-80">
                           <img
                             src={`${BASE_URL}${course.image}`}
@@ -62,7 +64,7 @@ export default function UserCourses() {
                       <h3 className="mt-4 text-center text-lg font-bold tracking-wide text-gray-800 drop-shadow-md">
                         <div className="group-hover:text-primary-800">
                           <Link
-                            to={`/course/${course._id}`}
+                            to={`/course${course.isOnline ? "" : "s"}/${course._id}`}
                             className="group-hover:text-primary-800"
                           >
                             <span className="absolute inset-0" />
@@ -72,10 +74,14 @@ export default function UserCourses() {
                       </h3>
 
                       <Link
-                        to={`/course/${course._id}`}
+                        to={`/course${course.isOnline ? "" : "s"}/${course._id}`}
                         className="absolute inset-0 flex items-center justify-center rounded-md bg-primary-900 bg-opacity-50 opacity-0 shadow-md transition-opacity duration-300 ease-in-out group-hover:opacity-100"
                       >
-                        <IconPlayButtonO className="h-12 w-12 text-white" />
+                        {course.isOnline ? (
+                          <IconPlayButtonO className="h-12 w-12 text-white" />
+                        ) : (
+                          <OutlineDoubleArrow className="h-12 w-12 text-white" />
+                        )}
                       </Link>
                     </div>
                   ))

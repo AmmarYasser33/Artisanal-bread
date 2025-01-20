@@ -151,14 +151,14 @@ export default function AdminCourse() {
       return notifyError("At least one Arabic content is required");
     }
 
-    if (lessons.length) {
+    if (!lessons.length && data.isOnline) {
+      return notifyError("Lessons are required for online courses");
+    } else if (lessons.length && data.isOnline) {
       lessons.forEach((lesson, index) => {
         formData.append(`lessons[${index}][title]`, lesson.title);
         formData.append(`lessons[${index}][arTitle]`, lesson.arTitle);
         formData.append(`lessons[${index}][video]`, lesson.video);
       });
-    } else {
-      return notifyError("At least one lesson is required");
     }
 
     formData.append("title", data.title);
@@ -521,79 +521,81 @@ export default function AdminCourse() {
                   </ul>
                 </div>
 
-                <div className="col-span-6">
-                  <label
-                    htmlFor="lessons"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Lessons
-                  </label>
-                  <div className="grid grid-cols-6 gap-2 md:mb-5">
-                    <input
-                      type="text"
-                      name="lesson-title"
-                      id="lesson-title"
-                      placeholder="lesson title"
-                      value={lesson.title}
-                      onChange={(e) =>
-                        setLesson({ ...lesson, title: e.target.value })
-                      }
-                      className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
-                    />
-                    <input
-                      type="text"
-                      name="lesson-arTitle"
-                      id="lesson-arTitle"
-                      placeholder="عنوان الدرس"
-                      value={lesson.arTitle}
-                      onChange={(e) =>
-                        setLesson({ ...lesson, arTitle: e.target.value })
-                      }
-                      className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
-                    />
-                    <input
-                      type="url"
-                      name="lesson-video"
-                      id="lesson-video"
-                      autoComplete="lesson-video"
-                      placeholder="lesson video URL"
-                      value={lesson.video}
-                      onChange={(e) =>
-                        setLesson({ ...lesson, video: e.target.value })
-                      }
-                      className="col-span-5 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
-                    />
-                    <button
-                      type="button"
-                      onClick={handleAddLesson}
-                      className="mt-2 flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-800 focus:outline-none"
+                {course?.isOnline && (
+                  <div className="col-span-6">
+                    <label
+                      htmlFor="lessons"
+                      className="block text-sm font-medium text-gray-700"
                     >
-                      <IconPlusLg className="h-4 w-4" />
-                      <span>Add</span>
-                    </button>
+                      Lessons
+                    </label>
+                    <div className="grid grid-cols-6 gap-2 md:mb-5">
+                      <input
+                        type="text"
+                        name="lesson-title"
+                        id="lesson-title"
+                        placeholder="lesson title"
+                        value={lesson.title}
+                        onChange={(e) =>
+                          setLesson({ ...lesson, title: e.target.value })
+                        }
+                        className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
+                      />
+                      <input
+                        type="text"
+                        name="lesson-arTitle"
+                        id="lesson-arTitle"
+                        placeholder="عنوان الدرس"
+                        value={lesson.arTitle}
+                        onChange={(e) =>
+                          setLesson({ ...lesson, arTitle: e.target.value })
+                        }
+                        className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
+                      />
+                      <input
+                        type="url"
+                        name="lesson-video"
+                        id="lesson-video"
+                        autoComplete="lesson-video"
+                        placeholder="lesson video URL"
+                        value={lesson.video}
+                        onChange={(e) =>
+                          setLesson({ ...lesson, video: e.target.value })
+                        }
+                        className="col-span-5 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddLesson}
+                        className="mt-2 flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-800 focus:outline-none"
+                      >
+                        <IconPlusLg className="h-4 w-4" />
+                        <span>Add</span>
+                      </button>
+                    </div>
+                    <ul className="mt-2 space-y-1 md:ps-4">
+                      {lessons.map((lesson, index) => (
+                        <li key={index} className="flex items-center gap-1">
+                          <span className="text-gray-700 underline underline-offset-2">
+                            {`(${lesson.title} - ${lesson.arTitle}) : `}
+                          </span>
+                          <span className="text-gray-700">{lesson.video}</span>
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setLessons((prev) =>
+                                prev.filter((_, i) => i !== index),
+                              )
+                            }
+                            className="text-sm font-medium text-red-600 hover:text-red-800 focus:outline-none"
+                          >
+                            <IconTrashDelete className="h-4 w-4" />
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="mt-2 space-y-1 md:ps-4">
-                    {lessons.map((lesson, index) => (
-                      <li key={index} className="flex items-center gap-1">
-                        <span className="text-gray-700 underline underline-offset-2">
-                          {`(${lesson.title} - ${lesson.arTitle}) : `}
-                        </span>
-                        <span className="text-gray-700">{lesson.video}</span>
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setLessons((prev) =>
-                              prev.filter((_, i) => i !== index),
-                            )
-                          }
-                          className="text-sm font-medium text-red-600 hover:text-red-800 focus:outline-none"
-                        >
-                          <IconTrashDelete className="h-4 w-4" />
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                )}
 
                 {course && course.image && (
                   <div className="col-span-6 md:col-span-3">

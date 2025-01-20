@@ -30,6 +30,12 @@ exports.createCourseValidator = [
     .withMessage("Arabic Description must be a string")
     .trim(),
 
+  check("isOnline")
+    .exists()
+    .withMessage("isOnline is required")
+    .isBoolean()
+    .withMessage("isOnline must be a boolean"),
+
   check("duration")
     .notEmpty()
     .withMessage("Duration is required")
@@ -63,6 +69,8 @@ exports.createCourseValidator = [
     .withMessage("Video must be a valid URL"),
 
   check("requirements")
+    .exists()
+    .withMessage("Requirements are required")
     .isArray({ min: 1 })
     .withMessage("Requirements must be an array with at least one item"),
 
@@ -74,6 +82,8 @@ exports.createCourseValidator = [
     .trim(),
 
   check("arRequirements")
+    .exists()
+    .withMessage("Arabic Requirements are required")
     .isArray({ min: 1 })
     .withMessage("Arabic Requirements must be an array with at least one item"),
 
@@ -85,6 +95,8 @@ exports.createCourseValidator = [
     .trim(),
 
   check("content")
+    .exists()
+    .withMessage("Content is required")
     .isArray({ min: 1 })
     .withMessage("Content must be an array with at least one item"),
 
@@ -96,6 +108,8 @@ exports.createCourseValidator = [
     .trim(),
 
   check("arContent")
+    .exists()
+    .withMessage("Arabic Content is required")
     .isArray({ min: 1 })
     .withMessage("Arabic Content must be an array with at least one item"),
 
@@ -107,6 +121,9 @@ exports.createCourseValidator = [
     .trim(),
 
   check("lessons")
+    .if((value, { req }) => req.body.isOnline === "true")
+    .exists()
+    .withMessage("Lessons are required for online courses")
     .isArray({ min: 1 })
     .withMessage("Lessons must be an array with at least one item"),
 
@@ -269,6 +286,9 @@ exports.updateCourseValidator = [
       allow_protocol_relative_urls: true,
     })
     .withMessage("Lesson video must be a valid URL"),
+
+  // NOT ALLOWED
+  check("isOnline").not().exists().withMessage("isOnline cannot be updated"),
 
   validatorMiddleware,
 ];

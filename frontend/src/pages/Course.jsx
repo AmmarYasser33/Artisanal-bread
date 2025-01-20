@@ -77,9 +77,26 @@ export default function Course() {
                   {course.price} {t("currency")}
                 </span>
               </p>
+              <div className="mt-1 flex items-center gap-2">
+                <div
+                  className={`h-3 w-3 rounded-full ${course.isOnline ? "bg-green-500" : "bg-red-500"}`}
+                ></div>
+                <p className="mt-1 font-roboto text-lg text-gray-700">
+                  {course.isOnline ? t("course.online") : t("course.offline")}
+                </p>
+              </div>
+
               <button className="mt-8 rounded-md bg-primary-600 px-4 py-2 font-roboto text-lg text-white shadow-md duration-150 ease-in-out hover:bg-primary-700 focus:outline-none md:mt-11">
-                {user?.courses?.includes(course._id) ? (
+                {user?.courses?.includes(course._id) && course.isOnline ? (
                   <Link to={`/course/${course._id}`}>{t("course.watch")}</Link>
+                ) : user?.courses?.includes(course._id) && !course.isOnline ? (
+                  <a
+                    href={`https://api.whatsapp.com/send?phone=201069262663&text=I want to ask for the course "${course.title}" details`}
+                    target="_blank"
+                    className="focus:outline-none"
+                  >
+                    {t("course.ask")}
+                  </a>
                 ) : (
                   <a
                     href={`https://api.whatsapp.com/send?phone=201069262663&text=I want to request the course "${course.title}"
