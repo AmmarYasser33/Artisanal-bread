@@ -134,7 +134,7 @@ function App() {
         <Route path="/courses/:id" element={<Course />} />
         <Route path="/course/:id" element={<PR><CourseWatch /></PR>} />
         <Route path="/about" element={<About />} />
-        <Route path="/cart" element={<PR><Cart /></PR>} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 

@@ -78,6 +78,7 @@
   "contacts.emailUs": "راسلنا",
   "cart.add.success": "تمت الإضافة إلى السلة",
   "cart.add.error": "خطأ في إضافة المنتج إلى السلة!",
+  "cart.add.error.empty": "أضف بعض المنتجات أولاً!",
   "cart.fetch.error": "خطأ في استرجاع بيانات السلة!",
   "cart.empty": "ابدأ بالطلب الآن!",
   "cart.bag.title": "سلة التسوق",

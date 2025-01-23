@@ -60,7 +60,7 @@ export default function Cart() {
   } = useForm();
   const onSubmit = async (data) => {
     if (!cartData || cartData.data.cartItems.length === 0) {
-      notifyError("Add products to cart!");
+      notifyError(t("cart.add.error.empty"));
       return;
     }
 
