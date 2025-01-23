@@ -11,7 +11,8 @@ export default function Services() {
       <div className="relative min-h-[30vh] md:min-h-[50vh]">
         {/* Background Image */}
         <img
-          src={`https://whitecaps.in/storage/2023/04/IMG_0868-1.jpg`}
+          // src={`https://whitecaps.in/storage/2023/04/IMG_0868-1.jpg`}
+          src="public/pastry-bakary.jpg"
           alt="Background Image"
           className="absolute inset-0 z-0 h-full w-full object-cover"
         />
