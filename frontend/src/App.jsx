@@ -18,6 +18,7 @@ import AR from "./components/AdminRoute";
 import InstagramFloatIcon from "./components/InstagramFloatIcon";
 import Home from "./pages/Home";
 import Products from "./pages/Products";
+import Services from "./pages/Services";
 import Courses from "./pages/Courses";
 import Course from "./pages/Course";
 import CourseWatch from "./pages/CourseWatch";
@@ -128,6 +129,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/services" element={<Services />} />
         <Route path="/courses" element={<Courses />} />
         <Route path="/courses/:id" element={<Course />} />
         <Route path="/course/:id" element={<PR><CourseWatch /></PR>} />

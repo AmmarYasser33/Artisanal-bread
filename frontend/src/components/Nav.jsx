@@ -103,6 +103,16 @@ export default function Nav() {
             </li>
             <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
               <NavLink
+                to="/services"
+                className={({ isActive }) =>
+                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                }
+              >
+                {t("nav.services")}
+              </NavLink>
+            </li>
+            <li className="px-3 py-2 text-center hover:translate-y-[-0.1rem] md:p-0">
+              <NavLink
                 to="/courses"
                 className={({ isActive }) =>
                   `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`

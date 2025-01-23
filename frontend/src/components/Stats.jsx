@@ -25,28 +25,28 @@ export default function Stats() {
 
   const stats = [
     {
-      title: t("stats.experience"),
+      title: t("home.stats.experience"),
       number: achievementsExperience,
       icon: (
         <IconBadge className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
       ),
     },
     {
-      title: t("stats.professionals"),
+      title: t("home.stats.professionals"),
       number: achievementsProfessionals,
       icon: (
         <IconUserGroup className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
       ),
     },
     {
-      title: t("stats.products"),
+      title: t("home.stats.products"),
       number: achievementsProducts,
       icon: (
         <IconBreadSlice className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
       ),
     },
     {
-      title: t("stats.orders"),
+      title: t("home.stats.orders"),
       number: achievementsOrders,
       icon: (
         <IconCartPlus className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
@@ -58,10 +58,10 @@ export default function Stats() {
     <div className="mx-auto max-w-7xl px-4 py-40 sm:px-6 lg:px-8">
       <div className="mb-8 text-center tracking-wide ltr:font-roboto rtl:font-cairo">
         <h2 className="uppercase text-primary-500 ltr:text-xl ltr:font-extrabold rtl:mb-2 rtl:text-3xl rtl:font-bold">
-          {t("stats.heading")}
+          {t("home.stats.heading")}
         </h2>
         <p className="font-semibold text-gray-500 ltr:text-lg rtl:text-xl">
-          {t("stats.subheading")}
+          {t("home.stats.subheading")}
         </p>
       </div>
       <ul

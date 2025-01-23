@@ -13,14 +13,14 @@ export default function BakeryInfo() {
     <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:flex-row lg:px-8 rtl:font-roboto rtl:tracking-wider">
       <div>
         <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-primary-500 rtl:font-bold">
-          {t("services.heading")}
+          {t("home.services.heading")}
         </h2>
         <h3 className="mb-8 text-[2.6rem] font-bold leading-10 text-secondary-500">
-          {t("services.subheading")}
+          {t("home.services.subheading")}
         </h3>
 
         <p className="mb-16 max-w-lg font-roboto text-base text-gray-600">
-          {t("services.description")}
+          {t("home.services.description")}
         </p>
 
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
@@ -30,11 +30,11 @@ export default function BakeryInfo() {
                 <IconBreadSlice className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500">
-                {t("services.service1.title")}
+                {t("home.services.service1.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              {t("services.service1.description")}
+              {t("home.services.service1.description")}
             </p>
           </div>
 
@@ -44,11 +44,11 @@ export default function BakeryInfo() {
                 <IconCakeCandles className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
-                {t("services.service2.title")}
+                {t("home.services.service2.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              {t("services.service2.description")}
+              {t("home.services.service2.description")}
             </p>
           </div>
 
@@ -58,11 +58,11 @@ export default function BakeryInfo() {
                 <IconCartPlus className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
-                {t("services.service3.title")}
+                {t("home.services.service3.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              {t("services.service3.description")}
+              {t("home.services.service3.description")}
             </p>
           </div>
 
@@ -72,11 +72,11 @@ export default function BakeryInfo() {
                 <IconTruckDelivery className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
-                {t("services.service4.title")}
+                {t("home.services.service4.title")}
               </h4>
             </div>
             <p className="max-w-60 font-roboto text-base text-gray-600">
-              {t("services.service4.description")}
+              {t("home.services.service4.description")}
             </p>
           </div>
         </div>
