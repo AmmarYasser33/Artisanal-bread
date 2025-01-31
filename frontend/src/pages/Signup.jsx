@@ -65,7 +65,7 @@ export default function Signup() {
         <Nav />
       </div>
 
-      <div className="relative bg-primary-50 px-10 py-10 md:px-36">
+      <div className="relative min-h-[95vh] bg-primary-50 px-10 py-10 md:px-36">
         <div
           className="absolute left-0 top-0 h-full w-2/3 bg-primary-800"
           style={{ clipPath: "polygon(0 0, 100% 0, 10% 100%, 0% 100%)" }}
