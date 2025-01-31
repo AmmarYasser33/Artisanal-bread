@@ -215,7 +215,7 @@ export default function AdminCourse() {
                     placeholder="e.g. Chocolate Cake Baking"
                     autoComplete="title"
                     {...register("title", { required: true })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.title && (
                     <span className="text-sm text-red-600">
@@ -237,7 +237,7 @@ export default function AdminCourse() {
                     placeholder="مثال: تعلم كيفية خبز كعكة الشوكولاتة"
                     autoComplete="arTitle"
                     {...register("arTitle", { required: true })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.arTitle && (
                     <span className="text-sm text-red-600">
@@ -265,7 +265,7 @@ export default function AdminCourse() {
                         message: "Description must be at least 10 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.description && (
                     <span className="text-sm text-red-600">
@@ -292,7 +292,7 @@ export default function AdminCourse() {
                         message: "Description must be at least 10 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.arDescription && (
                     <span className="text-sm text-red-600">
@@ -314,7 +314,7 @@ export default function AdminCourse() {
                     id="duration"
                     placeholder="e.g. 15 hours"
                     {...register("duration", { required: true })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.duration && (
                     <span className="text-sm text-red-600">
@@ -335,7 +335,7 @@ export default function AdminCourse() {
                     id="arDuration"
                     placeholder="مثال: 15 ساعة"
                     {...register("arDuration", { required: true })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.arDuration && (
                     <span className="text-sm text-red-600">
@@ -363,7 +363,7 @@ export default function AdminCourse() {
                       min: 0,
                       valueAsNumber: true,
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.price && (
                     <span className="text-sm text-red-600">
@@ -389,7 +389,7 @@ export default function AdminCourse() {
                       required: true,
                       // setValueAs: (value) => value.trim(),
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {errors.video && (
                     <span className="text-sm text-red-600">
@@ -413,7 +413,7 @@ export default function AdminCourse() {
                       placeholder="e.g. Basic baking knowledge"
                       value={requirement}
                       onChange={(e) => setRequirement(e.target.value)}
-                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                     />
                     <input
                       type="text"
@@ -422,12 +422,12 @@ export default function AdminCourse() {
                       placeholder="مثال: معرفة أساسية بالخبز"
                       value={arRequirement}
                       onChange={(e) => setArRequirement(e.target.value)}
-                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                     />
                     <button
                       type="button"
                       onClick={handleAddRequirement}
-                      className="mt-2 flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-800 focus:outline-none"
+                      className="mt-2 flex items-center gap-1 text-sm font-medium text-[var(--color-primary-600)] hover:text-[var(--color-primary-800)] focus:outline-none"
                     >
                       <IconPlusLg className="h-4 w-4" />
                       <span>Add</span>
@@ -474,7 +474,7 @@ export default function AdminCourse() {
                       placeholder="e.g. Introduction to cake baking"
                       value={content}
                       onChange={(e) => setContent(e.target.value)}
-                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                     />
                     <input
                       type="text"
@@ -483,12 +483,12 @@ export default function AdminCourse() {
                       placeholder="مثال: مقدمة إلى أساسيات الخبز"
                       value={arContent}
                       onChange={(e) => setArContent(e.target.value)}
-                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                      className="mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                     />
                     <button
                       type="button"
                       onClick={handleAddContent}
-                      className="mt-2 flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-800 focus:outline-none"
+                      className="mt-2 flex items-center gap-1 text-sm font-medium text-[var(--color-primary-600)] hover:text-[var(--color-primary-800)] focus:outline-none"
                     >
                       <IconPlusLg className="h-4 w-4" />
                       <span>Add</span>
@@ -539,7 +539,7 @@ export default function AdminCourse() {
                         onChange={(e) =>
                           setLesson({ ...lesson, title: e.target.value })
                         }
-                        className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
+                        className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm md:col-span-3"
                       />
                       <input
                         type="text"
@@ -550,7 +550,7 @@ export default function AdminCourse() {
                         onChange={(e) =>
                           setLesson({ ...lesson, arTitle: e.target.value })
                         }
-                        className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm md:col-span-3"
+                        className="col-span-6 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 text-right shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm md:col-span-3"
                       />
                       <input
                         type="url"
@@ -562,12 +562,12 @@ export default function AdminCourse() {
                         onChange={(e) =>
                           setLesson({ ...lesson, video: e.target.value })
                         }
-                        className="col-span-5 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                        className="col-span-5 mt-1 block w-full grow rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                       />
                       <button
                         type="button"
                         onClick={handleAddLesson}
-                        className="mt-2 flex items-center gap-1 text-sm font-medium text-primary-600 hover:text-primary-800 focus:outline-none"
+                        className="mt-2 flex items-center gap-1 text-sm font-medium text-[var(--color-primary-600)] hover:text-[var(--color-primary-800)] focus:outline-none"
                       >
                         <IconPlusLg className="h-4 w-4" />
                         <span>Add</span>
@@ -617,7 +617,7 @@ export default function AdminCourse() {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="flex items-center gap-0 rounded-md border border-transparent bg-primary-300 px-6 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:bg-primary-600 focus:outline-none disabled:cursor-not-allowed disabled:px-10"
+                  className="flex items-center gap-0 rounded-md border border-transparent bg-[var(--color-primary-300)] px-6 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:bg-[var(--color-primary-600)] focus:outline-none disabled:cursor-not-allowed disabled:px-10"
                 >
                   {isPending ? <Spinner size={5} /> : "Update Course"}
                 </button>

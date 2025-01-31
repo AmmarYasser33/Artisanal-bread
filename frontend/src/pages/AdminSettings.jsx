@@ -55,6 +55,7 @@ export default function AdminSettings() {
   const contactWhatsapp = useSelector((state) => state.configs.whatsapp);
   const contactInstagram = useSelector((state) => state.configs.instagram);
   const contactTiktok = useSelector((state) => state.configs.tiktok);
+  const mainColors = useSelector((state) => state.configs.mainColors);
 
   const notifySuccess = (msg) => toast.success(msg);
   const notifyError = (msg) => toast.error(msg);
@@ -177,6 +178,36 @@ export default function AdminSettings() {
         notifyError("Update failed!");
       },
     });
+
+  const {
+    register: registerThemeColors,
+    handleSubmit: handleThemeColorsSubmit,
+    reset: resetThemeColors,
+    formState: { errors: themeColorsErrors },
+  } = useForm();
+  const onSubmitThemeColors = (data) => {
+    const newMainColors = Object.values(data).join(",");
+
+    updateConfigsData({ MAIN_COLORS: newMainColors });
+  };
+
+  useEffect(() => {
+    const [p50, p100, p200, p300, p400, p500, p600, p700, p800, p900] =
+      mainColors.split(",");
+
+    resetThemeColors({
+      primary50: p50,
+      primary100: p100,
+      primary200: p200,
+      primary300: p300,
+      primary400: p400,
+      primary500: p500,
+      primary600: p600,
+      primary700: p700,
+      primary800: p800,
+      primary900: p900,
+    });
+  }, [mainColors, resetThemeColors]);
 
   const {
     register: registerMainData,
@@ -335,7 +366,7 @@ export default function AdminSettings() {
                     required: true,
                     pattern: /\S+@\S+\.\S+/,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {dataErrors.email && (
                   <span className="text-sm text-red-600">
@@ -349,7 +380,7 @@ export default function AdminSettings() {
             <button
               type="submit"
               disabled={isUpdateUserPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdateUserPending ? <Spinner size={5} /> : "Save"}
             </button>
@@ -382,7 +413,7 @@ export default function AdminSettings() {
                     required: true,
                     minLength: 6,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {passwordErrors.currentPassword && (
                   <span className="text-sm text-red-600">
@@ -408,7 +439,7 @@ export default function AdminSettings() {
                     required: true,
                     minLength: 6,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {passwordErrors.newPassword?.type === "required" && (
                   <span className="text-sm text-red-600">
@@ -439,7 +470,7 @@ export default function AdminSettings() {
                     required: true,
                     validate: (value) => value === watchPassword("newPassword"),
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {passwordErrors.passwordConfirm?.type === "required" && (
                   <span className="text-sm text-red-600">
@@ -458,9 +489,221 @@ export default function AdminSettings() {
             <button
               type="submit"
               disabled={isUpdatePasswordPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdatePasswordPending ? <Spinner size={5} /> : "Save"}
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <form onSubmit={handleThemeColorsSubmit(onSubmitThemeColors)}>
+        <div className="shadow-lg sm:overflow-hidden sm:rounded-md">
+          <div className="space-y-6 bg-white px-4 py-6 sm:p-6">
+            <h3 className="mb-10 mt-2 text-xl font-semibold text-gray-900 sm:text-2xl">
+              Theme Colors
+            </h3>
+
+            <div className="grid grid-cols-6 gap-6">
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-50)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 50
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-50)]"
+                  {...registerThemeColors("primary50", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary50 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-100)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 100
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-100)]"
+                  {...registerThemeColors("primary100", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary100 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-200)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 200
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-200)]"
+                  {...registerThemeColors("primary200", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary200 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-300)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 300
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-300)]"
+                  {...registerThemeColors("primary300", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary300 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-400)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 400
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-400)]"
+                  {...registerThemeColors("primary400", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary400 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-500)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 500
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-500)]"
+                  {...registerThemeColors("primary500", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary500 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-600)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 600
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-600)]"
+                  {...registerThemeColors("primary600", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary600 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-700)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 700
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-700)]"
+                  {...registerThemeColors("primary700", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary700 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-800)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 800
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-800)]"
+                  {...registerThemeColors("primary800", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary800 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+              <div className="col-span-3 sm:col-span-2 lg:col-span-1">
+                <label
+                  htmlFor="[var(--color-primary-900)]"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Primary 900
+                </label>
+                <input
+                  type="color"
+                  id="[var(--color-primary-900)]"
+                  {...registerThemeColors("primary900", { required: true })}
+                  className="mt-1 h-10 w-14 shadow-sm sm:text-sm"
+                />
+                {themeColorsErrors.primary900 && (
+                  <span className="text-sm text-red-600">
+                    Please select a color
+                  </span>
+                )}
+              </div>
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+            <button
+              type="submit"
+              disabled={isUpdateConfigsPending}
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            >
+              {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
             </button>
           </div>
         </div>
@@ -487,7 +730,7 @@ export default function AdminSettings() {
                   id="intro-video"
                   placeholder="https://www.youtube.com/...."
                   {...registerMainData("introVideoURL", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {mainDataErrors.introVideoURL && (
                   <span className="text-sm text-red-600">
@@ -509,7 +752,7 @@ export default function AdminSettings() {
                   id="about-video"
                   placeholder="https://www.youtube.com/...."
                   {...registerMainData("aboutVideoURL", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {mainDataErrors.aboutVideoURL && (
                   <span className="text-sm text-red-600">
@@ -523,7 +766,7 @@ export default function AdminSettings() {
             <button
               type="submit"
               disabled={isUpdateConfigsPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
             </button>
@@ -557,7 +800,7 @@ export default function AdminSettings() {
             <button
               type="submit"
               disabled={isUpdatingBannerImage}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdatingBannerImage ? <Spinner size={5} /> : "Save"}
             </button>
@@ -589,7 +832,7 @@ export default function AdminSettings() {
                     min: 0,
                     valueAsNumber: true,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {achievementsErrors.experience && (
                   <span className="text-sm text-red-600">
@@ -614,7 +857,7 @@ export default function AdminSettings() {
                     min: 0,
                     valueAsNumber: true,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {achievementsErrors.professionals && (
                   <span className="text-sm text-red-600">
@@ -639,7 +882,7 @@ export default function AdminSettings() {
                     min: 0,
                     valueAsNumber: true,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {achievementsErrors.totalProducts && (
                   <span className="text-sm text-red-600">
@@ -664,7 +907,7 @@ export default function AdminSettings() {
                     min: 0,
                     valueAsNumber: true,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {achievementsErrors.ordersPlaced && (
                   <span className="text-sm text-red-600">
@@ -678,7 +921,7 @@ export default function AdminSettings() {
             <button
               type="submit"
               disabled={isUpdateConfigsPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
             </button>
@@ -706,7 +949,7 @@ export default function AdminSettings() {
                   name="en-address"
                   id="en-address"
                   {...registerContactInfo("enAddress", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.enAddress && (
                   <span className="text-sm text-red-600">
@@ -727,7 +970,7 @@ export default function AdminSettings() {
                   name="ar-address"
                   id="ar-address"
                   {...registerContactInfo("arAddress", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.arAddress && (
                   <span className="text-sm text-red-600">
@@ -748,7 +991,7 @@ export default function AdminSettings() {
                   name="en-opening"
                   id="en-opening"
                   {...registerContactInfo("enOpening", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.enOpening && (
                   <span className="text-sm text-red-600">
@@ -769,7 +1012,7 @@ export default function AdminSettings() {
                   name="ar-opening"
                   id="ar-opening"
                   {...registerContactInfo("arOpening", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.arOpening && (
                   <span className="text-sm text-red-600">
@@ -791,7 +1034,7 @@ export default function AdminSettings() {
                   id="map-x"
                   placeholder="30.0113975"
                   {...registerContactInfo("mapX", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.mapX && (
                   <span className="text-sm text-red-600">
@@ -813,7 +1056,7 @@ export default function AdminSettings() {
                   id="map-y"
                   placeholder="31.1949437"
                   {...registerContactInfo("mapY", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.mapY && (
                   <span className="text-sm text-red-600">
@@ -835,7 +1078,7 @@ export default function AdminSettings() {
                   id="location"
                   placeholder="https://maps.app.goo.gl/ADaDXmUKtsyqkivq7"
                   {...registerContactInfo("location", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.location && (
                   <span className="text-sm text-red-600">
@@ -856,7 +1099,7 @@ export default function AdminSettings() {
                   name="phone"
                   id="phone"
                   {...registerContactInfo("phone", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.phone && (
                   <span className="text-sm text-red-600">
@@ -880,7 +1123,7 @@ export default function AdminSettings() {
                     required: true,
                     pattern: /\S+@\S+\.\S+/,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.contactEmail && (
                   <span className="text-sm text-red-600">
@@ -902,7 +1145,7 @@ export default function AdminSettings() {
                   id="facebook"
                   placeholder="https://facebook.com/..."
                   {...registerContactInfo("facebook", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.facebook && (
                   <span className="text-sm text-red-600">
@@ -924,7 +1167,7 @@ export default function AdminSettings() {
                   id="whatsapp"
                   placeholder="20123456789"
                   {...registerContactInfo("whatsapp", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.whatsapp && (
                   <span className="text-sm text-red-600">
@@ -946,7 +1189,7 @@ export default function AdminSettings() {
                   id="instagram"
                   placeholder="https://instagram.com/..."
                   {...registerContactInfo("instagram", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.instagram && (
                   <span className="text-sm text-red-600">
@@ -968,7 +1211,7 @@ export default function AdminSettings() {
                   id="tiktok"
                   placeholder="https://tiktok.com/..."
                   {...registerContactInfo("tiktok", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {contactInfoErrors.tiktok && (
                   <span className="text-sm text-red-600">
@@ -982,7 +1225,7 @@ export default function AdminSettings() {
             <button
               type="submit"
               disabled={isUpdateConfigsPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
             </button>
@@ -1018,7 +1261,7 @@ export default function AdminSettings() {
                     min: 0,
                     valueAsNumber: true,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {shippingPriceErrors.shippingPrice && (
                   <span className="text-sm text-red-600">
@@ -1032,7 +1275,7 @@ export default function AdminSettings() {
             <button
               type="submit"
               disabled={isUpdateConfigsPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdateConfigsPending ? <Spinner size={5} /> : "Save"}
             </button>

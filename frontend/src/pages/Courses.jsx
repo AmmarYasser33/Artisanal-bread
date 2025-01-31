@@ -24,7 +24,7 @@ export default function Courses() {
   });
 
   return (
-    <div className="min-h-screen bg-primary-50">
+    <div className="min-h-screen bg-[var(--color-primary-50)]">
       <div className="bg-secondary-500 shadow-lg">
         <Nav />
       </div>
@@ -51,10 +51,10 @@ export default function Courses() {
                 </Link>
 
                 <h3 className="mt-4 text-lg font-bold tracking-wide text-gray-800 drop-shadow-md rtl:font-roboto">
-                  <div className="group-hover:text-primary-800">
+                  <div className="group-hover:text-[var(--color-primary-800)]">
                     <Link
                       to={`/courses/${course._id}`}
-                      className="group-hover:text-primary-800"
+                      className="group-hover:text-[var(--color-primary-800)]"
                     >
                       <span className="absolute inset-0" />
                       {isArLang ? course.arTitle : course.title}
@@ -69,7 +69,7 @@ export default function Courses() {
 
                   <Link
                     to={`/courses/${course._id}`}
-                    className="inline-flex items-center justify-center p-2 text-primary-800 duration-300 ease-in-out hover:bg-primary-800 hover:text-white focus:outline-none"
+                    className="inline-flex items-center justify-center p-2 text-[var(--color-primary-800)] duration-300 ease-in-out hover:bg-[var(--color-primary-800)] hover:text-white focus:outline-none"
                   >
                     <IconScreenFull className="inline-block h-6 w-6" />
                   </Link>

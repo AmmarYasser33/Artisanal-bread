@@ -26,7 +26,7 @@ export default function Testimonials() {
   });
 
   return (
-    <div className="bg-primary-100 rtl:font-roboto">
+    <div className="bg-[var(--color-primary-100)] rtl:font-roboto">
       <div className="mx-auto max-w-7xl items-center justify-center px-0 py-28 md:py-36 lg:px-8">
         <h3 className="mb-16 text-center text-4xl font-bold leading-10 text-secondary-700">
           {t("testimonials.heading")}
@@ -79,12 +79,12 @@ export default function Testimonials() {
               <SwiperSlide key={testimonial._id}>
                 {({ isActive }) => (
                   <div
-                    className={`rounded-lg p-5 shadow-lg max-[600px]:px-11 ${isActive ? "bg-primary-600" : "bg-white"}`}
+                    className={`rounded-lg p-5 shadow-lg max-[600px]:px-11 ${isActive ? "bg-[var(--color-primary-600)]" : "bg-white"}`}
                   >
                     <div className="flex items-center space-x-6 rtl:space-x-reverse">
                       <img
                         src={`${BASE_URL}${testimonial.image}`}
-                        className="h-14 w-14 rounded-full ring-2 ring-gray-100 ring-offset-2 ring-offset-primary-500"
+                        className="h-14 w-14 rounded-full ring-2 ring-gray-100 ring-offset-2 ring-offset-[var(--color-primary-500)]"
                       />
 
                       <div className="flex flex-col space-y-1">

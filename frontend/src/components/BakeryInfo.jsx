@@ -12,7 +12,7 @@ export default function BakeryInfo() {
   return (
     <div className="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 py-24 sm:px-6 lg:flex-row lg:px-8 rtl:font-roboto rtl:tracking-wider">
       <div>
-        <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-primary-500 rtl:font-bold">
+        <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-[var(--color-primary-500)] rtl:font-bold">
           {t("home.services.heading")}
         </h2>
         <h3 className="mb-8 text-[2.6rem] font-bold leading-10 text-secondary-500">
@@ -26,7 +26,7 @@ export default function BakeryInfo() {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
           <div className="flex flex-col space-y-3">
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <div className="rounded-full bg-primary-500 p-2">
+              <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                 <IconBreadSlice className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500">
@@ -40,7 +40,7 @@ export default function BakeryInfo() {
 
           <div className="flex flex-col space-y-3">
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <div className="rounded-full bg-primary-500 p-2">
+              <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                 <IconCakeCandles className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
@@ -54,7 +54,7 @@ export default function BakeryInfo() {
 
           <div className="flex flex-col space-y-3">
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <div className="rounded-full bg-primary-500 p-2">
+              <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                 <IconCartPlus className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
@@ -68,7 +68,7 @@ export default function BakeryInfo() {
 
           <div className="flex flex-col space-y-3">
             <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <div className="rounded-full bg-primary-500 p-2">
+              <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                 <IconTruckDelivery className="h-5 w-5 text-white" />
               </div>
               <h4 className="text-xl font-bold text-secondary-500 rtl:tracking-normal">
@@ -82,7 +82,7 @@ export default function BakeryInfo() {
         </div>
       </div>
 
-      <div className="relative mx-auto my-32 h-48 w-40 border-[1rem] border-primary-50 bg-primary-500 md:h-96 md:w-[21rem] md:border-[1.57rem] lg:h-[28rem] lg:w-60 xl:h-96 xl:w-[21rem]">
+      <div className="relative mx-auto my-32 h-48 w-40 border-[1rem] border-[var(--color-primary-50)] bg-[var(--color-primary-500)] md:h-96 md:w-[21rem] md:border-[1.57rem] lg:h-[28rem] lg:w-60 xl:h-96 xl:w-[21rem]">
         <img
           src="/service-1.jpg"
           alt="bakery service 1"

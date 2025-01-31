@@ -39,7 +39,7 @@ export default function CourseWatch() {
       </div>
 
       {isLoading && (
-        <div className="min-h-screen bg-primary-900 p-16">
+        <div className="min-h-screen bg-[var(--color-primary-900)] p-16">
           <Spinner size={12} />
         </div>
       )}
@@ -52,7 +52,7 @@ export default function CourseWatch() {
 
       {!isLoading && !isError && course && (
         <div className="rtl:font-roboto">
-          <div className="bg-primary-900 shadow-lg">
+          <div className="bg-[var(--color-primary-900)] shadow-lg">
             <div className="mx-auto h-[17rem] max-w-5xl sm:h-96 md:h-[31rem]">
               <ReactPlayer
                 key={lessonIndex}
@@ -70,15 +70,17 @@ export default function CourseWatch() {
             <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:max-w-6xl lg:px-8">
               <h2 className="relative text-center text-2xl font-bold text-secondary-500 md:text-3xl">
                 {t("user.course.units")}
-                <span className="absolute -bottom-3 left-1/2 h-2 w-20 -translate-x-1/2 transform bg-primary-500 md:w-28"></span>
+                <span className="absolute -bottom-3 left-1/2 h-2 w-20 -translate-x-1/2 transform bg-[var(--color-primary-500)] md:w-28"></span>
               </h2>
 
               <div className="mt-10 border-b border-t border-gray-300">
                 {course?.lessons?.map((lesson, index) => (
                   <button
                     key={index}
-                    className={`flex w-full items-center justify-between border-b border-black border-opacity-15 bg-primary-100 px-14 py-4 hover:bg-primary-200 md:px-20 ${
-                      index === lessonIndex ? "bg-primary-200" : ""
+                    className={`flex w-full items-center justify-between border-b border-black border-opacity-15 bg-[var(--color-primary-100)] px-14 py-4 hover:bg-[var(--color-primary-200)] md:px-20 ${
+                      index === lessonIndex
+                        ? "bg-[var(--color-primary-200)]"
+                        : ""
                     }`}
                     onClick={() => setLessonIndex(index)}
                   >
@@ -95,7 +97,9 @@ export default function CourseWatch() {
         </div>
       )}
 
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <div className="mt-20">
           <Footer />
         </div>

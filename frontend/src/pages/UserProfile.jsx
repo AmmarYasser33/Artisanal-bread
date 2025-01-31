@@ -120,7 +120,7 @@ export default function UserProfile() {
                   id="first-name"
                   autoComplete="given-name"
                   {...registerData("firstName", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {dataErrors.firstName && (
                   <span className="text-sm text-red-600">
@@ -142,7 +142,7 @@ export default function UserProfile() {
                   id="last-name"
                   autoComplete="family-name"
                   {...registerData("lastName")}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
               </div>
 
@@ -162,7 +162,7 @@ export default function UserProfile() {
                     required: true,
                     pattern: /\S+@\S+\.\S+/,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {dataErrors.email && (
                   <span className="text-sm text-red-600">
@@ -187,7 +187,7 @@ export default function UserProfile() {
                     required: true,
                     pattern: /^(010|011|012|015)\d{8}$/,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {dataErrors.phone && (
                   <span className="text-sm text-red-600">
@@ -209,7 +209,7 @@ export default function UserProfile() {
                   id="delivery-address"
                   autoComplete="delivery-address"
                   {...registerData("address", { required: true })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {dataErrors.address && (
                   <span className="text-sm text-red-600">
@@ -223,7 +223,7 @@ export default function UserProfile() {
             <button
               type="submit"
               disabled={isUpdateUserPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdateUserPending ? (
                 <Spinner size={5} />
@@ -260,7 +260,7 @@ export default function UserProfile() {
                     required: true,
                     minLength: 6,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {passwordErrors.currentPassword && (
                   <span className="text-sm text-red-600">
@@ -286,7 +286,7 @@ export default function UserProfile() {
                     required: true,
                     minLength: 6,
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {passwordErrors.newPassword?.type === "required" && (
                   <span className="text-sm text-red-600">
@@ -317,7 +317,7 @@ export default function UserProfile() {
                     required: true,
                     validate: (value) => value === watchPassword("newPassword"),
                   })}
-                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                  className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                 />
                 {passwordErrors.passwordConfirm?.type === "required" && (
                   <span className="text-sm text-red-600">
@@ -336,7 +336,7 @@ export default function UserProfile() {
             <button
               type="submit"
               disabled={isUpdatePasswordPending}
-              className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {isUpdatePasswordPending ? (
                 <Spinner size={5} />

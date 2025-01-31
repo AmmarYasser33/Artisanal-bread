@@ -39,7 +39,7 @@ export default function UserCourses() {
               </p>
             )}
             {courses && courses?.length === 0 && !isLoading && !isError && (
-              <p className="mt-14 text-center font-roboto text-2xl font-bold text-primary-800">
+              <p className="mt-14 text-center font-roboto text-2xl font-bold text-[var(--color-primary-800)]">
                 {t("user.courses.empty")}
               </p>
             )}
@@ -62,10 +62,10 @@ export default function UserCourses() {
                       </Link>
 
                       <h3 className="mt-4 text-center text-lg font-bold tracking-wide text-gray-800 drop-shadow-md">
-                        <div className="group-hover:text-primary-800">
+                        <div className="group-hover:text-[var(--color-primary-800)]">
                           <Link
                             to={`/course${course.isOnline ? "" : "s"}/${course._id}`}
-                            className="group-hover:text-primary-800"
+                            className="group-hover:text-[var(--color-primary-800)]"
                           >
                             <span className="absolute inset-0" />
                             {isArLang ? course.arTitle : course.title}
@@ -75,7 +75,7 @@ export default function UserCourses() {
 
                       <Link
                         to={`/course${course.isOnline ? "" : "s"}/${course._id}`}
-                        className="absolute inset-0 flex items-center justify-center rounded-md bg-primary-900 bg-opacity-50 opacity-0 shadow-md transition-opacity duration-300 ease-in-out group-hover:opacity-100"
+                        className="absolute inset-0 flex items-center justify-center rounded-md bg-[var(--color-primary-900)] bg-opacity-50 opacity-0 shadow-md transition-opacity duration-300 ease-in-out group-hover:opacity-100"
                       >
                         {course.isOnline ? (
                           <IconPlayButtonO className="h-12 w-12 text-white" />
@@ -86,7 +86,7 @@ export default function UserCourses() {
                     </div>
                   ))
                 ) : (
-                  <p className="mt-10 text-center font-roboto text-2xl font-bold text-primary-700">
+                  <p className="mt-10 text-center font-roboto text-2xl font-bold text-[var(--color-primary-700)]">
                     No courses found!
                   </p>
                 )}

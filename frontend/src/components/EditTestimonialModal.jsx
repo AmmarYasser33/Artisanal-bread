@@ -126,7 +126,7 @@ export default function EditTestimonialModal({
                           <input
                             type="text"
                             placeholder="Testimonial name"
-                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                             {...register("name", {
                               required: "Testimonial name is required",
                               minLength: {
@@ -144,7 +144,7 @@ export default function EditTestimonialModal({
                           <input
                             type="text"
                             placeholder="Testimonial title"
-                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                             {...register("title", {
                               required: "Testimonial title is required",
                               minLength: {
@@ -162,7 +162,7 @@ export default function EditTestimonialModal({
                           <textarea
                             placeholder="Testimonial content..."
                             rows="3"
-                            className="mt-3 w-full transform rounded-lg border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            className="mt-3 w-full transform rounded-lg border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                             {...register("comment", {
                               required: "Testimonial content is required",
                               minLength: {
@@ -189,7 +189,7 @@ export default function EditTestimonialModal({
                       <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                         <button
                           type="submit"
-                          className="inline-flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm transition duration-300 ease-in-out hover:bg-primary-700 focus:scale-95 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:col-start-2 sm:text-sm"
+                          className="inline-flex w-full justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-base font-medium text-white shadow-sm transition duration-300 ease-in-out hover:bg-[var(--color-primary-700)] focus:scale-95 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:col-start-2 sm:text-sm"
                           disabled={isPending}
                         >
                           {isPending ? (

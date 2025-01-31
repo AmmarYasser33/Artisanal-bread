@@ -16,19 +16,29 @@ export default function Home() {
     <div className="overflow-x-hidden">
       <HeroSection />
       <IntroVideoSection />
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <Stats />
       </Suspense>
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <TrendingProducts />
       </Suspense>
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <BakeryInfo />
       </Suspense>
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <Testimonials />
       </Suspense>
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <Footer />
       </Suspense>
     </div>

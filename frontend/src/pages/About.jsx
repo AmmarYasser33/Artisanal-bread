@@ -15,14 +15,20 @@ export default function About() {
       </div>
 
       <AboutUsSection />
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <TeamSection />
       </Suspense>
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
         <ContactUsSection />
       </Suspense>
-      <Suspense fallback={<Spinner color={"primary-700"} size={10} />}>
-        <p className="mt-10 bg-primary-100 py-4 text-center font-roboto text-sm text-secondary-900">
+      <Suspense
+        fallback={<Spinner color={"[var(--color-primary-700)]"} size={10} />}
+      >
+        <p className="mt-10 bg-[var(--color-primary-100)] py-4 text-center font-roboto text-sm text-secondary-900">
           Developed by:
           <a
             href="https://t.me/ammar_yasser"

@@ -84,7 +84,7 @@ export default function UserOrders() {
             {isOrdersError && (
               <button
                 onClick={() => refreshOrders()}
-                className="inline-flex items-center rounded-lg border border-primary-100 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
+                className="inline-flex items-center rounded-lg border border-[var(--color-primary-100)] bg-[var(--color-primary-700)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--color-primary-800)] focus:outline-none focus:ring-4 focus:ring-[var(--color-primary-300)]"
               >
                 {t("user.orders.error")}
               </button>
@@ -105,7 +105,7 @@ export default function UserOrders() {
                   <select
                     defaultValue={"all"}
                     id="order-type"
-                    className="block w-full min-w-[8rem] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 rtl:pr-8"
+                    className="block w-full min-w-[8rem] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)] rtl:pr-8"
                     onChange={(e) => setOrderType(e.target.value)} // Update order type
                   >
                     <option value="all">
@@ -138,7 +138,7 @@ export default function UserOrders() {
                   <select
                     defaultValue={"all time"}
                     id="duration"
-                    className="block w-full min-w-32 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500 rtl:pr-8"
+                    className="block w-full min-w-32 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)] rtl:pr-8"
                     onChange={(e) => setDuration(e.target.value)} // Update duration
                   >
                     <option value="all time">
@@ -241,7 +241,7 @@ export default function UserOrders() {
                         ) : (
                           <button
                             type="button"
-                            className="w-full rounded-lg bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:cursor-not-allowed disabled:opacity-50"
+                            className="w-full rounded-lg bg-[var(--color-primary-700)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--color-primary-800)] focus:outline-none focus:ring-4 focus:ring-[var(--color-primary-300)] disabled:cursor-not-allowed disabled:opacity-50"
                             disabled={isOrderingAgain}
                             onClick={() => orderAgainMutation(order._id)}
                           >
@@ -254,7 +254,7 @@ export default function UserOrders() {
                         )}
                         <Link
                           to={`/dashboard/orders/${order._id}`}
-                          className="inline-flex w-full justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:font-semibold hover:text-primary-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                          className="inline-flex w-full justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:font-semibold hover:text-[var(--color-primary-800)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
                         >
                           {t("user.orders.details")}
                         </Link>

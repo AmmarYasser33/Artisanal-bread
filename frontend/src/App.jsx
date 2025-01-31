@@ -51,6 +51,7 @@ function App() {
   const location = useLocation();
   const { i18n } = useTranslation();
   const isArLang = localStorage.getItem("i18nextLng") === "ar";
+  const mainColors = useSelector((state) => state.configs.mainColors);
   const token = useSelector((state) => state.userInfo.token);
   const role = useSelector((state) => state.userInfo.role);
 
@@ -65,6 +66,26 @@ function App() {
       i18n.changeLanguage("ar");
     }
   }, [token, role, isArLang, i18n]);
+
+  useEffect(() => {
+    if (mainColors) {
+      const [p50, p100, p200, p300, p400, p500, p600, p700, p800, p900] =
+      mainColors.split(",");
+
+      document.documentElement.style.setProperty("--color-primary-50", p50);
+      document.documentElement.style.setProperty("--color-primary-100", p100);
+      document.documentElement.style.setProperty("--color-primary-200", p200);
+      document.documentElement.style.setProperty("--color-primary-300", p300);
+      document.documentElement.style.setProperty("--color-primary-400", p400);
+      document.documentElement.style.setProperty("--color-primary-500", p500);
+      document.documentElement.style.setProperty("--color-primary-600", p600);
+      document.documentElement.style.setProperty("--color-primary-700", p700);
+      document.documentElement.style.setProperty("--color-primary-800", p800);
+      document.documentElement.style.setProperty("--color-primary-900", p900);
+    }
+
+  
+  }, [mainColors]);
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("userData"))) {

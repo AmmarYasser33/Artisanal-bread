@@ -28,28 +28,28 @@ export default function Stats() {
       title: t("home.stats.experience"),
       number: achievementsExperience,
       icon: (
-        <IconBadge className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+        <IconBadge className="mx-auto h-20 w-20 flex-shrink-0 text-[var(--color-primary-700)]" />
       ),
     },
     {
       title: t("home.stats.professionals"),
       number: achievementsProfessionals,
       icon: (
-        <IconUserGroup className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+        <IconUserGroup className="mx-auto h-20 w-20 flex-shrink-0 text-[var(--color-primary-700)]" />
       ),
     },
     {
       title: t("home.stats.products"),
       number: achievementsProducts,
       icon: (
-        <IconBreadSlice className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+        <IconBreadSlice className="mx-auto h-20 w-20 flex-shrink-0 text-[var(--color-primary-700)]" />
       ),
     },
     {
       title: t("home.stats.orders"),
       number: achievementsOrders,
       icon: (
-        <IconCartPlus className="mx-auto h-20 w-20 flex-shrink-0 text-primary-700" />
+        <IconCartPlus className="mx-auto h-20 w-20 flex-shrink-0 text-[var(--color-primary-700)]" />
       ),
     },
   ];
@@ -57,7 +57,7 @@ export default function Stats() {
   return (
     <div className="mx-auto max-w-7xl px-4 py-40 sm:px-6 lg:px-8">
       <div className="mb-8 text-center tracking-wide ltr:font-roboto rtl:font-cairo">
-        <h2 className="uppercase text-primary-500 ltr:text-xl ltr:font-extrabold rtl:mb-2 rtl:text-3xl rtl:font-bold">
+        <h2 className="uppercase text-[var(--color-primary-500)] ltr:text-xl ltr:font-extrabold rtl:mb-2 rtl:text-3xl rtl:font-bold">
           {t("home.stats.heading")}
         </h2>
         <p className="font-semibold text-gray-500 ltr:text-lg rtl:text-xl">
@@ -71,7 +71,7 @@ export default function Stats() {
         {stats.map((stat) => (
           <li
             key={stat.title}
-            className="col-span-1 flex transform flex-col divide-y divide-gray-200 rounded-lg bg-primary-100 text-center shadow-md transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-primary-50"
+            className="col-span-1 flex transform flex-col divide-y divide-gray-200 rounded-lg bg-[var(--color-primary-100)] text-center shadow-md transition duration-300 ease-in-out hover:-translate-y-2 hover:bg-[var(--color-primary-50)]"
           >
             <div className="flex flex-1 flex-col p-8">
               {stat.icon}

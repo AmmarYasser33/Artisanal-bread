@@ -65,14 +65,14 @@ export default function Signup() {
         <Nav />
       </div>
 
-      <div className="relative min-h-[95vh] bg-primary-50 px-10 py-10 md:px-36">
+      <div className="relative min-h-[95vh] bg-[var(--color-primary-50)] px-10 py-10 md:px-36">
         <div
-          className="absolute left-0 top-0 h-full w-2/3 bg-primary-800"
+          className="absolute left-0 top-0 h-full w-2/3 bg-[var(--color-primary-800)]"
           style={{ clipPath: "polygon(0 0, 100% 0, 10% 100%, 0% 100%)" }}
         ></div>
 
         <div className="flex min-h-[33rem] overflow-hidden rounded-lg shadow-xl">
-          <div className="z-30 hidden w-0 flex-1 bg-primary-50 lg:block">
+          <div className="z-30 hidden w-0 flex-1 bg-[var(--color-primary-50)] lg:block">
             <img
               className="inset-0 h-full w-full scale-x-[-1] object-cover"
               src="/illustration-3.png"
@@ -91,7 +91,7 @@ export default function Signup() {
                     className="h-7"
                     alt="Artisanal bread logo"
                   />
-                  <span className="self-center whitespace-nowrap text-xl font-bold italic text-primary-500">
+                  <span className="self-center whitespace-nowrap text-xl font-bold italic text-[var(--color-primary-500)]">
                     Artisanal bread
                   </span>
                 </Link>
@@ -117,7 +117,7 @@ export default function Signup() {
                           name="name"
                           type="text"
                           autoComplete="name"
-                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                           {...register("name", {
                             required: true,
                             minLength: 3,
@@ -149,7 +149,7 @@ export default function Signup() {
                           name="email"
                           type="email"
                           autoComplete="email"
-                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                           {...register("email", {
                             required: true,
                             pattern: /\S+@\S+\.\S+/,
@@ -176,7 +176,7 @@ export default function Signup() {
                           name="password"
                           type="password"
                           autoComplete="current-password"
-                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                           {...register("password", {
                             required: true,
                             minLength: 6,
@@ -211,7 +211,7 @@ export default function Signup() {
                           name="passwordConfirm"
                           type="password"
                           autoComplete="current-password"
-                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                           {...register("passwordConfirm", {
                             required: true,
                             minLength: 6,
@@ -245,7 +245,7 @@ export default function Signup() {
                       <button
                         type="submit"
                         disabled={isPending}
-                        className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex w-full justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {isPending ? (
                           <Spinner size={5} />
@@ -261,7 +261,7 @@ export default function Signup() {
                       {t("signup.haveAccount")}{" "}
                       <Link
                         to="/login"
-                        className="font-medium text-primary-600 hover:text-primary-700"
+                        className="font-medium text-[var(--color-primary-600)] hover:text-[var(--color-primary-700)]"
                       >
                         {t("singup.login")}
                       </Link>

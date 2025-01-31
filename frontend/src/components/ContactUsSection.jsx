@@ -31,7 +31,9 @@ export default function ContactUsSection() {
     <div className="mx-auto my-24 max-w-7xl items-center justify-center px-4 sm:px-6 lg:mt-16 lg:px-8 rtl:font-roboto">
       <h1 className="mb-16 text-center text-3xl font-bold uppercase">
         {t("contacts.help")}
-        <span className="ms-4 text-primary-500">{t("contacts.contactUs")}</span>
+        <span className="ms-4 text-[var(--color-primary-500)]">
+          {t("contacts.contactUs")}
+        </span>
       </h1>
 
       {mapX && mapY && (
@@ -54,8 +56,8 @@ export default function ContactUsSection() {
       )}
 
       <div className="mt-16 grid grid-cols-1 gap-x-10 gap-y-7 sm:grid-cols-2">
-        <div className="flex items-center space-x-4 rounded-md bg-primary-50 p-4 shadow-lg rtl:space-x-reverse">
-          <div className="rounded-full bg-primary-600 p-3">
+        <div className="flex items-center space-x-4 rounded-md bg-[var(--color-primary-50)] p-4 shadow-lg rtl:space-x-reverse">
+          <div className="rounded-full bg-[var(--color-primary-600)] p-3">
             <IconBxTimeFive className="h-7 w-7 text-white" />
           </div>
           <div className="flex flex-col space-y-1">
@@ -67,8 +69,8 @@ export default function ContactUsSection() {
             </p>
           </div>
         </div>
-        <div className="flex items-center space-x-4 rounded-md bg-primary-50 p-4 shadow-lg rtl:space-x-reverse">
-          <div className="rounded-full bg-primary-600 p-3">
+        <div className="flex items-center space-x-4 rounded-md bg-[var(--color-primary-50)] p-4 shadow-lg rtl:space-x-reverse">
+          <div className="rounded-full bg-[var(--color-primary-600)] p-3">
             <IconLocationOutline className="h-8 w-8 text-white" />
           </div>
           <div className="flex flex-col space-y-1">
@@ -80,8 +82,8 @@ export default function ContactUsSection() {
             </p>
           </div>
         </div>
-        <div className="flex items-center space-x-4 rounded-md bg-primary-50 p-4 shadow-lg rtl:space-x-reverse">
-          <div className="rounded-full bg-primary-600 p-3">
+        <div className="flex items-center space-x-4 rounded-md bg-[var(--color-primary-50)] p-4 shadow-lg rtl:space-x-reverse">
+          <div className="rounded-full bg-[var(--color-primary-600)] p-3">
             <IconPhone className="h-7 w-7 text-white" />
           </div>
           <div className="flex flex-col space-y-1">
@@ -95,8 +97,8 @@ export default function ContactUsSection() {
             </p>
           </div>
         </div>
-        <div className="flex items-center space-x-4 rounded-md bg-primary-50 p-4 shadow-lg rtl:space-x-reverse">
-          <div className="rounded-full bg-primary-600 p-3">
+        <div className="flex items-center space-x-4 rounded-md bg-[var(--color-primary-50)] p-4 shadow-lg rtl:space-x-reverse">
+          <div className="rounded-full bg-[var(--color-primary-600)] p-3">
             <IconMailOutline className="h-7 w-7 text-white" />
           </div>
           <div className="flex flex-col space-y-1">

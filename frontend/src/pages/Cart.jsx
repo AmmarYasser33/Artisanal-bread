@@ -86,7 +86,7 @@ export default function Cart() {
         <Nav />
       </div>
 
-      <section className="after:contents-[''] relative z-10 font-roboto after:absolute after:top-0 after:z-0 after:h-full after:bg-primary-50 xl:after:w-1/3 ltr:after:right-0 rtl:after:left-0">
+      <section className="after:contents-[''] relative z-10 font-roboto after:absolute after:top-0 after:z-0 after:h-full after:bg-[var(--color-primary-50)] xl:after:w-1/3 ltr:after:right-0 rtl:after:left-0">
         <div className="lg-6 relative z-10 mx-auto w-full max-w-7xl px-4 md:px-5">
           <div className="grid grid-cols-12">
             <div className="col-span-12 w-full pb-8 pt-14 max-xl:mx-auto max-xl:max-w-3xl lg:py-20 xl:col-span-8 ltr:lg:pr-8 rtl:lg:pl-8">
@@ -155,7 +155,7 @@ export default function Cart() {
               )}
             </div>
 
-            <div className="col-span-12 mx-auto w-full max-w-3xl bg-primary-50 py-20 max-xl:px-6 xl:col-span-4 xl:max-w-lg ltr:lg:pl-8 rtl:lg:pr-8">
+            <div className="col-span-12 mx-auto w-full max-w-3xl bg-[var(--color-primary-50)] py-20 max-xl:px-6 xl:col-span-4 xl:max-w-lg ltr:lg:pl-8 rtl:lg:pr-8">
               <h2 className="font-manrope border-b border-gray-300 pb-8 text-3xl font-bold leading-10 text-black">
                 {t("cart.orderInfo.title")}
               </h2>
@@ -166,7 +166,7 @@ export default function Cart() {
                       type="text"
                       placeholder={t("cart.orderInfo.name")}
                       {...register("orderName", { required: true })}
-                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5"
+                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-[var(--color-primary-700)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary-700)] ltr:pl-5 rtl:pr-5"
                     />
                   </div>
                   {errors.orderName && (
@@ -183,7 +183,7 @@ export default function Cart() {
                         required: true,
                         pattern: /^(010|011|012|015)\d{8}$/,
                       })}
-                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5 rtl:text-right"
+                      className="h-11 w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-[var(--color-primary-700)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary-700)] ltr:pl-5 rtl:pr-5 rtl:text-right"
                     />
                   </div>
                   {errors.orderPhone && (
@@ -196,7 +196,7 @@ export default function Cart() {
                     <textarea
                       placeholder={t("cart.orderInfo.address")}
                       {...register("orderAddress", { required: true })}
-                      className="w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5"
+                      className="w-full rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-[var(--color-primary-700)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary-700)] ltr:pl-5 rtl:pr-5"
                     />
                   </div>
                   {errors.orderAddress && (
@@ -228,7 +228,7 @@ export default function Cart() {
                           );
                         },
                       })}
-                      className="h-11 grow rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-primary-700 focus:outline-none focus:ring-1 focus:ring-primary-700 ltr:pl-5 rtl:pr-5"
+                      className="h-11 grow rounded-lg border border-gray-300 bg-white py-2.5 text-base font-normal text-black placeholder-gray-500 outline-none focus:border-[var(--color-primary-700)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary-700)] ltr:pl-5 rtl:pr-5"
                     />
                   </div>
                   {errors.orderDate && (
@@ -248,7 +248,7 @@ export default function Cart() {
                           {cartData?.numberOfItems || 0} {t("cart.products")} +
                           {t("cart.shipping")}
                         </p>
-                        <p className="text-xl font-semibold leading-8 text-primary-700">
+                        <p className="text-xl font-semibold leading-8 text-[var(--color-primary-700)]">
                           {cartData?.data?.totalPrice + +shippingPrice || 0}{" "}
                           {t("currency")}
                         </p>
@@ -258,7 +258,7 @@ export default function Cart() {
                   <button
                     type="submit"
                     disabled={isPending}
-                    className="w-full rounded-xl bg-primary-600 px-6 py-3 text-center text-lg font-semibold text-white transition-all duration-300 hover:bg-primary-800 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="w-full rounded-xl bg-[var(--color-primary-600)] px-6 py-3 text-center text-lg font-semibold text-white transition-all duration-300 hover:bg-[var(--color-primary-800)] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     {isPending ? <Spinner size={6} /> : t("cart.order.now")}
                   </button>

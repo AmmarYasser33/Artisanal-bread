@@ -82,7 +82,7 @@ export default function UserOrder() {
             <div className="flex justify-end">
               <Link
                 to="/dashboard/orders"
-                className="flex items-center gap-0 rounded-md border border-transparent bg-primary-300 px-6 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:gap-1 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-700 focus:ring-offset-2 focus:ring-offset-primary-100"
+                className="flex items-center gap-0 rounded-md border border-transparent bg-[var(--color-primary-300)] px-6 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:gap-1 hover:bg-[var(--color-primary-600)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-700)] focus:ring-offset-2 focus:ring-offset-[var(--color-primary-100)]"
               >
                 {isArLang ? (
                   <IconChevronRight className="h-3 w-3" />
@@ -231,7 +231,7 @@ export default function UserOrder() {
                           ) : (
                             <button
                               type="button"
-                              className="mt-4 w-full max-w-xs rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 disabled:cursor-not-allowed disabled:opacity-50 sm:mt-0"
+                              className="mt-4 w-full max-w-xs rounded-lg bg-[var(--color-primary-700)] px-5 py-2.5 text-sm font-medium text-white hover:bg-[var(--color-primary-800)] focus:outline-none focus:ring-4 focus:ring-[var(--color-primary-300)] disabled:cursor-not-allowed disabled:opacity-50 sm:mt-0"
                               disabled={isOrderingAgain}
                               onClick={() => orderAgainMutation(order._id)}
                             >

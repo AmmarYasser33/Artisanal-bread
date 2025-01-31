@@ -164,7 +164,7 @@ export default function AdminTeamSection() {
                         message: "name must be at least 3 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef1Errors.name && (
                     <span className="text-sm text-red-600">
@@ -191,7 +191,7 @@ export default function AdminTeamSection() {
                         message: "title must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef1Errors.title && (
                     <span className="text-sm text-red-600">
@@ -219,7 +219,7 @@ export default function AdminTeamSection() {
                         message: "facebook must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef1Errors.facebook && (
                     <span className="text-sm text-red-600">
@@ -247,7 +247,7 @@ export default function AdminTeamSection() {
                         message: "instagram must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef1Errors.instagram && (
                     <span className="text-sm text-red-600">
@@ -275,7 +275,7 @@ export default function AdminTeamSection() {
                         message: "whatsapp must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef1Errors.whatsapp && (
                     <span className="text-sm text-red-600">
@@ -303,7 +303,7 @@ export default function AdminTeamSection() {
                         message: "twitter must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef1Errors.twitter && (
                     <span className="text-sm text-red-600">
@@ -329,7 +329,7 @@ export default function AdminTeamSection() {
                 <button
                   type="submit"
                   disabled={isUpdatingChef}
-                  className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isUpdatingChef ? <Spinner size={5} /> : "Save"}
                 </button>
@@ -359,7 +359,7 @@ export default function AdminTeamSection() {
                         message: "name must be at least 3 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef2Errors.name && (
                     <span className="text-sm text-red-600">
@@ -386,7 +386,7 @@ export default function AdminTeamSection() {
                         message: "title must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef2Errors.title && (
                     <span className="text-sm text-red-600">
@@ -414,7 +414,7 @@ export default function AdminTeamSection() {
                         message: "facebook must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef2Errors.facebook && (
                     <span className="text-sm text-red-600">
@@ -442,7 +442,7 @@ export default function AdminTeamSection() {
                         message: "instagram must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef2Errors.instagram && (
                     <span className="text-sm text-red-600">
@@ -470,7 +470,7 @@ export default function AdminTeamSection() {
                         message: "whatsapp must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef2Errors.whatsapp && (
                     <span className="text-sm text-red-600">
@@ -498,7 +498,7 @@ export default function AdminTeamSection() {
                         message: "twitter must be at least 2 characters",
                       },
                     })}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                   />
                   {chef2Errors.twitter && (
                     <span className="text-sm text-red-600">
@@ -524,7 +524,7 @@ export default function AdminTeamSection() {
                 <button
                   type="submit"
                   disabled={isUpdatingChef}
-                  className="inline-flex justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                  className="inline-flex justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   {isUpdatingChef ? <Spinner size={5} /> : "Save"}
                 </button>

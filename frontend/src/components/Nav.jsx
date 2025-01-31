@@ -25,7 +25,7 @@ export default function Nav() {
           className="flex items-center space-x-3 drop-shadow-2xl rtl:space-x-reverse"
         >
           <img src="/baker.png" className="h-9" alt="Artisanal bread logo" />
-          <span className="self-center whitespace-nowrap text-xl font-bold italic text-primary-500 lg:text-3xl">
+          <span className="self-center whitespace-nowrap text-xl font-bold italic text-[var(--color-primary-500)] lg:text-3xl">
             Artisanal bread
           </span>
         </Link>
@@ -34,14 +34,14 @@ export default function Nav() {
             {isLogin ? (
               <Link
                 to={role === "admin" ? "/admin" : "/dashboard"}
-                className="rounded-full text-center font-roboto text-base font-medium text-primary-500 hover:text-white focus:outline-none"
+                className="rounded-full text-center font-roboto text-base font-medium text-[var(--color-primary-500)] hover:text-white focus:outline-none"
               >
                 <IconProfile className="inline-block h-8 w-8" />
               </Link>
             ) : (
               <Link
                 to="/login"
-                className="rounded-lg bg-primary-600 px-4 py-2 text-center font-roboto text-base font-medium text-white hover:bg-primary-800 focus:outline-none ltr:mr-1 rtl:ml-1"
+                className="rounded-lg bg-[var(--color-primary-600)] px-4 py-2 text-center font-roboto text-base font-medium text-white hover:bg-[var(--color-primary-800)] focus:outline-none ltr:mr-1 rtl:ml-1"
               >
                 {t("nav.login")}
               </Link>
@@ -50,10 +50,10 @@ export default function Nav() {
             {role !== "admin" && (
               <Link
                 to="/cart"
-                className="group relative rounded-full p-2 text-center font-roboto text-base font-medium text-primary-500 hover:bg-primary-700 hover:text-white focus:outline-none"
+                className="group relative rounded-full p-2 text-center font-roboto text-base font-medium text-[var(--color-primary-500)] hover:bg-[var(--color-primary-700)] hover:text-white focus:outline-none"
               >
                 <IconShoppingBag className="inline-block h-7 w-7" />
-                <span className="absolute right-1 top-1 z-10 rounded-full bg-primary-600 px-1 text-xs font-semibold text-white group-hover:bg-white group-hover:text-secondary-900 group-focus:text-secondary-900">
+                <span className="absolute right-1 top-1 z-10 rounded-full bg-[var(--color-primary-600)] px-1 text-xs font-semibold text-white group-hover:bg-white group-hover:text-secondary-900 group-focus:text-secondary-900">
                   {cartCounter}
                 </span>
               </Link>
@@ -84,7 +84,7 @@ export default function Nav() {
               <NavLink
                 to="/"
                 className={({ isActive }) =>
-                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                  `${isActive ? "text-[var(--color-primary-600)]" : "text-white"} rounded hover:text-[var(--color-primary-600)]`
                 }
                 aria-current="page"
               >
@@ -95,7 +95,7 @@ export default function Nav() {
               <NavLink
                 to="/products"
                 className={({ isActive }) =>
-                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                  `${isActive ? "text-[var(--color-primary-600)]" : "text-white"} rounded hover:text-[var(--color-primary-600)]`
                 }
               >
                 {t("nav.products")}
@@ -105,7 +105,7 @@ export default function Nav() {
               <NavLink
                 to="/services"
                 className={({ isActive }) =>
-                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                  `${isActive ? "text-[var(--color-primary-600)]" : "text-white"} rounded hover:text-[var(--color-primary-600)]`
                 }
               >
                 {t("nav.services")}
@@ -115,7 +115,7 @@ export default function Nav() {
               <NavLink
                 to="/courses"
                 className={({ isActive }) =>
-                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                  `${isActive ? "text-[var(--color-primary-600)]" : "text-white"} rounded hover:text-[var(--color-primary-600)]`
                 }
               >
                 {t("nav.courses")}
@@ -125,7 +125,7 @@ export default function Nav() {
               <NavLink
                 to="/about"
                 className={({ isActive }) =>
-                  `${isActive ? "text-primary-600" : "text-white"} rounded hover:text-primary-600`
+                  `${isActive ? "text-[var(--color-primary-600)]" : "text-white"} rounded hover:text-[var(--color-primary-600)]`
                 }
               >
                 {t("nav.about")}

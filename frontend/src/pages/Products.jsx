@@ -85,7 +85,7 @@ export default function Products() {
   if (isProductsError) return <p>{t("products.fetch.error")}</p>;
 
   return (
-    <div className="min-h-screen bg-primary-50">
+    <div className="min-h-screen bg-[var(--color-primary-50)]">
       <div className="bg-secondary-500 shadow-lg">
         <Nav />
       </div>
@@ -97,9 +97,9 @@ export default function Products() {
           categories?.map((filter) => (
             <button
               key={filter}
-              className={`rounded-full px-6 py-2 font-medium hover:bg-primary-600 hover:text-white ${
+              className={`rounded-full px-6 py-2 font-medium hover:bg-[var(--color-primary-600)] hover:text-white ${
                 activeFilter === filter.toLowerCase()
-                  ? "bg-primary-700 text-white"
+                  ? "bg-[var(--color-primary-700)] text-white"
                   : "text-secondary-700"
               }`}
               onClick={() => setActiveFilter(filter.toLowerCase())}
@@ -109,7 +109,7 @@ export default function Products() {
           ))
         ) : (
           <button
-            className={`rounded-full bg-primary-700 px-6 py-2 font-medium text-white hover:bg-primary-600 hover:text-white`}
+            className={`rounded-full bg-[var(--color-primary-700)] px-6 py-2 font-medium text-white hover:bg-[var(--color-primary-600)] hover:text-white`}
           >
             All
           </button>
@@ -134,8 +134,8 @@ export default function Products() {
                 {/* </Link> */}
 
                 <h3 className="mt-4 text-base font-bold tracking-wide text-gray-800 drop-shadow-sm rtl:font-roboto">
-                  <div className="group-hover:text-primary-800">
-                    {/* <Link to="/product" className="group-hover:text-primary-800"> */}
+                  <div className="group-hover:text-[var(--color-primary-800)]">
+                    {/* <Link to="/product" className="group-hover:text-[var(--color-primary-800)]"> */}
                     <span className="absolute inset-0" />
                     {isArLang ? product.arName : product.enName}
                     {/* </Link> */}
@@ -159,7 +159,7 @@ export default function Products() {
                       }
                     }}
                     disabled={isAddingToCart}
-                    className="inline-flex items-center justify-center rounded-full p-2 text-primary-700 duration-300 ease-in-out hover:bg-primary-700 hover:text-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center justify-center rounded-full p-2 text-[var(--color-primary-700)] duration-300 ease-in-out hover:bg-[var(--color-primary-700)] hover:text-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <IconBagPlusFill className="inline-block h-6 w-6" />
                   </button>
@@ -167,7 +167,7 @@ export default function Products() {
               </div>
             ))
           ) : (
-            <p className="mt-10 text-center font-roboto text-2xl font-bold text-primary-700">
+            <p className="mt-10 text-center font-roboto text-2xl font-bold text-[var(--color-primary-700)]">
               {t("products.fetch.empty")}
             </p>
           )}

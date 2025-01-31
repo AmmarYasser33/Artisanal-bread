@@ -34,7 +34,7 @@ export default function AdminCategories() {
             <button
               type="button"
               onClick={() => setIsAddModalOpen(true)}
-              className="flex items-center gap-0 rounded-md border border-transparent bg-primary-300 px-4 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:bg-primary-600 focus:outline-none"
+              className="flex items-center gap-0 rounded-md border border-transparent bg-[var(--color-primary-300)] px-4 py-2 text-sm font-medium text-secondary-800 shadow-sm duration-200 ease-in-out hover:bg-[var(--color-primary-600)] focus:outline-none"
             >
               <IconPlusLg className="mr-1 h-4 w-4" />
               <span>Add Category</span>

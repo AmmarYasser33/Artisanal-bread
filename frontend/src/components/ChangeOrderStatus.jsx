@@ -36,9 +36,9 @@ export default function ChangeOrderStatus({ currentStatus, orderId }) {
           type="button"
           onClick={() => mutate(status)}
           disabled={isPending}
-          className={`relative inline-flex items-center border border-primary-300 bg-primary-200 px-4 py-2 text-sm font-medium hover:bg-primary-500 hover:text-black focus:z-10 focus:border-primary-600 focus:outline-none focus:ring-1 focus:ring-primary-600 disabled:cursor-not-allowed disabled:opacity-50 ${
+          className={`relative inline-flex items-center border border-[var(--color-primary-300)] bg-[var(--color-primary-200)] px-4 py-2 text-sm font-medium hover:bg-[var(--color-primary-500)] hover:text-black focus:z-10 focus:border-[var(--color-primary-600)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary-600)] disabled:cursor-not-allowed disabled:opacity-50 ${
             currentStatus === status
-              ? "bg-primary-500 text-black"
+              ? "bg-[var(--color-primary-500)] text-black"
               : "text-gray-700"
           } ${i !== 0 || i !== statuses.length - 1 ? "-ml-px" : ""}`}
         >

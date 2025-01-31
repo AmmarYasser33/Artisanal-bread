@@ -155,7 +155,7 @@ export default function AdminMain() {
   };
 
   return (
-    <div className="space-y-10 bg-primary-100 shadow-lg sm:overflow-hidden sm:rounded-md sm:px-6 lg:col-span-9 lg:px-0">
+    <div className="space-y-10 bg-[var(--color-primary-100)] shadow-lg sm:overflow-hidden sm:rounded-md sm:px-6 lg:col-span-9 lg:px-0">
       {isLoading && (
         <div className="py-24">
           <Spinner />
@@ -238,9 +238,9 @@ function Filter({ filterField, options }) {
           onClick={() => handleClick(option.value)}
           className={`rounded-md px-3 py-1 text-base font-medium transition-all ${
             option.value === currentFilter
-              ? "bg-primary-700 text-primary-50"
+              ? "bg-[var(--color-primary-700)] text-[var(--color-primary-50)]"
               : ""
-          } hover:bg-primary-700 hover:text-primary-50`}
+          } hover:bg-[var(--color-primary-700)] hover:text-[var(--color-primary-50)]`}
           disabled={option.value === currentFilter}
         >
           {option.label}

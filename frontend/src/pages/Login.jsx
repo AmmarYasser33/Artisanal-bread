@@ -87,9 +87,9 @@ export default function Login() {
         <Nav />
       </div>
 
-      <div className="relative min-h-[95vh] bg-primary-50 px-10 py-10 md:px-36 rtl:font-roboto">
+      <div className="relative min-h-[95vh] bg-[var(--color-primary-50)] px-10 py-10 md:px-36 rtl:font-roboto">
         <div
-          className="absolute left-0 top-0 h-full w-2/3 bg-primary-800"
+          className="absolute left-0 top-0 h-full w-2/3 bg-[var(--color-primary-800)]"
           style={{ clipPath: "polygon(0 0, 100% 0, 10% 100%, 0% 100%)" }}
         ></div>
 
@@ -113,13 +113,13 @@ export default function Login() {
                     className="h-7"
                     alt="Artisanal bread logo"
                   />
-                  <span className="self-center whitespace-nowrap font-sans text-xl font-bold italic text-primary-500">
+                  <span className="self-center whitespace-nowrap font-sans text-xl font-bold italic text-[var(--color-primary-500)]">
                     Artisanal bread
                   </span>
                 </Link>
                 {/* <img
                   className="h-12 w-auto"
-                  src="https://tailwindui.com/img/logos/workflow-mark-primary-600.svg"
+                  src="https://tailwindui.com/img/logos/workflow-mark-[var(--color-primary-600)].svg"
                   alt="Workflow"
                 /> */}
                 <h2 className="mt-6 text-center text-3xl font-bold text-secondary-800">
@@ -143,7 +143,7 @@ export default function Login() {
                           name="email"
                           type="email"
                           autoComplete="email"
-                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                           {...register("email", {
                             required: true,
                             pattern: /\S+@\S+\.\S+/,
@@ -170,7 +170,7 @@ export default function Login() {
                           name="password"
                           type="password"
                           autoComplete="current-password"
-                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-primary-500 focus:outline-none focus:ring-primary-500 sm:text-sm"
+                          className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-[var(--color-primary-500)] focus:outline-none focus:ring-[var(--color-primary-500)] sm:text-sm"
                           {...register("password", {
                             required: true,
                             minLength: 6,
@@ -188,7 +188,7 @@ export default function Login() {
                       <div className="text-sm">
                         <Link
                           to="/forgot-password"
-                          className="font-medium text-primary-600 hover:text-primary-700"
+                          className="font-medium text-[var(--color-primary-600)] hover:text-[var(--color-primary-700)]"
                         >
                           {t("login.forgot")}
                         </Link>
@@ -199,7 +199,7 @@ export default function Login() {
                       <button
                         type="submit"
                         disabled={isPending}
-                        className="flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex w-full justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-[var(--color-primary-700)] focus:outline-none focus:ring-2 focus:ring-[var(--color-primary-500)] focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                       >
                         {isPending ? (
                           <Spinner size={5} />
@@ -215,7 +215,7 @@ export default function Login() {
                       {t("login.noAccount")}{" "}
                       <Link
                         to="/signup"
-                        className="font-medium text-primary-600 hover:text-primary-700"
+                        className="font-medium text-[var(--color-primary-600)] hover:text-[var(--color-primary-700)]"
                       >
                         {t("login.register")}
                       </Link>

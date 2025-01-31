@@ -41,7 +41,7 @@ export default function Services() {
 
             <div className="flex flex-col space-y-5">
               <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                <div className="rounded-full bg-primary-500 p-2">
+                <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                   <ComponentBreadcrumbFilled className="h-4 w-4 text-white rtl:scale-x-[-1]" />
                 </div>
                 <h4 className="text-xl text-secondary-500">
@@ -50,7 +50,7 @@ export default function Services() {
               </div>
 
               <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                <div className="rounded-full bg-primary-500 p-2">
+                <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                   <ComponentBreadcrumbFilled className="h-4 w-4 text-white rtl:scale-x-[-1]" />
                 </div>
                 <h4 className="text-xl text-secondary-500">
@@ -59,7 +59,7 @@ export default function Services() {
               </div>
 
               <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                <div className="rounded-full bg-primary-500 p-2">
+                <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                   <ComponentBreadcrumbFilled className="h-4 w-4 text-white rtl:scale-x-[-1]" />
                 </div>
                 <h4 className="text-xl text-secondary-500">
@@ -76,7 +76,7 @@ export default function Services() {
 
             <div className="flex flex-col space-y-5">
               <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                <div className="rounded-full bg-primary-500 p-2">
+                <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                   <ComponentBreadcrumbFilled className="h-4 w-4 text-white rtl:scale-x-[-1]" />
                 </div>
                 <h4 className="text-xl text-secondary-500">
@@ -85,7 +85,7 @@ export default function Services() {
               </div>
 
               <div className="flex items-center space-x-4 rtl:space-x-reverse">
-                <div className="rounded-full bg-primary-500 p-2">
+                <div className="rounded-full bg-[var(--color-primary-500)] p-2">
                   <ComponentBreadcrumbFilled className="h-4 w-4 text-white rtl:scale-x-[-1]" />
                 </div>
                 <h4 className="text-xl text-secondary-500">

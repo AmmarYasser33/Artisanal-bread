@@ -20,7 +20,7 @@ export default function UserDashboard() {
         <Nav />
       </div>
 
-      <div className="min-h-screen bg-gradient-to-tl from-primary-100 to-primary-300 p-10 font-roboto lg:grid lg:grid-cols-12 lg:gap-x-5">
+      <div className="min-h-screen bg-gradient-to-tl from-[var(--color-primary-100)] to-[var(--color-primary-300)] p-10 font-roboto lg:grid lg:grid-cols-12 lg:gap-x-5">
         <aside className="px-2 py-6 sm:px-6 lg:col-span-3 lg:px-0 lg:py-0">
           <nav className="space-y-1">
             <NavLink

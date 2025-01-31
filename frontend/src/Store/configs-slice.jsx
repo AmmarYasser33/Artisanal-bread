@@ -23,6 +23,8 @@ const configsSlice = createSlice({
     whatsapp: "",
     instagram: "",
     tiktok: "",
+    mainColors:
+      "#fdf5eb,#fbe4c2,#f5cc8c,#efb556,#ea9e20,#eaa636,#d6932f,#b37526,#8f5b1c,#6a4314",
   },
   reducers: {
     setShippingPrice(state, action) {
@@ -84,6 +86,9 @@ const configsSlice = createSlice({
     },
     setTiktok(state, action) {
       state.tiktok = action.payload;
+    },
+    setMainColors(state, action) {
+      state.mainColors = action.payload;
     },
   },
 });

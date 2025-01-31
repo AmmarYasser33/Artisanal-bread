@@ -47,7 +47,7 @@ export default function AdminOrders() {
             {isOrdersError && (
               <button
                 onClick={() => refreshOrders()}
-                className="inline-flex items-center rounded-lg border border-primary-100 bg-primary-700 px-3 py-2 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300"
+                className="inline-flex items-center rounded-lg border border-[var(--color-primary-100)] bg-[var(--color-primary-700)] px-3 py-2 text-sm font-medium text-white hover:bg-[var(--color-primary-800)] focus:outline-none focus:ring-4 focus:ring-[var(--color-primary-300)]"
               >
                 Retry
               </button>
@@ -68,7 +68,7 @@ export default function AdminOrders() {
                   <select
                     defaultValue={"all"}
                     id="order-type"
-                    className="block w-full min-w-[8rem] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                    className="block w-full min-w-[8rem] rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                     onChange={(e) => setOrderType(e.target.value)} // Update order type
                   >
                     <option value="all">All orders</option>
@@ -89,7 +89,7 @@ export default function AdminOrders() {
                   <select
                     defaultValue={"all time"}
                     id="duration"
-                    className="block w-full min-w-32 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500"
+                    className="block w-full min-w-32 rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                     onChange={(e) => setDuration(e.target.value)} // Update duration
                   >
                     <option value="all time">All time</option>
@@ -177,7 +177,7 @@ export default function AdminOrders() {
                       <div className="grid w-full gap-4 sm:grid-cols-2 xl:flex xl:w-36 xl:items-center xl:justify-end">
                         <Link
                           to={`/admin/orders/${order._id}`}
-                          className="inline-flex w-full justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:font-semibold hover:text-primary-800 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
+                          className="inline-flex w-full justify-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:font-semibold hover:text-[var(--color-primary-800)] focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100"
                         >
                           Details
                         </Link>

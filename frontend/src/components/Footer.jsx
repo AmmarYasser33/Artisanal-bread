@@ -34,7 +34,7 @@ export default function Footer() {
   const position = [mapX, mapY];
 
   return (
-    <div className="flex flex-col items-center space-y-10 bg-primary-900 p-7 text-center text-white md:flex-row md:space-y-0 rtl:font-roboto">
+    <div className="flex flex-col items-center space-y-10 bg-[var(--color-primary-900)] p-7 text-center text-white md:flex-row md:space-y-0 rtl:font-roboto">
       <div className="mr-0 ltr:md:ml-16 ltr:lg:mr-52 rtl:md:mr-16 rtl:lg:ml-52">
         <h1 className="mb-8 text-2xl font-bold">{t("footer.heading")}</h1>
 
@@ -68,28 +68,28 @@ export default function Footer() {
           <a
             href={facebook}
             target="_blank"
-            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
+            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-[var(--color-primary-900)]"
           >
             <IconFacebook className="h-6 w-6" />
           </a>
           <a
             href={`https://wa.me/+${whatsapp}`}
             target="_blank"
-            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
+            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-[var(--color-primary-900)]"
           >
             <IconWhatsapp className="h-6 w-6" />
           </a>
           <a
             href={instagram}
             target="_blank"
-            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
+            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-[var(--color-primary-900)]"
           >
             <IconInstagram className="h-6 w-6" />
           </a>
           <a
             href={tiktok}
             target="_blank"
-            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-primary-900"
+            className="rounded-full p-2 ring-1 ring-white duration-300 ease-in-out hover:bg-white hover:text-[var(--color-primary-900)]"
           >
             <IconTiktok className="h-6 w-6" />
           </a>

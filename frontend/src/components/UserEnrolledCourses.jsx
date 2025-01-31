@@ -110,7 +110,7 @@ export default function UserEnrolledCourses({ courses: userCourses, userId }) {
                           ? enrollMutation(course._id)
                           : unEnrollMutation(course._id)
                       }
-                      className="h-5 w-5 rounded border-gray-400 text-primary-600 focus:ring-primary-500 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="h-5 w-5 rounded border-gray-400 text-[var(--color-primary-600)] focus:ring-[var(--color-primary-500)] disabled:cursor-not-allowed disabled:opacity-50"
                     />
                   </td>
                 </tr>

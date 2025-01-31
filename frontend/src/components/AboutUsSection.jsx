@@ -10,7 +10,7 @@ export default function AboutUsSection() {
 
   return (
     <div className="mx-auto mt-24 flex max-w-7xl flex-col items-center justify-center space-y-24 px-4 sm:px-6 lg:mt-16 lg:flex-row lg:px-8 rtl:font-roboto">
-      <div className="relative mx-auto h-48 w-40 border-[1rem] border-primary-50 bg-primary-500 md:h-96 md:w-[21rem] md:border-[1.57rem] lg:h-[28rem] lg:w-60 xl:h-96 xl:w-[21rem]">
+      <div className="relative mx-auto h-48 w-40 border-[1rem] border-[var(--color-primary-50)] bg-[var(--color-primary-500)] md:h-96 md:w-[21rem] md:border-[1.57rem] lg:h-[28rem] lg:w-60 xl:h-96 xl:w-[21rem]">
         <img
           src="/service-1.jpg"
           alt="bakery service 1"
@@ -25,7 +25,7 @@ export default function AboutUsSection() {
       </div>
 
       <div>
-        <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-primary-500 rtl:text-2xl rtl:font-bold">
+        <h2 className="mb-4 font-roboto text-xl font-extrabold uppercase text-[var(--color-primary-500)] rtl:text-2xl rtl:font-bold">
           {t("aboutus.heading")}
         </h2>
         <h3 className="mb-8 text-[2.6rem] font-bold leading-10 text-secondary-500 rtl:text-5xl">

@@ -1,4 +1,4 @@
-const Spinner = ({ color = "primary-700", size = 10 }) => {
+const Spinner = ({ color = "[var(--color-primary-700)]", size = 10 }) => {
   return (
     <div className="grid place-items-center overflow-x-scroll lg:overflow-visible">
       <svg

@@ -47,7 +47,7 @@ export default function TrendingProducts() {
   });
 
   return (
-    <div className="bg-primary-100">
+    <div className="bg-[var(--color-primary-100)]">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <div className="flex items-center justify-between">
           <h2 className="text-3xl text-gray-900 ltr:font-sans ltr:font-extrabold ltr:tracking-tight rtl:font-roboto rtl:font-bold rtl:tracking-normal">
@@ -56,7 +56,7 @@ export default function TrendingProducts() {
 
           <Link
             to="/products"
-            className="rounded-md border border-transparent bg-primary-400 px-4 py-2 font-roboto text-base font-medium text-secondary-800 shadow-md hover:bg-primary-300"
+            className="rounded-md border border-transparent bg-[var(--color-primary-400)] px-4 py-2 font-roboto text-base font-medium text-secondary-800 shadow-md hover:bg-[var(--color-primary-300)]"
           >
             {t("home.trending.allProducts")}
           </Link>
@@ -91,8 +91,8 @@ export default function TrendingProducts() {
                 {/* </Link> */}
 
                 <h3 className="mt-4 text-base font-bold tracking-wide text-gray-800 drop-shadow-sm">
-                  <div className="group-hover:text-primary-800">
-                    {/* <Link to="/product" className="group-hover:text-primary-800"> */}
+                  <div className="group-hover:text-[var(--color-primary-800)]">
+                    {/* <Link to="/product" className="group-hover:text-[var(--color-primary-800)]"> */}
                     <span className="absolute inset-0" />
                     {isArLang ? product.arName : product.enName}
                     {/* </Link> */}
@@ -116,7 +116,7 @@ export default function TrendingProducts() {
                       }
                     }}
                     disabled={isAddingToCart}
-                    className="inline-flex items-center justify-center rounded-full p-2 text-primary-700 duration-300 ease-in-out hover:bg-primary-700 hover:text-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+                    className="inline-flex items-center justify-center rounded-full p-2 text-[var(--color-primary-700)] duration-300 ease-in-out hover:bg-[var(--color-primary-700)] hover:text-white focus:outline-none disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <IconBagPlusFill className="inline-block h-6 w-6" />
                   </button>

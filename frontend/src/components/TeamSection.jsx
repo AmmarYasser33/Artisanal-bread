@@ -25,7 +25,7 @@ export default function TeamSection() {
   });
 
   return (
-    <div className="my-40 bg-primary-100 py-20">
+    <div className="my-40 bg-[var(--color-primary-100)] py-20">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 rtl:font-roboto">
         <div className="mb-14 text-center">
           <h2 className="mb-2 font-roboto text-lg font-extrabold uppercase text-gray-700 md:text-xl rtl:font-bold">

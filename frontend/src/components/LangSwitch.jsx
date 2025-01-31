@@ -26,7 +26,7 @@ export default function LangSwitch() {
   return (
     <Menu as="div" className="relative z-[999] inline-block text-left">
       <div>
-        <MenuButton className="flex items-center rounded-full text-white hover:scale-110 hover:text-primary-500 focus:outline-none">
+        <MenuButton className="flex items-center rounded-full text-white hover:scale-110 hover:text-[var(--color-primary-500)] focus:outline-none">
           <span className="sr-only">Open options</span>
           <IconGlobalLine className="h-6 w-6" aria-hidden="true" />
         </MenuButton>
@@ -41,11 +41,11 @@ export default function LangSwitch() {
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-primary-100 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+        <MenuItems className="absolute right-0 mt-2 w-32 origin-top-right rounded-md bg-[var(--color-primary-100)] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
           <div className="py-1">
             <MenuItem>
               <button
-                className="block w-full px-4 py-2 text-left text-sm hover:bg-primary-300 rtl:text-right"
+                className="block w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-primary-300)] rtl:text-right"
                 onClick={() => applyLanguage("en")}
               >
                 English
@@ -53,7 +53,7 @@ export default function LangSwitch() {
             </MenuItem>
             <MenuItem>
               <button
-                className="block w-full px-4 py-2 text-left text-sm hover:bg-primary-300 rtl:text-right"
+                className="block w-full px-4 py-2 text-left text-sm hover:bg-[var(--color-primary-300)] rtl:text-right"
                 onClick={() => applyLanguage("ar")}
               >
                 العربية

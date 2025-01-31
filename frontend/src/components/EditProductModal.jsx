@@ -148,7 +148,7 @@ export default function EditProductModal({
                           <input
                             type="text"
                             placeholder="Product name"
-                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                             {...register("enName", {
                               required: "Product name is required",
                               minLength: {
@@ -166,7 +166,7 @@ export default function EditProductModal({
                           <input
                             type="text"
                             placeholder="اسم المنتج"
-                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            className="mt-2 w-full transform rounded-md border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                             {...register("arName", {
                               required: "Product name is required",
                               minLength: {
@@ -203,7 +203,7 @@ export default function EditProductModal({
                                 type="number"
                                 name="price"
                                 step="0.01"
-                                className="block w-full rounded-md border-gray-300 pl-4 pr-12 focus:border-primary-500 focus:ring-primary-500"
+                                className="block w-full rounded-md border-gray-300 pl-4 pr-12 focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                                 placeholder="0.00"
                                 aria-describedby="price-currency"
                                 {...register("price", {
@@ -223,7 +223,7 @@ export default function EditProductModal({
                               <input
                                 id="in-home"
                                 type="checkbox"
-                                className="h-4 w-4 rounded border-gray-400 text-primary-600 focus:ring-primary-500"
+                                className="h-4 w-4 rounded border-gray-400 text-[var(--color-primary-600)] focus:ring-[var(--color-primary-500)]"
                                 {...register("isFeatured")}
                               />
                               <label
@@ -243,15 +243,13 @@ export default function EditProductModal({
                           <textarea
                             placeholder="Product description..."
                             rows="3"
-                            className="mt-3 w-full transform rounded-lg border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-primary-500 focus:ring-primary-500"
+                            className="mt-3 w-full transform rounded-lg border-gray-300 px-4 py-2 text-base text-black shadow-sm transition duration-500 ease-in-out focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)]"
                             {...register("description")}
                           ></textarea>
 
                           <ImageUploader
                             onImagesChange={(images) => setImages(images)}
-                            initialImages={[
-                              `${BASE_URL}${product?.image}`,
-                            ]}
+                            initialImages={[`${BASE_URL}${product?.image}`]}
                           />
                         </div>
 
@@ -260,7 +258,7 @@ export default function EditProductModal({
                       <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
                         <button
                           type="submit"
-                          className="inline-flex w-full justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-base font-medium text-white shadow-sm transition duration-300 ease-in-out hover:bg-primary-700 focus:scale-95 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:col-start-2 sm:text-sm"
+                          className="inline-flex w-full justify-center rounded-md border border-transparent bg-[var(--color-primary-600)] px-4 py-2 text-base font-medium text-white shadow-sm transition duration-300 ease-in-out hover:bg-[var(--color-primary-700)] focus:scale-95 focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 sm:col-start-2 sm:text-sm"
                           disabled={isPending}
                         >
                           {isPending ? <Spinner size={5} /> : "Update product"}

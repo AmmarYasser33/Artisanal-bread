@@ -22,7 +22,7 @@ export default function Hero() {
         <Nav />
 
         <div className="container mx-auto py-28 text-center rtl:font-cairo">
-          <p className="mt-6 text-lg font-extrabold uppercase text-primary-500 rtl:font-bold">
+          <p className="mt-6 text-lg font-extrabold uppercase text-[var(--color-primary-500)] rtl:font-bold">
             #{t("home.main.hashtag")}
           </p>
 

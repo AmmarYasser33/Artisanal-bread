@@ -110,6 +110,11 @@ const fetchConfigs = (token) => {
       dispatch(
         configActions.setTiktok(findConfigByKey(res?.data, "TIKTOK")?.value),
       );
+      dispatch(
+        configActions.setMainColors(
+          findConfigByKey(res?.data, "MAIN_COLORS")?.value,
+        ),
+      );
     } catch (error) {
       console.error(error);
     }

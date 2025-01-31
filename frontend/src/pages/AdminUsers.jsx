@@ -50,7 +50,7 @@ export default function AdminUsers() {
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="block w-full rounded-md border border-gray-300 py-2 pl-10 pr-3 shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm"
+                className="block w-full rounded-md border border-gray-300 py-2 pl-10 pr-3 shadow-sm focus:border-[var(--color-primary-500)] focus:ring-[var(--color-primary-500)] sm:text-sm"
                 placeholder="Search users"
               />
             </form>
@@ -109,7 +109,7 @@ export default function AdminUsers() {
                       >
                         <Link
                           to={`/admin/users/${user._id}`}
-                          className="hover:text-primary-600"
+                          className="hover:text-[var(--color-primary-600)]"
                         >
                           {user.firstName} {user.lastName || ""}
                         </Link>
@@ -120,7 +120,7 @@ export default function AdminUsers() {
                       <td className="px-6 py-4">
                         <Link
                           to={`/admin/users/${user._id}`}
-                          className="inline-flex items-center justify-center gap-1 rounded-lg bg-primary-300 px-2 py-1 text-secondary-700 hover:bg-primary-600"
+                          className="inline-flex items-center justify-center gap-1 rounded-lg bg-[var(--color-primary-300)] px-2 py-1 text-secondary-700 hover:bg-[var(--color-primary-600)]"
                         >
                           <IconAccountDetails className="h-5 w-5" />
                           <span className="hidden text-xs md:inline">

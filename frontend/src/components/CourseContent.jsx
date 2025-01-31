@@ -4,11 +4,11 @@ export default function CourseContent({ content }) {
   const { t } = useTranslation();
 
   return (
-    <div className="bg-primary-100 py-28">
+    <div className="bg-[var(--color-primary-100)] py-28">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         <h2 className="relative text-center text-2xl font-bold text-secondary-500 md:text-3xl">
           {t("course.content.heading")}
-          <span className="absolute -bottom-3 left-1/2 h-2 w-28 -translate-x-1/2 transform bg-primary-500 md:w-36"></span>
+          <span className="absolute -bottom-3 left-1/2 h-2 w-28 -translate-x-1/2 transform bg-[var(--color-primary-500)] md:w-36"></span>
         </h2>
 
         <div className="mt-12 border border-gray-300">
